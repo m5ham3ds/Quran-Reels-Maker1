@@ -177,12 +177,6 @@ class GeminiMetaGenerator {
             }
             put("contents", countArray)
             
-            put("tools", JSONArray().apply {
-                put(JSONObject().apply {
-                    put("googleSearch", JSONObject())
-                })
-            })
-            
             put("generationConfig", JSONObject().apply {
                 put("temperature", 0.1)
             })
