@@ -70,7 +70,7 @@ object SystemDiagnosticTracker {
         val endpoints = listOf(
             "api.alquran.cloud" to "https://api.alquran.cloud/v1/edition?format=audio&language=ar",
             "cdn.islamic.network" to "https://cdn.islamic.network/quran/audio/64/ar.alafasy/1.mp3",
-            "qalam249-whisperx.hf.space" to "https://qalam249-whisperx.hf.space",
+            "qalam249-whisperx-frontend.hf.space" to "https://qalam249-whisperx-frontend.hf.space",
             "api.pexels.com" to "https://api.pexels.com/videos/popular?per_page=1"
         )
 
