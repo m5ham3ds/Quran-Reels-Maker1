@@ -307,6 +307,7 @@ fun PopularClipsScreen(
     }
 
     var showPromptDialog by remember { mutableStateOf(false) }
+    var showSystemLogsDialog by remember { mutableStateOf(false) }
     
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -1043,17 +1044,79 @@ fun PopularClipsScreen(
         }
     }
         
-    FloatingActionButton(
+    Column(
+        modifier = Modifier
+            .align(Alignment.BottomEnd)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.End,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        FloatingActionButton(
+            onClick = { showSystemLogsDialog = true },
+            containerColor = CardBg,
+            contentColor = LuxuryGold
+        ) {
+            Icon(Icons.Filled.Warning, contentDescription = "System Diagnostics")
+        }
+        
+        FloatingActionButton(
             onClick = { showPromptDialog = true },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
             containerColor = LuxuryGold,
             contentColor = ScreenBg
         ) {
             Icon(Icons.Filled.Settings, contentDescription = "Edit Prompt")
         }
+    }
     } // Closes Box
+
+    if (showSystemLogsDialog) {
+        var logsList by remember { mutableStateOf(emptyList<String>()) }
+        
+        LaunchedEffect(Unit) {
+            while(true) {
+                logsList = com.example.generator.SystemDiagnosticTracker.getLogs()
+                kotlinx.coroutines.delay(500)
+            }
+        }
+        
+        AlertDialog(
+            onDismissRequest = { showSystemLogsDialog = false },
+            containerColor = CardBg,
+            modifier = Modifier.fillMaxWidth().heightIn(max = 600.dp),
+            title = {
+                Text(
+                    text = if (isArabic) "سجل الفحص الشامل" else "System Diagnostics Logs",
+                    color = TextSoftColor,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+                    if (logsList.isEmpty()) {
+                        Text("No logs yet...", color = TextMutedColor)
+                    } else {
+                        logsList.reversed().forEach { logMsg ->
+                            Text(
+                                text = logMsg,
+                                color = TextMutedColor,
+                                fontSize = 11.sp,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+                            HorizontalDivider(color = BorderColor.copy(alpha=0.3f))
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = { showSystemLogsDialog = false },
+                    colors = ButtonDefaults.buttonColors(containerColor = LuxuryGold)
+                ) {
+                    Text(if (isArabic) "إغلاق" else "Close", color = ScreenBg)
+                }
+            }
+        )
+    }
 
     if (showPromptDialog) {
         val initialPrompt = settingsManager.geminiPrompt.collectAsState(initial = "").value

@@ -180,7 +180,7 @@ class GeminiMetaGenerator {
             .build()
             
         var attempt = 0
-        val maxAttempts = 3
+        val maxAttempts = 5
         while (attempt < maxAttempts) {
             try {
                 val response = client.newCall(request).execute()
@@ -188,7 +188,15 @@ class GeminiMetaGenerator {
                     val responseStr = response.body?.string() ?: ""
                     val rootJson = JSONObject(responseStr)
                     if (rootJson.has("error")) {
-                        throw Exception(rootJson.getJSONObject("error").getString("message"))
+                        val errMsg = rootJson.getJSONObject("error").getString("message")
+                        if (errMsg.contains("429") || errMsg.contains("quota") || errMsg.contains("rate limit")) {
+                            if (attempt < maxAttempts - 1) {
+                                attempt++
+                                kotlinx.coroutines.delay(4000L * attempt)
+                                continue
+                            }
+                        }
+                        throw Exception(errMsg)
                     }
                     val candidates = rootJson.getJSONArray("candidates")
                     if (candidates.length() > 0) {
@@ -243,18 +251,34 @@ class GeminiMetaGenerator {
                 } else if (response.code == 429) {
                     if (attempt < maxAttempts - 1) {
                         attempt++
-                        kotlinx.coroutines.delay(2000L * attempt)
+                        kotlinx.coroutines.delay(4000L * attempt)
                         continue
                     } else {
                         throw Exception("استنفذت الحد المسموح (خطأ 429). أضف مفتاح API الخاص بك في الإعدادات.")
                     }
                 } else {
+                    if (attempt < maxAttempts - 1 && response.code >= 500) {
+                        attempt++
+                        kotlinx.coroutines.delay(2000L * attempt)
+                        continue
+                    }
                     throw Exception("فشل الاتصال بـ Gemini API: HTTP ${response.code}\n${response.body?.string()}")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                if (e.message?.contains("429") == true) {
+                if (e.message?.contains("429") == true || e.message?.contains("Too Many Requests") == true) {
+                    if (attempt < maxAttempts - 1) {
+                        attempt++
+                        kotlinx.coroutines.delay(4000L * attempt)
+                        continue
+                    }
                     throw Exception("لقد استنفذت الحد المسموح (خطأ 429). يرجى إضافة مفتاح API الخاص بك في الإعدادات لتخطي هذا الحد.")
+                }
+                
+                if (attempt < maxAttempts - 1 && e is java.io.IOException) {
+                    attempt++
+                    kotlinx.coroutines.delay(2000L * attempt)
+                    continue
                 }
                 throw Exception(e.message ?: "حدث خطأ غير معروف")
             }
@@ -352,15 +376,25 @@ class GeminiMetaGenerator {
             .build()
             
         var attempt = 0
-        val maxAttempts = 3
+        val maxAttempts = 5
         while (attempt < maxAttempts) {
             try {
                 val response = client.newCall(request).execute()
                 if (response.isSuccessful) {
                     val responseStr = response.body?.string() ?: ""
                     val rootJson = JSONObject(responseStr)
-                    val candidates = rootJson.getJSONArray("candidates")
-                    if (candidates.length() > 0) {
+                    if (rootJson.has("error")) {
+                        val errMsg = rootJson.getJSONObject("error").getString("message")
+                        if (errMsg.contains("429") || errMsg.contains("quota") || errMsg.contains("rate limit")) {
+                            if (attempt < maxAttempts - 1) {
+                                attempt++
+                                kotlinx.coroutines.delay(4000L * attempt)
+                                continue
+                            }
+                        }
+                    }
+                    val candidates = rootJson.optJSONArray("candidates")
+                    if (candidates != null && candidates.length() > 0) {
                         val candidate = candidates.getJSONObject(0)
                         val contentObj = candidate.getJSONObject("content")
                         val parts = contentObj.getJSONArray("parts")
@@ -404,12 +438,23 @@ class GeminiMetaGenerator {
                 } else if (response.code == 429) {
                     if (attempt < maxAttempts - 1) {
                         attempt++
+                        kotlinx.coroutines.delay(4000L * attempt)
+                        continue
+                    }
+                } else if (response.code >= 500) {
+                    if (attempt < maxAttempts - 1) {
+                        attempt++
                         kotlinx.coroutines.delay(2000L * attempt)
                         continue
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                if (attempt < maxAttempts - 1 && e is java.io.IOException) {
+                    attempt++
+                    kotlinx.coroutines.delay(2000L * attempt)
+                    continue
+                }
             }
             break
         }

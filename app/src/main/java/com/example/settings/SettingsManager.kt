@@ -136,6 +136,9 @@ class SettingsManager(private val context: Context) {
         الرابط للبحث عنه: [URL]
         [WHISPER_TEXT]
         
+        وأيضاً أود منك الاعتماد كلياً على نص الآيات والمعلومات المرفقة في [WHISPER_TEXT] 
+        لتحديد اسم السورة وكذلك الآيات (آية البداية والنهاية) واسم القارئ إذا كان متوفراً في العنوان أو الوصف.
+        
         تأكد من عدم إضافة مسافات إضافية داخل الأقواس. أعد الرد باستخدام هذه الرموز فقط.
     """.trimIndent() }
     val tiktokLinked: Flow<Boolean> = context.dataStore.data.map { it[TIKTOK_LINKED] ?: false }
