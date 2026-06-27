@@ -127,11 +127,15 @@ class GeminiMetaGenerator {
                     
                     if (completedData != null) {
                         val jsonArr = JSONArray(completedData)
-                        if (jsonArr.length() > 0) {
-                            val summaryText = jsonArr.optString(0, "")
-                            if (summaryText.contains("📄 النص الكامل:\n")) {
-                                whisperText = summaryText.substringAfter("📄 النص الكامل:\n").trim()
-                            }
+                        if (jsonArr.length() > 2) {
+                            val videoInfoText = jsonArr.optString(1, "")
+                            val textInfoText = jsonArr.optString(2, "")
+                            
+                            val fullText = if (textInfoText.contains("📄 النص الكامل:\n")) {
+                                textInfoText.substringAfter("📄 النص الكامل:\n").trim()
+                            } else textInfoText
+                            
+                            whisperText = "معلومات الفيديو:\n$videoInfoText\n\nالنص المستخرج من الفيديو:\n$fullText"
                         }
                     }
                 }
@@ -140,26 +144,8 @@ class GeminiMetaGenerator {
             e.printStackTrace()
         }
 
-        val prompt = """
-            أنت خبير في البحث واستخراج البيانات. لديك الرابط التالي لمقطع ديني.
-            يجب عليك استخدام أداة بحث جوجل (Google Search tool) المرفقة معك للبحث عن الرابط أو محتواه الدقيق ومعرفة اسم السورة أو رقمها، والآيات المقروءة، واسم القارئ.
-            ممنوع منعاً باتاً التخمين (DO NOT GUESS). إذا لم تكن متأكداً بنسبة 100% من السورة أو الآية، أرجع [SURAH]1[/SURAH] و [START]1[/START] و [END]1[/END].
-            استخرج البيانات بدقة عالية جداً.
-            
-            يجب أن تضع كل معلومة داخل الرموز المحددة بالضبط (بين الرمز والرمز المغلق) كما هو موضح أدناه لكي أتمكن من استخراجها برمجياً:
-            
-            [SURAH]هنا ضع رقم السورة فقط كـرقم (مثل 1 للفاتحة، 2 للبقرة)[/SURAH]
-            [RECITER]هنا اسم القارئ او الشيخ بدقة[/RECITER]
-            [START]هنا رقم آية البداية (رقم فقط)[/START]
-            [END]هنا رقم الاية النهائية (رقم فقط)[/END]
-            [TITLE]هنا العنوان المناسب للمقطع (بدون كلمات مثل سورة، فقط عنوان مرئي جذاب)[/TITLE]
-            [CATEGORY]هنا التصنيف (اختر فقط حرفياً من: طمأنينة، خشوع، سكينة، دعاء)[/CATEGORY]
-
-            الرابط للبحث عنه: $url
-            النص المستخرج من المقطع صوتياً (استخدمه لمعرفة الآيات بشكل قاطع): $whisperText
-            
-            تأكد من عدم إضافة مسافات إضافية داخل الأقواس. أعد الرد باستخدام هذه الرموز فقط.
-        """.trimIndent()
+        val savedPrompt = settingsManager.geminiPrompt.first()
+        val prompt = savedPrompt.replace("[URL]", url).replace("[WHISPER_TEXT]", whisperText)
 
         val jsonRequest = JSONObject().apply {
             val countArray = JSONArray().apply {

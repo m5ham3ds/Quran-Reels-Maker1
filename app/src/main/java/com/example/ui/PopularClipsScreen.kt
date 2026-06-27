@@ -306,19 +306,22 @@ fun PopularClipsScreen(
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(ScreenBg)
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Upper Promotional Banner
-        Box(
+    var showPromptDialog by remember { mutableStateOf(false) }
+    
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(16.dp))
+                .fillMaxSize()
+                .background(ScreenBg)
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Upper Promotional Banner
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
                 .background(
                     Brush.horizontalGradient(
                         colors = listOf(LuxuryGold.copy(alpha = 0.15f), Color.Transparent)
@@ -1038,6 +1041,83 @@ fun PopularClipsScreen(
                 }
             }
         }
+    }
+        
+    FloatingActionButton(
+            onClick = { showPromptDialog = true },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            containerColor = LuxuryGold,
+            contentColor = ScreenBg
+        ) {
+            Icon(Icons.Filled.Settings, contentDescription = "Edit Prompt")
+        }
+    } // Closes Box
+
+    if (showPromptDialog) {
+        val initialPrompt = settingsManager.geminiPrompt.collectAsState(initial = "").value
+        var editablePrompt by remember { mutableStateOf(initialPrompt) }
+        
+        LaunchedEffect(initialPrompt) {
+            if (editablePrompt.isEmpty()) {
+                editablePrompt = initialPrompt
+            }
+        }
+
+        AlertDialog(
+            onDismissRequest = { showPromptDialog = false },
+            containerColor = CardBg,
+            modifier = Modifier.fillMaxWidth().heightIn(max = 600.dp),
+            title = {
+                Text(
+                    text = if (isArabic) "تعديل موجه جيمي ناي (Gemini Prompt)" else "Edit Gemini Prompt",
+                    color = TextSoftColor,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    Text(
+                        text = if (isArabic) "تستطيع استخدام المتغيرات التالية: [URL] و [WHISPER_TEXT]" else "You can use the following variables: [URL] and [WHISPER_TEXT]",
+                        color = TextMutedColor,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    OutlinedTextField(
+                        value = editablePrompt,
+                        onValueChange = { editablePrompt = it },
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 300.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = LuxuryGold,
+                            unfocusedBorderColor = BorderColor,
+                            focusedTextColor = TextSoftColor,
+                            unfocusedTextColor = TextSoftColor,
+                            cursorColor = LuxuryGold
+                        ),
+                        textStyle = LocalTextStyle.current.copy(fontSize = 14.sp)
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        scope.launch {
+                            settingsManager.saveGeminiPrompt(editablePrompt)
+                            showPromptDialog = false
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = LuxuryGold)
+                ) {
+                    Text(if (isArabic) "حفظ" else "Save", color = ScreenBg)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showPromptDialog = false }) {
+                    Text(if (isArabic) "إلغاء" else "Cancel", color = TextSoftColor)
+                }
+            }
+        )
     }
 
     // Modern Dialog to Add Custom Clips

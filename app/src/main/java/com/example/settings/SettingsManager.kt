@@ -41,6 +41,7 @@ class SettingsManager(private val context: Context) {
         // Gemini & Social accounts keys
         val GEMINI_API_KEY = stringPreferencesKey("gemini_api_key")
         val GEMINI_MODEL = stringPreferencesKey("gemini_model")
+        val GEMINI_PROMPT = stringPreferencesKey("gemini_prompt")
         val TIKTOK_LINKED = booleanPreferencesKey("tiktok_linked")
         val INSTAGRAM_LINKED = booleanPreferencesKey("instagram_linked")
         val FACEBOOK_LINKED = booleanPreferencesKey("facebook_linked")
@@ -117,6 +118,26 @@ class SettingsManager(private val context: Context) {
     // Gemini & Social accounts flows
     val geminiApiKey: Flow<String> = context.dataStore.data.map { it[GEMINI_API_KEY] ?: "" }
     val geminiModel: Flow<String> = context.dataStore.data.map { it[GEMINI_MODEL] ?: "gemini-3.5-flash" }
+    val geminiPrompt: Flow<String> = context.dataStore.data.map { it[GEMINI_PROMPT] ?: """
+        أنت خبير في البحث واستخراج البيانات. لديك الرابط التالي لمقطع ديني.
+        يجب عليك استخدام أداة بحث جوجل (Google Search tool) المرفقة معك للبحث عن الرابط أو محتواه الدقيق ومعرفة اسم السورة أو رقمها، والآيات المقروءة، واسم القارئ.
+        ممنوع منعاً باتاً التخمين (DO NOT GUESS). إذا لم تكن متأكداً بنسبة 100% من السورة أو الآية، أرجع [SURAH]1[/SURAH] و [START]1[/START] و [END]1[/END].
+        استخرج البيانات بدقة عالية جداً.
+        
+        يجب أن تضع كل معلومة داخل الرموز المحددة بالضبط (بين الرمز والرمز المغلق) كما هو موضح أدناه لكي أتمكن من استخراجها برمجياً:
+        
+        [SURAH]هنا ضع رقم السورة فقط كـرقم (مثل 1 للفاتحة، 2 للبقرة)[/SURAH]
+        [RECITER]هنا اسم القارئ او الشيخ بدقة[/RECITER]
+        [START]هنا رقم آية البداية (رقم فقط)[/START]
+        [END]هنا رقم الاية النهائية (رقم فقط)[/END]
+        [TITLE]هنا العنوان المناسب للمقطع (بدون كلمات مثل سورة، فقط عنوان مرئي جذاب)[/TITLE]
+        [CATEGORY]هنا التصنيف (اختر فقط حرفياً من: طمأنينة، خشوع، سكينة، دعاء)[/CATEGORY]
+
+        الرابط للبحث عنه: [URL]
+        [WHISPER_TEXT]
+        
+        تأكد من عدم إضافة مسافات إضافية داخل الأقواس. أعد الرد باستخدام هذه الرموز فقط.
+    """.trimIndent() }
     val tiktokLinked: Flow<Boolean> = context.dataStore.data.map { it[TIKTOK_LINKED] ?: false }
     val instagramLinked: Flow<Boolean> = context.dataStore.data.map { it[INSTAGRAM_LINKED] ?: false }
     val facebookLinked: Flow<Boolean> = context.dataStore.data.map { it[FACEBOOK_LINKED] ?: false }
@@ -247,6 +268,10 @@ class SettingsManager(private val context: Context) {
 
     suspend fun saveGeminiModel(model: String) {
         context.dataStore.edit { it[GEMINI_MODEL] = model }
+    }
+    
+    suspend fun saveGeminiPrompt(prompt: String) {
+        context.dataStore.edit { it[GEMINI_PROMPT] = prompt }
     }
 
     suspend fun setTiktokLinked(value: Boolean) {
