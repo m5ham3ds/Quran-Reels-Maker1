@@ -63,6 +63,83 @@ class GeminiMetaGenerator {
             return@withContext null
         }
 
+        // 1. Call WhisperX to get transcription text to assist Gemini
+        var whisperText = ""
+        try {
+            val alignPayload = JSONObject().apply {
+                put("data", JSONArray().apply {
+                    put(JSONObject.NULL) // file
+                    put(url)             // url
+                    put("")              // text
+                })
+            }
+            
+            val jsonMediaType = "application/json".toMediaType()
+            val alignRequest = Request.Builder()
+                .url("https://qalam249-whisperx-frontend.hf.space/gradio_api/call/process")
+                .post(alignPayload.toString().toRequestBody(jsonMediaType))
+                .build()
+
+            val alignResponse = client.newCall(alignRequest).execute()
+            if (alignResponse.isSuccessful) {
+                val alignResponseBody = alignResponse.body?.string() ?: ""
+                val eventIdJson = JSONObject(alignResponseBody)
+                val eventId = eventIdJson.optString("event_id")
+                
+                if (eventId.isNotEmpty()) {
+                    val eventRequest = Request.Builder()
+                        .url("https://qalam249-whisperx-frontend.hf.space/gradio_api/call/process/$eventId")
+                        .get()
+                        .build()
+
+                    var completedData: String? = null
+                    var attempt = 0
+                    while (attempt < 15 && completedData == null) {
+                        try {
+                            val eventResponse = client.newCall(eventRequest).execute()
+                            if (eventResponse.isSuccessful) {
+                                val reader = eventResponse.body?.charStream()?.buffered()
+                                var line: String?
+                                if (reader != null) {
+                                    while (reader.readLine().also { line = it } != null) {
+                                        val currentLine = line ?: ""
+                                        if (currentLine.startsWith("event: complete")) {
+                                            val nextLine = reader.readLine() ?: ""
+                                            if (nextLine.startsWith("data: ")) {
+                                                completedData = nextLine.substring("data: ".length)
+                                            }
+                                        } else if (currentLine.startsWith("event: error")) {
+                                            break
+                                        }
+                                    }
+                                }
+                            }
+                            eventResponse.close()
+                            if (completedData == null) {
+                                attempt++
+                                kotlinx.coroutines.delay(2000) // retry if stream was closed prematurely
+                            }
+                        } catch (e: Exception) {
+                            attempt++
+                            kotlinx.coroutines.delay(2000)
+                        }
+                    }
+                    
+                    if (completedData != null) {
+                        val jsonArr = JSONArray(completedData)
+                        if (jsonArr.length() > 0) {
+                            val summaryText = jsonArr.optString(0, "")
+                            if (summaryText.contains("📄 النص الكامل:\n")) {
+                                whisperText = summaryText.substringAfter("📄 النص الكامل:\n").trim()
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         val prompt = """
             أنت خبير في البحث واستخراج البيانات. لديك الرابط التالي لمقطع ديني.
             يجب عليك استخدام أداة بحث جوجل (Google Search tool) المرفقة معك للبحث عن الرابط أو محتواه الدقيق ومعرفة اسم السورة أو رقمها، والآيات المقروءة، واسم القارئ.
@@ -79,6 +156,7 @@ class GeminiMetaGenerator {
             [CATEGORY]هنا التصنيف (اختر فقط حرفياً من: طمأنينة، خشوع، سكينة، دعاء)[/CATEGORY]
 
             الرابط للبحث عنه: $url
+            النص المستخرج من المقطع صوتياً (استخدمه لمعرفة الآيات بشكل قاطع): $whisperText
             
             تأكد من عدم إضافة مسافات إضافية داخل الأقواس. أعد الرد باستخدام هذه الرموز فقط.
         """.trimIndent()

@@ -555,9 +555,14 @@ class VideoGenerator {
                                 availableVideosList.add(videos.getJSONObject(vIdx))
                             }
                             
-                            for (vidIdx in verses.indices) {
-                                val verse = verses[vidIdx]
-                                val neededDurSec = (verse.durationUs / 1000000L).toInt() + 2
+                            val numBackgroundVideos = if (isPopularUrlDownload && verses.isNotEmpty()) verses[0].chunks.size else verses.size
+                            for (vidIdx in 0 until numBackgroundVideos) {
+                                val neededDurSec = if (isPopularUrlDownload) {
+                                    val chunk = verses[0].chunks[vidIdx]
+                                    ((chunk.endTimeMs - chunk.startTimeMs) / 1000L).toInt() + 2
+                                } else {
+                                    (verses[vidIdx].durationUs / 1000000L).toInt() + 2
+                                }
                                 
                                 // Try to find a video with duration >= neededDurSec, otherwise find the longest video
                                 var selectedVideoJson = availableVideosList.filter {
@@ -661,9 +666,14 @@ class VideoGenerator {
                                 availableHitsList.add(hits.getJSONObject(hIdx))
                             }
                             
-                            for (vidIdx in verses.indices) {
-                                val verse = verses[vidIdx]
-                                val neededDurSec = (verse.durationUs / 1000000L).toInt() + 2
+                            val numBackgroundVideos = if (isPopularUrlDownload && verses.isNotEmpty()) verses[0].chunks.size else verses.size
+                            for (vidIdx in 0 until numBackgroundVideos) {
+                                val neededDurSec = if (isPopularUrlDownload) {
+                                    val chunk = verses[0].chunks[vidIdx]
+                                    ((chunk.endTimeMs - chunk.startTimeMs) / 1000L).toInt() + 2
+                                } else {
+                                    (verses[vidIdx].durationUs / 1000000L).toInt() + 2
+                                }
                                 
                                 var selectedHit = availableHitsList.filter {
                                     it.optInt("duration", 0) >= neededDurSec
@@ -726,7 +736,8 @@ class VideoGenerator {
                     "https://assets.mixkit.co/videos/preview/mixkit-vertical-shot-of-the-sea-under-a-clear-sky-40767-large.mp4",
                     "https://assets.mixkit.co/videos/preview/mixkit-light-rain-falling-on-green-leaves-vertical-shot-42022-large.mp4"
                 )
-                val countToLoad = Math.min(verses.size, directUrls.size)
+                val targetCount = if (isPopularUrlDownload && verses.isNotEmpty()) verses[0].chunks.size else verses.size
+                val countToLoad = Math.min(targetCount, directUrls.size)
                 for (vidIdx in 0 until countToLoad) {
                     try {
                         onProgress(
@@ -956,7 +967,11 @@ class VideoGenerator {
                     }
                     
                     val chunkedText = activeChunk?.arabic ?: verse.text
-                    val chunkedTranslation = activeChunk?.english ?: verse.translation
+                    val chunkedTranslation = if (activeChunk != null) {
+                        activeChunk.english ?: ""
+                    } else {
+                        verse.translation
+                    }
                     
                     val bitmap = createVerseBitmap(
                         surahName = verse.surahName,
@@ -1310,6 +1325,8 @@ class VideoGenerator {
         var lastWrittenPts = -1L
         var firstPts = -1L
         
+        var rawGeneratedPtsUs = 0L
+
         while (!isEncoderEOS) {
             checkCancellationAndPause()
  
@@ -1339,7 +1356,13 @@ class VideoGenerator {
                             isExtractorEOS = true
                             isDecoderEOS = true
                         } else {
-                            val pts = extractor.sampleTime
+                            var pts = extractor.sampleTime
+                            if (pts <= 0L) {
+                                // Manual PTS calculation for WAV if missing
+                                pts = rawGeneratedPtsUs
+                                val durationUsForSize = (size * 1000000L) / (sourceSampleRate * sourceChannelCount * 2)
+                                rawGeneratedPtsUs += durationUsForSize
+                            }
                             encoder.queueInputBuffer(encInIdx, 0, size, pts, 0)
                             
                             // Capture Energy for raw audio here
@@ -2566,9 +2589,15 @@ class VideoGenerator {
         var englishChunkTexts: List<String>? = null
         if (!englishText.isNullOrBlank() && refinedChunks.size > 1) {
             englishChunkTexts = alignTranslationWithGemini(context, arabicChunkTexts, englishText)
+            
+            // Reject Gemini output if it didn't return exactly one translation per chunk
+            if (englishChunkTexts != null && englishChunkTexts.size != refinedChunks.size) {
+                SystemDiagnosticTracker.addLog("GEMINI", "تم رفض ترجمة Gemini لأن عدد الجمل (${englishChunkTexts.size}) لا يطابق عدد الكتل (${refinedChunks.size})")
+                englishChunkTexts = null
+            }
         }
         
-        // 3. Fallback to mathematical proportional split if Gemini isn't available/used
+        // 3. Fallback to mathematical proportional split if Gemini isn't available/used/rejected
         if (englishChunkTexts == null) {
             val englishChunks = mutableListOf<List<String>>()
             var englishIndex = 0
@@ -2848,28 +2877,23 @@ object SystemPromptTemplate {
     fun getAlignmentPrompt(arabicChunks: List<String>, fullTranslation: String): String {
         return """
             You are an expert Quran translation alignment assistant.
-            Your task is to take a consecutive sequence of Arabic word groups (chunks) from a Quranic verse, and map each and every Arabic chunk directly to its corresponding English segment from the provided full English translation. Traditional translation standards must be aligned exactly with each semantic phrase.
-
-            Strict structural requirements:
-            1. Maintain perfect sequential chronological order.
-            2. Provide exactly one English segment for each input Arabic chunk.
-            3. Ensure that if you concatenate the aligned English segments chronologically, they reconstruct the exact provided English translation (or represent its semantics sequentially).
-            4. Do not paraphrase or translate from scratch; split the existing input English translation words/phrases to match each of the consecutive Arabic chunks.
-
+            Your task is to provide an accurate, context-aware English translation for each specific Arabic chunk provided below.
+            The user wants the English translation to match the exact meaning of the Arabic words in that specific chunk, rather than randomly splitting the full verse translation.
+            
             Input Arabic Chunks:
             ${arabicChunks.mapIndexed { idx, s -> "Chunk #${idx + 1}: $s" }.joinToString("\n")}
-
-            Full English Translation:
-            "$fullTranslation"
 
             Return a single raw JSON object matching this schema:
             {
                "aligned_translations": [
-                  "English segment aligned with Chunk #1",
-                  "English segment aligned with Chunk #2", ...
+                  "Accurate English translation for Chunk #1",
+                  "Accurate English translation for Chunk #2", ...
                ]
             }
-            Do not include any explanation, backticks or markdown formatting. Only return valid raw JSON.
+            
+            CRITICAL RULES:
+            1. The number of translations MUST EXACTLY match the number of input chunks (${arabicChunks.size}).
+            2. Do not include any explanation, backticks or markdown formatting. Only return valid raw JSON.
         """.trimIndent()
     }
 }
