@@ -1108,11 +1108,25 @@ fun PopularClipsScreen(
                 }
             },
             confirmButton = {
-                Button(
-                    onClick = { showSystemLogsDialog = false },
-                    colors = ButtonDefaults.buttonColors(containerColor = LuxuryGold)
-                ) {
-                    Text(if (isArabic) "إغلاق" else "Close", color = ScreenBg)
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(
+                        onClick = { 
+                            val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                            val clipData = android.content.ClipData.newPlainText("Logs", logsList.joinToString("\n"))
+                            cm.setPrimaryClip(clipData)
+                            Toast.makeText(context, if (isArabic) "تم نسخ السجل" else "Logs copied", Toast.LENGTH_SHORT).show()
+                        },
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = LuxuryGold),
+                        border = BorderStroke(1.dp, LuxuryGold)
+                    ) {
+                        Text(if (isArabic) "نسخ السجل" else "Copy Logs")
+                    }
+                    Button(
+                        onClick = { showSystemLogsDialog = false },
+                        colors = ButtonDefaults.buttonColors(containerColor = LuxuryGold)
+                    ) {
+                        Text(if (isArabic) "إغلاق" else "Close", color = ScreenBg)
+                    }
                 }
             }
         )
@@ -1362,6 +1376,8 @@ fun PopularClipsScreen(
                                     }
                                     
                                     isExtracting = true
+                                    showSystemLogsDialog = true
+                                    com.example.generator.SystemDiagnosticTracker.clearLogs()
                                     scope.launch {
                                 try {
                                     Toast.makeText(context, if (isArabic) "جاري جلب المعلومات من خلال Gemini..." else "Fetching AI info...", Toast.LENGTH_LONG).show()
@@ -1385,6 +1401,7 @@ fun PopularClipsScreen(
                                         if (addTitle.isBlank()) {
                                             addTitle = "تلاوة - ${addReciter.ifBlank { "يوتيوب" }}"
                                         }
+                                        com.example.generator.SystemDiagnosticTracker.addLog("SYSTEM", "تم إضافة المقطع الرائج بنجاح! سيتم حفظ البيانات الآن.")
                                         
                                         val newItem = CuratedClip(
                                                 id = "clip_custom_${System.currentTimeMillis()}",
@@ -1401,11 +1418,14 @@ fun PopularClipsScreen(
                                         baseClipsList.add(newItem)
                                         saveCustomClipsToSettings(baseClipsList.toList())
                                         showAddDialog = false
+                                        com.example.generator.SystemDiagnosticTracker.addLog("SYSTEM", "تم الحفظ وإغلاق نافذة الإضافة.")
                                         Toast.makeText(context, if (isArabic) "تمت إضافة المقطع بنجاح!" else "Clip added successfully", Toast.LENGTH_SHORT).show()
                                     } else {
+                                        com.example.generator.SystemDiagnosticTracker.addLog("SYSTEM", "فشل: نتيجة الاستخراج فارغة (null).")
                                         Toast.makeText(context, if (isArabic) "فشل جلب البيانات بالذكاء الاصطناعي، يرجى المحاولة مجدداً أو التأكد من الرابط" else "AI failed to fetch data, please try again or check the link", Toast.LENGTH_LONG).show()
                                     }
                                 } catch (e: Exception) {
+                                    com.example.generator.SystemDiagnosticTracker.addLog("SYSTEM", "استثناء أثناء العملية: ${e.message}")
                                     Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                                 } finally {
                                     isExtracting = false

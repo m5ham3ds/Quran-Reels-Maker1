@@ -60,8 +60,12 @@ class GeminiMetaGenerator {
         }
         
         if (apiKey.isBlank() || apiKey == "MY_GEMINI_API_KEY") {
+            SystemDiagnosticTracker.addLog("GEMINI", "Error: Gemini API Key is missing.")
             return@withContext null
         }
+
+        SystemDiagnosticTracker.addLog("GEMINI", "بدء تحليل الرابط: $url")
+        SystemDiagnosticTracker.addLog("GEMINI", "جاري الاتصال بـ WhisperX Frontend لاستخراج النص...")
 
         // 1. Call WhisperX to get transcription text to assist Gemini
         var whisperText = ""
@@ -87,6 +91,7 @@ class GeminiMetaGenerator {
                 val eventId = eventIdJson.optString("event_id")
                 
                 if (eventId.isNotEmpty()) {
+                    SystemDiagnosticTracker.addLog("GEMINI", "تم الاتصال بنجاح. معرف العملية (Event ID): $eventId")
                     val eventRequest = Request.Builder()
                         .url("https://qalam249-whisperx-frontend.hf.space/gradio_api/call/process/$eventId")
                         .get()
@@ -94,6 +99,7 @@ class GeminiMetaGenerator {
 
                     var completedData: String? = null
                     var attempt = 0
+                    SystemDiagnosticTracker.addLog("GEMINI", "جاري الاستماع للنتائج من WhisperX...")
                     while (attempt < 15 && completedData == null) {
                         try {
                             val eventResponse = client.newCall(eventRequest).execute()
@@ -136,17 +142,29 @@ class GeminiMetaGenerator {
                             } else textInfoText
                             
                             whisperText = "معلومات الفيديو:\n$videoInfoText\n\nالنص المستخرج من الفيديو:\n$fullText"
+                            SystemDiagnosticTracker.addLog("GEMINI", "تم استخراج النص والمعلومات من WhisperX بنجاح.")
+                        } else {
+                            SystemDiagnosticTracker.addLog("GEMINI", "لم يتم العثور على نص كافٍ في بيانات WhisperX المسترجعة.")
                         }
+                    } else {
+                         SystemDiagnosticTracker.addLog("GEMINI", "انتهت المهلة ولم يتم استلام بيانات مكتملة من WhisperX.")
                     }
+                } else {
+                    SystemDiagnosticTracker.addLog("GEMINI", "فشل في الحصول على Event ID من WhisperX.")
                 }
+            } else {
+                SystemDiagnosticTracker.addLog("GEMINI", "فشل الاتصال بـ WhisperX: ${alignResponse.code}")
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            SystemDiagnosticTracker.addLog("GEMINI", "خطأ أثناء الاتصال بـ WhisperX: ${e.message}")
         }
 
         val savedPrompt = settingsManager.geminiPrompt.first()
         val prompt = savedPrompt.replace("[URL]", url).replace("[WHISPER_TEXT]", whisperText)
 
+        SystemDiagnosticTracker.addLog("GEMINI", "تجهيز الطلب وإرساله إلى نموذج الذكاء الاصطناعي: $geminiModel")
+        
         val jsonRequest = JSONObject().apply {
             val countArray = JSONArray().apply {
                 put(JSONObject().apply {
@@ -183,6 +201,7 @@ class GeminiMetaGenerator {
         val maxAttempts = 5
         while (attempt < maxAttempts) {
             try {
+                SystemDiagnosticTracker.addLog("GEMINI", "محاولة الاتصال بـ Gemini رقم ${attempt + 1}")
                 val response = client.newCall(request).execute()
                 if (response.isSuccessful) {
                     val responseStr = response.body?.string() ?: ""
@@ -192,10 +211,12 @@ class GeminiMetaGenerator {
                         if (errMsg.contains("429") || errMsg.contains("quota") || errMsg.contains("rate limit")) {
                             if (attempt < maxAttempts - 1) {
                                 attempt++
+                                SystemDiagnosticTracker.addLog("GEMINI", "تحذير: استنفاد حصة (429). سيتم إعادة المحاولة...")
                                 kotlinx.coroutines.delay(4000L * attempt)
                                 continue
                             }
                         }
+                        SystemDiagnosticTracker.addLog("GEMINI", "خطأ من سيرفر Gemini: $errMsg")
                         throw Exception(errMsg)
                     }
                     val candidates = rootJson.getJSONArray("candidates")
@@ -205,6 +226,8 @@ class GeminiMetaGenerator {
                         val parts = contentObj.getJSONArray("parts")
                         if (parts.length() > 0) {
                             val rawText = parts.getJSONObject(0).getString("text").trim()
+                            
+                            SystemDiagnosticTracker.addLog("GEMINI", "تم استلام الرد من Gemini بنجاح. جاري استخراج الحقول...")
                             
                             var surahNum = 1
                             var startA = 1
@@ -232,11 +255,14 @@ class GeminiMetaGenerator {
                                 categoryRegex.find(rawText)?.groupValues?.get(1)?.trim()?.let { category = it }
 
                             } catch (e: Exception) {
+                                SystemDiagnosticTracker.addLog("GEMINI", "فشل في مطابقة نصوص الحقول من الرد.")
                                 throw Exception("فشل في استخراج البيانات من الرد: ${e.message}")
                             }
                             
                             if (reciter.isBlank()) reciter = "Unknown"
 
+                            SystemDiagnosticTracker.addLog("GEMINI", "نجاح! تم استخراج: سورة=$surahNum، آيات=$startA-$endA، قارئ=$reciter")
+                            
                             return@withContext ClipAnalysisResult(
                                 surah = surahNum,
                                 startAyah = startA,
@@ -246,40 +272,52 @@ class GeminiMetaGenerator {
                                 videoQuery = "",
                                 category = category
                             )
+                        } else {
+                            SystemDiagnosticTracker.addLog("GEMINI", "لم يتم العثور على أجزاء نصية في الرد (parts فارغ).")
                         }
+                    } else {
+                        SystemDiagnosticTracker.addLog("GEMINI", "لم يتم العثور على نتائج في الرد (candidates فارغ).")
                     }
                 } else if (response.code == 429) {
                     if (attempt < maxAttempts - 1) {
+                        SystemDiagnosticTracker.addLog("GEMINI", "استنفاد الحد (429). محاولة ${attempt + 1}...")
                         attempt++
                         kotlinx.coroutines.delay(4000L * attempt)
                         continue
                     } else {
+                        SystemDiagnosticTracker.addLog("GEMINI", "خطأ 429 دائم. توقف المحاولات.")
                         throw Exception("استنفذت الحد المسموح (خطأ 429). أضف مفتاح API الخاص بك في الإعدادات.")
                     }
                 } else {
                     if (attempt < maxAttempts - 1 && response.code >= 500) {
+                        SystemDiagnosticTracker.addLog("GEMINI", "خطأ سيرفر ${response.code}. محاولة ${attempt + 1}...")
                         attempt++
                         kotlinx.coroutines.delay(2000L * attempt)
                         continue
                     }
+                    SystemDiagnosticTracker.addLog("GEMINI", "فشل الاتصال: رمز الاستجابة ${response.code}")
                     throw Exception("فشل الاتصال بـ Gemini API: HTTP ${response.code}\n${response.body?.string()}")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 if (e.message?.contains("429") == true || e.message?.contains("Too Many Requests") == true) {
                     if (attempt < maxAttempts - 1) {
+                        SystemDiagnosticTracker.addLog("GEMINI", "استثناء 429. محاولة ${attempt + 1}...")
                         attempt++
                         kotlinx.coroutines.delay(4000L * attempt)
                         continue
                     }
+                    SystemDiagnosticTracker.addLog("GEMINI", "خطأ 429. توقف المحاولات.")
                     throw Exception("لقد استنفذت الحد المسموح (خطأ 429). يرجى إضافة مفتاح API الخاص بك في الإعدادات لتخطي هذا الحد.")
                 }
                 
                 if (attempt < maxAttempts - 1 && e is java.io.IOException) {
+                    SystemDiagnosticTracker.addLog("GEMINI", "مشكلة اتصال (IOException). محاولة ${attempt + 1}...")
                     attempt++
                     kotlinx.coroutines.delay(2000L * attempt)
                     continue
                 }
+                SystemDiagnosticTracker.addLog("GEMINI", "خطأ استثناء: ${e.message}")
                 throw Exception(e.message ?: "حدث خطأ غير معروف")
             }
             break
