@@ -133,10 +133,18 @@ class GeminiMetaGenerator {
                     
                     if (completedData != null) {
                         val jsonArr = JSONArray(completedData)
-                        if (jsonArr.length() > 2) {
-                            val videoInfoText = jsonArr.optString(1, "")
-                            val textInfoText = jsonArr.optString(2, "")
-                            
+                        var videoInfoText = ""
+                        var textInfoText = ""
+                        for (i in 0 until jsonArr.length()) {
+                            val str = jsonArr.optString(i, "")
+                            if (str.contains("المدة:") || str.contains("القناة:") || str.contains("الوصف:")) {
+                                videoInfoText = str
+                            } else if (str.contains("📄 النص الكامل:\n") || str.length > 50) {
+                                textInfoText = str
+                            }
+                        }
+                        
+                        if (videoInfoText.isNotBlank() || textInfoText.isNotBlank()) {
                             val fullText = if (textInfoText.contains("📄 النص الكامل:\n")) {
                                 textInfoText.substringAfter("📄 النص الكامل:\n").trim()
                             } else textInfoText

@@ -2299,13 +2299,21 @@ class VideoGenerator {
                         }
 
                         var wordsArray: org.json.JSONArray? = null
-                        val jsonString = dataArray.optString(2)
-                        if (jsonString != null && jsonString.isNotEmpty()) {
-                            val jsonObject = org.json.JSONObject(jsonString)
-                            if (jsonObject.has("words")) {
-                                wordsArray = jsonObject.getJSONArray("words")
-                            } else if (jsonObject.has("segments")) {
-                                wordsArray = jsonObject.getJSONArray("segments")
+                        for (i in 0 until dataArray.length()) {
+                            val jsonString = dataArray.optString(i)
+                            if (jsonString != null && jsonString.isNotEmpty() && jsonString.trim().startsWith("{")) {
+                                try {
+                                    val jsonObject = org.json.JSONObject(jsonString)
+                                    if (jsonObject.has("words")) {
+                                        wordsArray = jsonObject.getJSONArray("words")
+                                        break
+                                    } else if (jsonObject.has("segments")) {
+                                        wordsArray = jsonObject.getJSONArray("segments")
+                                        break
+                                    }
+                                } catch (e: Exception) {
+                                    // Not a valid JSON object or doesn't have the required keys
+                                }
                             }
                         }
                         
@@ -2317,27 +2325,46 @@ class VideoGenerator {
                         SystemDiagnosticTracker.addLog("WHISPERX_API", "عدد الكلمات المرجعة من WhisperX: ${wordsArray.length()}")
                         
                         if (audioFile != null && (!audioFile.exists() || audioFile.length() == 0L)) {
-                            if (dataArray.length() >= 4 && !dataArray.isNull(3)) {
-                                val audioOutputObj = dataArray.optJSONObject(3)
-                                val audioOutputStr = dataArray.optString(3)
-                                if (audioOutputObj != null && audioOutputObj.has("url")) {
-                                    val returnedAudioUrl = audioOutputObj.getString("url")
-                                    SystemDiagnosticTracker.addLog("WHISPERX_API", "تحميل الملف الصوتي المستخرج من الرابط: $returnedAudioUrl")
-                                    downloadAudio(returnedAudioUrl, audioFile)
-                                } else if (audioOutputObj != null && audioOutputObj.has("path")) {
-                                    val returnedAudioPath = audioOutputObj.getString("path")
-                                    val returnedAudioUrl = "https://qalam249-whisperx-frontend.hf.space/file=$returnedAudioPath"
-                                    SystemDiagnosticTracker.addLog("WHISPERX_API", "تحميل الملف الصوتي المستخرج من المسار: $returnedAudioUrl")
-                                    downloadAudio(returnedAudioUrl, audioFile)
-                                } else if (audioOutputStr.isNotBlank() && audioOutputStr != "null") {
-                                    val returnedAudioUrl = "https://qalam249-whisperx-frontend.hf.space/file=$audioOutputStr"
-                                    SystemDiagnosticTracker.addLog("WHISPERX_API", "تحميل الملف الصوتي المستخرج من السلسلة النصية: $returnedAudioUrl")
-                                    downloadAudio(returnedAudioUrl, audioFile)
-                                } else {
-                                    throw java.lang.Exception("لم يتم استرجاع الملف الصوتي من المعالج (url غير موجود)")
+                            var audioOutputObj: org.json.JSONObject? = null
+                            var audioOutputStr = ""
+                            
+                            for (i in 0 until dataArray.length()) {
+                                val itemObj = dataArray.optJSONObject(i)
+                                val itemStr = dataArray.optString(i)
+                                if (itemObj != null && (itemObj.has("url") || itemObj.has("path"))) {
+                                    // Check if it looks like an audio file path/url
+                                    val urlOrPath = itemObj.optString("url", "") + itemObj.optString("path", "")
+                                    if (urlOrPath.contains(".mp3") || urlOrPath.contains(".wav") || urlOrPath.contains(".m4a") || urlOrPath.contains(".ogg") || urlOrPath.contains("audio")) {
+                                        audioOutputObj = itemObj
+                                        break
+                                    }
+                                } else if (itemStr.isNotBlank() && itemStr != "null" && (itemStr.contains(".mp3") || itemStr.contains(".wav") || itemStr.contains(".m4a") || itemStr.contains(".ogg"))) {
+                                    audioOutputStr = itemStr
+                                    break
                                 }
+                            }
+                            
+                            // If not found by extension, maybe it's just the last object or string (as fallback to index 3)
+                            if (audioOutputObj == null && audioOutputStr.isBlank() && dataArray.length() >= 4 && !dataArray.isNull(3)) {
+                                audioOutputObj = dataArray.optJSONObject(3)
+                                audioOutputStr = dataArray.optString(3)
+                            }
+                            
+                            if (audioOutputObj != null && audioOutputObj.has("url")) {
+                                val returnedAudioUrl = audioOutputObj.getString("url")
+                                SystemDiagnosticTracker.addLog("WHISPERX_API", "تحميل الملف الصوتي المستخرج من الرابط: $returnedAudioUrl")
+                                downloadAudio(returnedAudioUrl, audioFile)
+                            } else if (audioOutputObj != null && audioOutputObj.has("path")) {
+                                val returnedAudioPath = audioOutputObj.getString("path")
+                                val returnedAudioUrl = "https://qalam249-whisperx-frontend.hf.space/file=$returnedAudioPath"
+                                SystemDiagnosticTracker.addLog("WHISPERX_API", "تحميل الملف الصوتي المستخرج من المسار: $returnedAudioUrl")
+                                downloadAudio(returnedAudioUrl, audioFile)
+                            } else if (audioOutputStr.isNotBlank() && audioOutputStr != "null") {
+                                val returnedAudioUrl = if (audioOutputStr.startsWith("http")) audioOutputStr else "https://qalam249-whisperx-frontend.hf.space/file=$audioOutputStr"
+                                SystemDiagnosticTracker.addLog("WHISPERX_API", "تحميل الملف الصوتي المستخرج من السلسلة النصية: $returnedAudioUrl")
+                                downloadAudio(returnedAudioUrl, audioFile)
                             } else {
-                                throw java.lang.Exception("لم يتم استرجاع الملف الصوتي من المعالج (الفهرس 3 مفقود)")
+                                throw java.lang.Exception("لم يتم استرجاع الملف الصوتي من المعالج (تعذر العثور على مسار الصوت)")
                             }
                         }
 
