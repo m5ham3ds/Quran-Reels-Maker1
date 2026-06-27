@@ -1324,8 +1324,6 @@ class VideoGenerator {
         
         var lastWrittenPts = -1L
         var firstPts = -1L
-        
-        var rawGeneratedPtsUs = 0L
 
         while (!isEncoderEOS) {
             checkCancellationAndPause()
@@ -1356,13 +1354,7 @@ class VideoGenerator {
                             isExtractorEOS = true
                             isDecoderEOS = true
                         } else {
-                            var pts = extractor.sampleTime
-                            if (pts <= 0L) {
-                                // Manual PTS calculation for WAV if missing
-                                pts = rawGeneratedPtsUs
-                                val durationUsForSize = (size * 1000000L) / (sourceSampleRate * sourceChannelCount * 2)
-                                rawGeneratedPtsUs += durationUsForSize
-                            }
+                            val pts = extractor.sampleTime
                             encoder.queueInputBuffer(encInIdx, 0, size, pts, 0)
                             
                             // Capture Energy for raw audio here
