@@ -116,7 +116,7 @@ class SettingsManager(private val context: Context) {
 
     // Gemini & Social accounts flows
     val geminiApiKey: Flow<String> = context.dataStore.data.map { it[GEMINI_API_KEY] ?: "" }
-    val geminiModel: Flow<String> = context.dataStore.data.map { it[GEMINI_MODEL] ?: "gemini-3.5-flash" }
+    val geminiModel: Flow<String> = context.dataStore.data.map { it[GEMINI_MODEL] ?: "gemini-1.5-flash" }
     val tiktokLinked: Flow<Boolean> = context.dataStore.data.map { it[TIKTOK_LINKED] ?: false }
     val instagramLinked: Flow<Boolean> = context.dataStore.data.map { it[INSTAGRAM_LINKED] ?: false }
     val facebookLinked: Flow<Boolean> = context.dataStore.data.map { it[FACEBOOK_LINKED] ?: false }

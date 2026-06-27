@@ -905,16 +905,7 @@ class VideoGenerator {
                 onProgress(if (isArabic) "جاري تصوير مشهدي الآية ${startAyah + idx}..." else "Rendering scenes for Ayah ${startAyah + idx}...", 0.5f + (idx * 0.4f / verses.size))
                 
                 var frameDecoder: SequentialFrameDecoder? = null
-                if (videoLoaded && downloadedVideoFiles.isNotEmpty()) {
-                    try {
-                        val videoFile = downloadedVideoFiles[idx % downloadedVideoFiles.size]
-                        if (videoFile.exists()) {
-                            frameDecoder = SequentialFrameDecoder(videoFile.absolutePath)
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
+                var lastVideoIdx = -1
                 
                 val framesNeeded = Math.round(verse.durationUs.toDouble() / frameDurationUs.toDouble()).toInt().coerceAtLeast(1)
                 val verseStartPts = verseStartTimestampsUs[idx]
@@ -931,19 +922,39 @@ class VideoGenerator {
                         onProgress(if (isArabic) "تصوير الآية ${startAyah + idx} (${(i * 100 / framesNeeded)}%)..." else "Rendering Ayah ${startAyah + idx} (${(i * 100 / framesNeeded)}%)...", baseProgress + frameProgress)
                     }
                     
+                    val currentFramePts = verseStartPts + i * frameDurationUs
+                    val frameIndex = currentFramePts / frameDurationUs
+                    val currentTimeMs = (i * frameDurationUs) / 1000
+                    val activeChunk = getActiveSmartChunk(verse.chunks, currentTimeMs)
+                    val chunkIdx = if (activeChunk != null) verse.chunks.indexOf(activeChunk).coerceAtLeast(0) else 0
+                    
+                    // If verses.size == 1 (Popular clip), we switch video by chunk. Otherwise by verse index.
+                    val videoIdx = if (verses.size <= 1) chunkIdx else idx
+                    
+                    if (videoIdx != lastVideoIdx) {
+                        lastVideoIdx = videoIdx
+                        if (videoLoaded && downloadedVideoFiles.isNotEmpty()) {
+                            try {
+                                frameDecoder?.release()
+                                val videoFile = downloadedVideoFiles[videoIdx % downloadedVideoFiles.size]
+                                if (videoFile.exists()) {
+                                    frameDecoder = SequentialFrameDecoder(videoFile.absolutePath)
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+                    
                     var bgFrameBitmap: Bitmap? = null
                     if (frameDecoder != null) {
                         try {
-                            bgFrameBitmap = frameDecoder.getNextFrame()
+                            bgFrameBitmap = frameDecoder?.getNextFrame()
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
                     }
                     
-                    val currentFramePts = verseStartPts + i * frameDurationUs
-                    val frameIndex = currentFramePts / frameDurationUs
-                    val currentTimeMs = (i * frameDurationUs) / 1000
-                    val activeChunk = getActiveSmartChunk(verse.chunks, currentTimeMs)
                     val chunkedText = activeChunk?.arabic ?: verse.text
                     val chunkedTranslation = activeChunk?.english ?: verse.translation
                     
@@ -1266,12 +1277,12 @@ class VideoGenerator {
             decoder.start()
         }
         
-        // 2. Setup Encoder (AAC forced to 44100Hz Mono)
+        // 2. Setup Encoder (AAC matching source format)
         var sourceSampleRate = if (inputFormat.containsKey(MediaFormat.KEY_SAMPLE_RATE)) inputFormat.getInteger(MediaFormat.KEY_SAMPLE_RATE) else 44100
         var sourceChannelCount = if (inputFormat.containsKey(MediaFormat.KEY_CHANNEL_COUNT)) inputFormat.getInteger(MediaFormat.KEY_CHANNEL_COUNT) else 1
         
-        val targetSampleRate = 44100
-        val targetChannelCount = 1
+        val targetSampleRate = sourceSampleRate
+        val targetChannelCount = sourceChannelCount
         
         val outputFormat = MediaFormat.createAudioFormat(MediaFormat.MIMETYPE_AUDIO_AAC, targetSampleRate, targetChannelCount).apply {
             setInteger(MediaFormat.KEY_AAC_PROFILE, MediaCodecInfo.CodecProfileLevel.AACObjectLC)
