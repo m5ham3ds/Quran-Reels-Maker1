@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Video Maker — Free Online Quran Video Generator | quranvideomaker.com</title>
+    <meta name="description" content="Create stunning Quran videos for YouTube, TikTok & Instagram — free, no software needed. Upload custom reciters, add translations in 15+ languages, choose from 30+ Arabic fonts, and generate MP4 videos directly in your browser.">
+    <meta name="keywords" content="Quran video maker, Quran video generator, Islamic video creator, Quran MP4 generator, Quran recitation video, Arabic calligraphy video, Quran ayah images, Islamic content creator tool, Quran social media, free Quran tool, Quran TikTok, Quran YouTube, Quran Instagram, custom Quran reciter, Quran translation video">
+    <meta name="author" content="Quran Video Maker">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://quranvideomaker.com/">
+    <link rel="shortcut icon" href="image/quranvideomakker-ico.png">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CCNWQ4THXT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-CCNWQ4THXT");
+    </script>
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Quran Video Maker — Free Online Quran Video Generator">
+    <meta property="og:description" content="The world's first online Quran video maker. Generate professional MP4 videos with Arabic fonts, 50+ reciters, and 15+ translations — no downloads, completely free.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quranvideomaker.com/">
+    <meta property="og:image" content="https://quranvideomaker.com/assets/preview.jpg">
+    <meta property="og:site_name" content="Quran Video Maker">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@thenoblequrran">
+    <meta name="twitter:title" content="Quran Video Maker — Free Online Quran Video Generator">
+    <meta name="twitter:description" content="Create Quran videos for social media — free, no software needed. 30+ Arabic fonts, 50+ reciters, 15+ translations. Generate MP4 directly in your browser.">
+    <meta name="twitter:image" content="https://quranvideomaker.com/assets/preview.jpg">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Quran Video Maker",
+      "url": "https://quranvideomaker.com/",
+      "description": "Free online Quran video maker — generate MP4 videos with Arabic fonts, reciters, translations, word-by-word highlight, and tajweed colors.",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Any (browser-based)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Organization", "name": "Quran Video Maker", "url": "https://quranvideomaker.com" }
+    }
+    </script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2E7D32;
+            --primary-dark: #1B5E20;
+            --primary-light: #4CAF50;
+            --accent-color: #FFD700;
+            --accent-dark: #F57F17;
+            --text-dark: #1A1A1A;
+            --text-light: #666666;
+            --text-white: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --border-light: #E0E0E0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+            --gradient-primary: linear-gradient(135deg, #2E7D32, #4CAF50);
+            --gradient-accent: linear-gradient(135deg, #FFD700, #FFA000);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+            unicode-bidi: embed;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-white);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        color: white;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+      }
+      
+        .logo-icon::before {
+            content: '🌙';
+            font-size: 1.2rem;
+      }
+      
+        .logo-text {
+        display: flex;
+        flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .logo-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: var(--gradient-primary);
+            color: var(--text-white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+        font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1A1A1A 0%, #2E7D32 100%);
+            min-height: 100vh;
+        display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-content .highlight {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            padding: 1rem 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-hover);
+            text-align: center;
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .demo-card .arabic-verse {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .demo-card .translation {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-light);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--text-white);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+        font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 0;
+            background: var(--gradient-primary);
+            color: var(--text-white);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: var(--text-dark);
+            color: var(--text-white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--text-white);
+            padding: 3rem 0 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1100;
+        }
+
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1050;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: var(--bg-white);
+            z-index: 1060;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+            transition: right 0.3s ease;
+            padding: 80px 1.5rem 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.open {
+            right: 0;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 1rem 0;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border-light);
+            transition: color 0.2s;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-nav .mobile-cta {
+            display: block;
+            margin-top: 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cta-button {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+                padding: 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.05rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .credit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+                height: 60px;
+            }
+
+            .logo-title {
+                font-size: 1rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.6rem;
+            }
+
+            .logo img {
+                height: 38px !important;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 80px 0 3rem;
+            }
+
+            .hero-container {
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                padding: 0.9rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .demo-card {
+                transform: none;
+                padding: 1.5rem;
+            }
+
+            .demo-card .arabic-verse {
+                font-size: 1.3rem;
+            }
+
+            .demo-card .translation {
+                font-size: 0.85rem;
+            }
+
+            .features, .about, .changelog, .faq, .api-credits {
+                padding: 3rem 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section-header {
+                margin-bottom: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+
+            .stat-item h3 {
+                font-size: 2rem;
+            }
+
+            .stat-item p {
+                font-size: 0.9rem;
+            }
+
+            .cta-section {
+                padding: 3rem 0;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+            }
+
+            .cta-section .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .faq-question {
+                padding: 1rem 1.25rem;
+                font-size: 0.95rem;
+            }
+
+            .faq-answer {
+                padding: 0 1.25rem 1.25rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .modal-content {
+                width: 96%;
+                margin: 3% auto;
+                border-radius: 12px;
+            }
+
+            .modal-header {
+                padding: 1.25rem;
+                border-radius: 12px 12px 0 0;
+            }
+
+            .modal-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .modal-body {
+                padding: 1.25rem;
+            }
+
+            .version-item {
+                padding: 1.25rem;
+            }
+
+            .version-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .version-number {
+                font-size: 1.2rem;
+            }
+
+            .arabic-verse-large {
+                font-size: 1.3rem;
+                line-height: 1.9;
+            }
+
+            .verse-container {
+                padding: 1.25rem;
+            }
+
+            .video-frame, .modal-body iframe {
+                height: 220px;
+            }
+
+            .contact-form {
+                padding: 0;
+            }
+
+            .notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.6rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .stat-item h3 {
+                font-size: 1.6rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: var(--bg-white);
+        }
+
+        .verse-container {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 5px solid var(--primary-color);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .arabic-verse-large {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            line-height: 2.2;
+            color: var(--primary-color);
+            direction: rtl;
+            unicode-bidi: embed;
+            margin-bottom: 1.5rem;
+        }
+
+        .verse-translation {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .verse-reference {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+
+        /* Changelog Section */
+        .changelog {
+            padding: 6rem 0;
+            background: var(--bg-light);
+        }
+
+        .version-item {
+            background: var(--bg-white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .version-header {
+        display: flex;
+        justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .version-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .version-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .current-version {
+            background: var(--gradient-accent);
+            color: var(--text-dark);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .version-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .version-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .version-features li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 0;
+            background: var(--bg-white);
+        }
+
+        .faq-item {
+            background: var(--bg-light);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            background: var(--bg-white);
+        border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+        font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+        display: flex;
+            justify-content: space-between;
+        align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-light);
+        }
+
+        .faq-answer {
+            padding: 0 2rem 2rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* API Credits Section */
+        .api-credits {
+            padding: 6rem 0;
+            background: var(--bg-light);
+        }
+
+        .credit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .credit-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .credit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .credit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-white);
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+
+        .modal-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .close:hover {
+            opacity: 1;
+        }
+
+        /* Contact Form Styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .spinner {
+            border: 3px solid var(--border-light);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-hover);
+            z-index: 3000;
+            min-width: 250px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .notification.success {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .notification.error {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* Video Modal Styles */
+        .video-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .video-input-group {
+            margin-bottom: 2rem;
+        }
+
+        .video-input {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .video-input input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .load-video-btn {
+            background: var(--gradient-accent);
+            color: var(--text-dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .load-video-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .video-frame {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Quran Video Maker",
+      "url": "https://quranvideomaker.com/",
+      "description": "The world's first free online Quran video maker. Generate professional MP4 videos with authentic Arabic fonts, 50+ reciters, and translations in 15+ languages — directly in your browser.",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any (Web Browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Generate Quran MP4 videos in browser",
+        "50+ renowned reciters",
+        "30+ authentic Arabic fonts including Tajweed",
+        "15+ translation languages",
+        "Custom reciter audio upload with manual ayah sync",
+        "Drag-and-drop visual editor",
+        "Export images as PNG, JPEG, WebP",
+        "Export audio and SRT subtitles",
+        "No installation required"
+      ],
+      "screenshot": "https://quranvideomaker.com/assets/preview.jpg",
+      "creator": {
+        "@type": "Organization",
+        "name": "Quran Video Maker",
+        "url": "https://quranvideomaker.com/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Quran Video Maker really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Quran Video Maker is completely free to use. No subscriptions, no hidden fees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use the generated Quran videos commercially?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, you can use the generated content for personal, educational, or commercial purposes. Note that audio recitations are copyrighted by their respective reciters — obtain permissions before sharing content with recitations publicly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which reciters are available on Quran Video Maker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Over 50 renowned reciters including Sheikh Abdul Basit, Sheikh Al-Minshawi, Sheikh Al-Husary, Sheikh Sudais, and many others. You can also upload your own recitation audio."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to install any software?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything runs directly in your web browser — Chrome, Firefox, Safari, or Edge. No downloads or plugins required."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">
+                <img src="image/quranvideomakker-logo.png" alt="Quran Video Maker Logo" style="height: 50px; width: auto; margin-right: 1rem;">
+                <div class="logo-text">
+                    <div class="logo-title">Quran Video Maker</div>
+                    <div class="logo-subtitle">Version 2.0</div>
+            </div>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#" onclick="openModal('aboutModal')">About</a></li>
+                <li><a href="#" onclick="openModal('changelogModal')">Changelog</a></li>
+                <li><a href="#" onclick="openModal('howToUseModal')">How to Use</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#" onclick="openModal('contactModal')">Contact</a></li>
+            </ul>
+            
+            <a href="canva-editor.html" class="cta-button">
+                <i class="fas fa-paint-brush"></i>
+                Start Creating
+            </a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="#features" onclick="closeMobileMenu()">Features</a>
+        <a href="#" onclick="closeMobileMenu();openModal('aboutModal')">About</a>
+        <a href="#" onclick="closeMobileMenu();openModal('changelogModal')">Changelog</a>
+        <a href="#" onclick="closeMobileMenu();openModal('howToUseModal')">How to Use</a>
+        <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+        <a href="#" onclick="closeMobileMenu();openModal('contactModal')">Contact</a>
+        <a href="canva-editor.html" class="mobile-cta">
+            <i class="fas fa-paint-brush"></i> Start Creating
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Create Stunning <span class="highlight">Quran Videos</span> Ready for Social Media</h1>
+                <p>The world's first online Quran video maker — no software to install, no editing skills needed. Generate professional MP4 videos ready to upload directly to YouTube, TikTok, Instagram, and Facebook. Design with authentic Arabic fonts, sync your own custom reciter audio, add translations in 15+ languages — all from your browser, completely free.</p>
+                
+                <div class="hero-buttons">
+                    <a href="canva-editor.html" class="btn-primary">
+                        <i class="fas fa-play"></i>
+                        Start Creating Now
+                    </a>
+                    <a href="#" onclick="openModal('howToUseModal')" class="btn-secondary">
+                        <i class="fas fa-play-circle"></i>
+                        Watch Tutorial
+                    </a>
+                    <a href="v1" class="btn-secondary" style="font-size:0.85rem;opacity:0.7;" title="Use the classic version (v1) — simple image generator without the canvas editor">
+                        <i class="fas fa-history"></i>
+                        Old Version (v1)
+                    </a>
+            </div>
+          </div>
+          
+            <div class="hero-visual">
+                <div class="demo-card">
+                    <div class="arabic-verse arabic-text">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                    <div class="translation">"In the name of Allah, the Most Gracious, the Most Merciful"</div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Most Powerful Online Quran Video Creator</h2>
+                <p>No downloads, no installation — everything runs in your browser. Design, customize, and generate complete Quran videos with audio, all in one place.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-video"></i></div>
+                    <h3>Generate Videos Directly</h3>
+                    <p>Create complete Quran MP4 videos right in your browser — no editing software needed. Each ayah becomes a scene with synchronized audio and text.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <h3>Custom Reciter & Audio Sync</h3>
+                    <p>Upload your own recitation audio and mark each ayah timing manually. Perfect for rare reciters or personal recordings not found online.</p>
+                </div>
+          
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-font"></i></div>
+                    <h3>Authentic Arabic Fonts</h3>
+                    <p>30+ premium Arabic fonts including Amiri, KFGQPC Tajweed with color-coded tajweed, Uthmani Hafs, Kitab, and Maghribi styles.</p>
+                </div>
+          
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-language"></i></div>
+                    <h3>15+ Language Translations</h3>
+                    <p>Display Quran verses with translations in English, Urdu, French, Spanish, Indonesian, Turkish, Russian, Malay, and more.</p>
+                </div>
+            
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                    <h3>Design Like a Pro</h3>
+                    <p>Drag-and-drop editor with custom backgrounds, gradients, text effects, shadows, and position control. Design one ayah, apply to all.</p>
+                </div>
+        
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-download"></i></div>
+                    <h3>Export Everything</h3>
+                    <p>Download high-quality PNG/JPEG/WebP images, audio ZIP, SRT subtitles, or full MP4 videos. Ready for YouTube, TikTok, and Instagram.</p>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Languages Supported</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Renowned Reciters</p>
+                </div>
+                <div class="stat-item">
+                    <h3>∞</h3>
+                    <p>Design Possibilities</p>
+                </div>
+            </div>
+  </div>
+    </section>
+
+    <!-- API Credits Section -->
+    <section class="api-credits">
+        <div class="container">
+            <div class="section-header">
+                <h2>API Credits</h2>
+                <p>We acknowledge and thank the following services that make this project possible</p>
+          </div>
+          
+            <div class="credit-grid">
+                <div class="credit-card">
+                    <div class="credit-icon">
+                        <i class="fas fa-book"></i>
+          </div>
+                    <h3>Quran Data API</h3>
+                    <p>We use the Alquran.cloud API for Quranic text and translations. This API provides accurate Uthmani script and various translation options.</p>
+      </div>
+      
+                <div class="credit-card">
+                    <div class="credit-icon">
+                        <i class="fas fa-volume-up"></i>
+      </div>
+                    <h3>Audio Recitations</h3>
+                    <p>Audio recitations are provided by the EveryAyah.com API, offering high-quality recitations from various renowned Qurra.</p>
+    </div>
+    
+                <div class="credit-card">
+                    <div class="credit-icon">
+                        <i class="fas fa-font"></i>
+        </div>
+                    <h3>Font Libraries</h3>
+                    <p>We utilize Google Fonts and Font Awesome for beautiful typography and icons.</p>
+      </div>
+    </div>
+  </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our Quran Video Maker</p>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is this service really free?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+</button>
+                <div class="faq-answer">
+                    Yes! This service is completely free to use.
+          </div>
+          </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can I use the generated images and videos commercially?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Yes, you can use the generated content for personal, educational, or commercial purposes. We only ask that you don't claim the tool or technology as your own.
+          </div>
+      </div>
+      
+            <div class="faq-item">
+                <button class="faq-question">
+                    Which reciters are available?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    We offer a variety of renowned reciters including Sheikh Abdul Basit, Sheikh Al-Minshawi, Sheikh Al-Husary, Sheikh Sudais, and many others.
+        </div>
+        </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can I contribute to this project?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Absolutely! We welcome contributions from developers, translators, and Quran enthusiasts. Please contact us for more information.
+  </div>
+</div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is there an API available?
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Currently, we don't offer a public API, but we're considering it for future updates based on community interest.
+      </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Create Beautiful Islamic Designs?</h2>
+            <p>Join thousands of content creators who trust our platform for their Islamic design needs. Start creating professional Quran visuals today.</p>
+            
+            <div class="hero-buttons">
+                <a href="canva-editor.html" class="btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Launch Editor Now
+                </a>
+        </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quran Video Maker</h3>
+                    <p>Create stunning Quran videos effortlessly. Free for all uses.</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7);">
+                        Empowering Islamic content creators with professional design tools. Create beautiful Quran visuals that inspire and educate.
+                    </p>
+        </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#" onclick="openModal('aboutModal')">About</a></p>
+                    <p><a href="#" onclick="openModal('howToUseModal')">How to Use</a></p>
+                    <p><a href="#" onclick="openModal('contactModal')">Contact</a></p>
+                    <p><a href="#" onclick="openModal('changelogModal')">Changelog</a></p>
+                    <p><a href="#faq">Share Your Creation</a></p>
+      </div>
+      
+                <div class="footer-section">
+                    <h3>Features</h3>
+                    <p><a href="#features">Arabic Typography</a></p>
+                    <p><a href="#features">Translation Support</a></p>
+                    <p><a href="#features">Audio Recitation</a></p>
+                    <p><a href="#features">Professional Templates</a></p>
+        </div>
+                
+                <div class="footer-section">
+                    <h3>Legal & Privacy</h3>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--accent-color);">Privacy Policy</h4>
+                        <p style="font-size: 0.8rem; line-height: 1.4;">We respect your privacy. We do not collect personal information except what you voluntarily provide. We use cookies for essential functionality only.</p>
+        </div>
+                    <p><a href="#" style="font-size: 0.9rem;">Read Full Privacy Policy</a></p>
+        </div>
+        </div>
+            
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; margin-top: 2rem;">
+                <div class="footer-bottom" style="text-align: center;">
+                    <p style="margin-bottom: 1rem;">
+                        <strong>Connect With Us</strong>
+                    </p>
+                    <p style="margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        &copy; 2026 Quran Video Maker. All rights reserved. This service is provided free for the sake of Allah <span style="color: var(--accent-color);">في سبيل الله</span>
+                    </p>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 8px; font-size: 0.8rem; line-height: 1.5; text-align: left; max-width: 800px; margin: 0 auto;">
+                        <strong style="color: var(--accent-color);">Copyright Notice:</strong> 
+                        While Quranic text is free to use, audio recitations are copyrighted by their respective reciters/entities. Users must obtain appropriate permissions before sharing content with recitations on social media platforms.
+        </div>
+      </div>
+    </div>
+  </div>
+    </footer>
+
+    <!-- Modal Windows -->
+    
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+  <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+                <h2>About Our Mission</h2>
+            </div>
+    <div class="modal-body">
+                <div class="verse-container">
+                    <div class="arabic-verse-large">
+                        وَقَضَىٰ رَبُّكَ أَلَّا تَعْبُدُوا إِلَّا إِيَّاهُ وَبِالْوَالِدَيْنِ إِحْسَانًا ۚ إِمَّا يَبْلُغَنَّ عِندَكَ الْكِبَرَ أَحَدُهُمَا أَوْ كِلَاهُمَا فَلَا تَقُل لَّهُمَا أُفٍّ وَلَا تَنْهَرْهُمَا وَقُل لَّهُمَا قَوْلًا كَرِيمًا ﴿٢٣﴾
+      </div>
+                    <div class="arabic-verse-large">
+                        وَاخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ وَقُل رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا ﴿٢٤﴾
+          </div>
+                    <div class="verse-translation">
+                        "Your Lord has commanded that you worship none but Him, and that you be kind to your parents. If one or both of them reach old age with you, do not say to them a word of disrespect, or scold them, but say a generous word to them." (23)
+                        <br><br>
+                        "And lower to them the wing of humility out of mercy and say, 'My Lord, have mercy upon them as they brought me up when I was small.'" (24)
+      </div>
+                    <div class="verse-reference">— Surah Al-Isra, verses 23-24</div>
+          </div>
+                
+                <div style="text-align: center; max-width: 800px; margin: 2rem auto 0;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Mission</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-light);">
+                        Our mission is to make it easy for everyone to create beautiful Quran videos for educational and dawah purposes. We believe in spreading the beauty of the Quran through modern technology.
+                    </p>
+      </div>
+          </div>
+      </div>
+          </div>
+
+    <!-- Changelog Modal -->
+    <div id="changelogModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('changelogModal')">&times;</span>
+                <h2>Version History</h2>
+      </div>
+            <div class="modal-body">
+                <div class="version-item">
+                    <div class="version-header">
+                        <div>
+                            <div class="version-number">Version 2.0</div>
+                            <div class="version-date">10 March 2026 / 10 Ramadan 1447</div>
+                        </div>
+                        <div class="current-version">Latest</div>
+                    </div>
+                    <ul class="version-features">
+                        <li><strong>In-Browser Video Generation</strong> — Generate complete MP4 videos directly from your browser, ready to upload to social media. No editing software or downloads required.</li>
+                        <li><strong>Custom Reciter Upload & Audio Sync</strong> — Upload your own recitation audio and mark each ayah timing manually with visual waveform. Perfect for rare reciters or personal recordings.</li>
+                        <li><strong>Apply Design to All Ayahs</strong> — Design one ayah perfectly, then apply fonts, colors, positions, and effects to all ayahs instantly with one click.</li>
+                        <li><strong>Complete Canva-like Visual Editor</strong> — Professional drag-and-drop editor with layers, alignment tools, text effects, and real-time preview.</li>
+                        <li><strong>30+ Authentic Arabic Fonts</strong> — KFGQPC Tajweed with color-coded tajweed rules, QPC V4, Uthmani Hafs Mushaf, Kitab, Aalmaghribi, and more traditional Quran fonts.</li>
+                        <li><strong>Email Login (Passwordless)</strong> — Secure login with email verification code. No password to remember, no registration forms.</li>
+                        <li><strong>Cloud Project Save</strong> — Save your complete designs online (surah, reciter, fonts, positions) and resume editing from any device.</li>
+                        <li><strong>Bulk Export Options</strong> — Export all ayahs as PNG/JPEG/WebP ZIP, download audio files as ZIP, or generate SRT subtitle files.</li>
+                        <li><strong>Multi-Language Translations</strong> — Display verses with translations in 15+ languages including English, Urdu, French, Spanish, Indonesian, Turkish, Russian, and more.</li>
+                        <li><strong>Advanced Background Controls</strong> — Upload custom backgrounds with opacity control that affects only the background (not text). Saved backgrounds gallery for quick re-use.</li>
+                        <li><strong>Smart Text Effects</strong> — Shadows, opacity, letter spacing, and automatic Arabic diacritics alignment for perfect rendering.</li>
+                        <li><strong>Right-Click Context Menu</strong> — Copy/paste styles, reset design, duplicate elements, bring to front/back, and more.</li>
+                        <li><strong>Audio Timeline & Playback</strong> — Integrated audio player with timeline scrubbing and auto-advance to next ayah.</li>
+                        <li><strong>Professional Templates</strong> — Pre-designed templates with custom styling options and gradient backgrounds.</li>
+                        <li><strong>Admin Dashboard</strong> — Track usage statistics, view user creations, configure limits, and manage settings.</li>
+                    </ul>
+                </div>
+
+                <div class="version-item">
+                    <div class="version-header">
+                        <div>
+                            <div class="version-number">Version 1.2.2</div>
+                            <div class="version-date">23 April 2025 / 24 Shawwal 1446</div>
+        </div>
+      </div>
+                    <ul class="version-features">
+                        <li>Download All audios for selected surah</li>
+      </ul>
+    </div>
+
+                <div class="version-item">
+                    <div class="version-header">
+                        <div>
+                            <div class="version-number">Version 1.2.1</div>
+                            <div class="version-date">27 Mars 2025 / 26 Ramadan 1446</div>
+  </div>
+</div>
+                    <ul class="version-features">
+                        <li>Added advanced Quran search functionality with bilingual support</li>
+                        <li>Smart Arabic search with intelligent handling of tachkil (diacritical marks)</li>
+                        <li>Highlighted search results with original Quran text formatting preserved</li>
+                        <li>Added keyboard shortcuts (Ctrl+F/Cmd+F to search, Esc to close)</li>
+                        <li>Added click-to-navigate feature for direct jumping to ayahs</li>
+                        <li>Added ability to download complete surah audio in one click</li>
+        </ul>
+      </div>
+      
+                <div class="version-item">
+                    <div class="version-header">
+                        <div>
+                            <div class="version-number">Version 1.2</div>
+                            <div class="version-date">09 Mar 2025</div>
+      </div>
+      </div>
+                    <ul class="version-features">
+                        <li>New powerful features on advanced Settings</li>
+                        <li>Enhanced UI with improved color contrast for better accessibility</li>
+                        <li>Added advanced settings with custom backgrounds, text positioning, and font controls</li>
+                        <li>Added support for 5 new translation languages including Hindi, German, and Russian</li>
+                        <li>Implemented real-time preview mode for immediate design feedback</li>
+                        <li>Added multiple aspect ratio options for different social media platforms</li>
+                        <li>Updated Privacy Policy for better transparency</li>
+                        <li>Fixed various bugs and improved performance</li>
+        </ul>
+      </div>
+      
+                <div class="version-item">
+                    <div class="version-header">
+                        <div>
+                            <div class="version-number">Version 1.1.1</div>
+                            <div class="version-date">06 Jun 2024</div>
+      </div>
+                    </div>
+                    <ul class="version-features">
+                        <li>How to use video added</li>
+        </ul>
+    </div>
+      
+                <div class="version-item">
+                    <div class="version-header">
+                        <div>
+                            <div class="version-number">Version 1.1</div>
+                            <div class="version-date">28 May 2024</div>
+      </div>
+    </div>
+                    <ul class="version-features">
+                        <li>Added play/pause and download icons for buttons</li>
+                        <li>Improved audio synchronization with text</li>
+                        <li>Enhanced responsive design for better viewing on various devices</li>
+                        <li>Implemented caching and performance improvements</li>
+                    </ul>
+</div>
+
+                <div class="version-item">
+                    <div class="version-header">
+                        <div>
+                            <div class="version-number">Version 1.0</div>
+                            <div class="version-date">11 May 2024</div>
+    </div>
+                    </div>
+                    <ul class="version-features">
+                        <li>Initial release with core functionalities</li>
+                        <li>Basic UI design and layout</li>
+                        <li>Implemented audio playback and SRT file generation</li>
+      </ul>
+    </div>
+    </div>
+      </div>
+    </div>
+
+    <!-- How to Use Modal -->
+    <div id="howToUseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('howToUseModal')">&times;</span>
+                <h2>How to Use — Video Tutorial</h2>
+            </div>
+            <div class="modal-body">
+                <div class="video-container" style="margin:0;">
+                    <iframe 
+                        width="100%" 
+                        height="400" 
+                        src="https://www.youtube.com/embed/Ntl-Oeg3m0A" 
+                        title="How to Use Quran Video Maker" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen 
+                        style="border-radius:12px;width:100%;"
+                    ></iframe>
+                </div>
+                <div style="text-align:center;margin-top:1.5rem;">
+                    <a href="canva-editor.html" class="btn-primary" style="display:inline-flex;align-items:center;text-decoration:none;">
+                        <i class="fas fa-rocket"></i>
+                        Start Creating Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+  <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('contactModal')">&times;</span>
+                <h2>Contact Us</h2>
+            </div>
+    <div class="modal-body">
+                <div class="contact-form">
+                    <form id="contactForm">
+          <div class="form-group">
+                            <label for="name">Name (optional)</label>
+                            <input type="text" id="name" name="name" placeholder="Your name">
+          </div>
+          
+          <div class="form-group">
+                            <label for="email">Email (optional)</label>
+                            <input type="email" id="email" name="email" placeholder="Your email">
+          </div>
+          
+          <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" placeholder="Your message" required></textarea>
+          </div>
+          
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                    
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 1rem; color: var(--text-light);">Sending your message...</p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+<script>
+        // Mobile menu toggle
+        function openMobileMenu() {
+            document.getElementById('mobileNav').classList.add('open');
+            document.getElementById('mobileNavOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobileNav').classList.remove('open');
+            document.getElementById('mobileNavOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            var nav = document.getElementById('mobileNav');
+            if (nav.classList.contains('open')) closeMobileMenu();
+            else openMobileMenu();
+        });
+        document.getElementById('mobileNavOverlay').addEventListener('click', closeMobileMenu);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--bg-white)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .stat-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // FAQ Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    const answer = item.querySelector('.faq-answer');
+                    answer.style.display = 'none';
+                });
+                
+                // Toggle current FAQ item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    const answer = faqItem.querySelector('.faq-answer');
+                    answer.style.display = 'block';
+                }
+            });
+                 });
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+
+        // YouTube Video Functions
+        function loadYouTubeVideo() {
+            const url = document.getElementById('youtubeUrl').value;
+            const videoContainer = document.querySelector('.video-container');
+            const placeholder = document.getElementById('videoPlaceholder');
+            
+            if (!url) {
+                showNotification('Please enter a YouTube URL', 'error');
+                return;
+            }
+            
+            // Extract video ID from URL
+            const videoId = extractYouTubeID(url);
+            if (!videoId) {
+                showNotification('Please enter a valid YouTube URL', 'error');
+                return;
+            }
+            
+            // Create iframe
+            const iframe = document.createElement('iframe');
+            iframe.className = 'video-frame';
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            
+            // Replace placeholder with video
+            placeholder.style.display = 'none';
+            
+            // Remove existing video if any
+            const existingIframe = videoContainer.querySelector('iframe');
+            if (existingIframe) {
+                existingIframe.remove();
+            }
+            
+            videoContainer.appendChild(iframe);
+            showNotification('Video loaded successfully!', 'success');
+        }
+
+        function extractYouTubeID(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // Contact Form Functions
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + type;
+            notification.style.display = 'block';
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        // Handle contact form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+                    
+                    // Get form data
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Validate message
+                    if (!message.trim()) {
+                        showNotification('Please enter a message', 'error');
+                        return;
+                    }
+                    
+                    // Show loading
+                    contactForm.style.display = 'none';
+                    loadingSpinner.style.display = 'block';
+                    
+                    // Create form data
+                    const formData = new FormData();
+                    formData.append('name', name);
+                    formData.append('email', email);
+                    formData.append('message', message);
+                    
+                    // Send data to the server
+                    fetch('contact-form.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Hide loading
+                        loadingSpinner.style.display = 'none';
+                        contactForm.style.display = 'block';
+                        
+                        // Show appropriate message
+                        if (data.success) {
+                            showNotification(data.message || 'Thank you for your message! We will get back to you soon.', 'success');
+                            contactForm.reset();
+                            // Close modal after successful submission
+                            setTimeout(() => {
+                                closeModal('contactModal');
+                            }, 2000);
+                        } else {
+                            showNotification(data.message || 'There was an error sending your message. Please try again.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        
+                        // Hide loading
+                        loadingSpinner.style.display = 'none';
+                        contactForm.style.display = 'block';
+                        
+                        // Show error message
+                        showNotification('There was an error sending your message. Please try again.', 'error');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

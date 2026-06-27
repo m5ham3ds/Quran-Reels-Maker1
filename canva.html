@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Video Maker — Editor | Design & Generate Quran Videos Free</title>
+    <meta name="description" content="Design beautiful Quran ayah visuals and generate MP4 videos with 30+ Arabic fonts, 50+ reciters, word-by-word highlight, tajweed colors, and 15+ translations. Free drag-and-drop editor — no software needed.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://quranvideomaker.com/canva-editor.html">
+    <link rel="shortcut icon" href="image/quranvideomakker-ico.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Quran Video Maker — Free Canvas Editor">
+    <meta property="og:description" content="Drag-and-drop Quran video editor. 30+ Arabic fonts, 50+ reciters, word-by-word highlight, tajweed colors, transparent video export. Free, no software needed.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quranvideomaker.com/canva-editor.html">
+    <meta property="og:image" content="https://quranvideomaker.com/assets/preview.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@thenoblequrran">
+    <meta name="twitter:title" content="Quran Video Maker — Free Canvas Editor">
+    <meta name="twitter:description" content="Design Quran videos with 30+ fonts, word-by-word highlight, tajweed, and 50+ reciters. Export MP4/MOV/WebM from your browser.">
+    <meta name="twitter:image" content="https://quranvideomaker.com/assets/preview.jpg">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CCNWQ4THXT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-CCNWQ4THXT");
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amiri+Quran|Aref+Ruqaa+Ink|Noto+Sans+Arabic|Reem+Kufi+Ink|Katibeh|Harmattan|Aref+Ruqaa|Noto+Nastaliq+Urdu|Lateef|Reem+Kufi|Mada|Amiri|IBM+Plex+Sans+Arabic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Cairo:wght@200;300;400;500;600;700;800;900&family=Tajawal:wght@200;300;400;500;700;800;900&family=Almarai:wght@300;400;700;800&family=Changa:wght@200;300;400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&family=Lalezar&family=Markazi+Text:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="canva-editor.css">
+    <!-- Additional Quran Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Hafs&display=swap" rel="stylesheet">
+    <!-- Traditional Quran Typography -->
+    <style>
+        @font-face {
+            font-family: 'KFGQPC Uthman Taha Naskh';
+            src: url('https://cdn.jsdelivr.net/gh/quranwbw/qpc-fonts@master/various-woff2/UthmanTN1%20Ver10.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/quranwbw/qpc-fonts@master/various-woff/UthmanTN1%20Ver10.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Uthmani Hafs Mushaf';
+            src: url('https://cdn.jsdelivr.net/gh/quranwbw/qpc-fonts@master/various-woff2/UthmanicHafs1%20Ver09.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/quranwbw/qpc-fonts@master/various-woff/UthmanicHafs1%20Ver09.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Me Quran';
+            src: url('https://cdn.jsdelivr.net/gh/aliftype/qahiri@v2.0.0/Qahiri-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'ScheherazadeNew-Bold';
+            src: url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@700&display=swap');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'kitab';
+            src: url('https://fonts.cdnfonts.com/css/kitab') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aref Ruqaa Ink';
+            src: url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink&display=swap');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Kitab';
+            src: url('./asset/Kitab-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Kitab';
+            src: url('./asset/Kitab-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aalmaghribi';
+            src: url('./asset/aalmaghribi.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Aalmaghribi2';
+            src: url('./asset/aalmaghribi.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'KFGQPC Tajweed';
+            src: url('./asset/KFGQPCHAFSColored-Bold.woff2') format('woff2'),
+                 url('./asset/KFGQPCHAFSColored-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        /* QPC V4 Tajweed: page-by-page font, loaded dynamically via JS */
+        @font-face {
+            font-family: 'Almaghribi Warsh';
+            src: url('./asset/Almaghribi-Warsh-Quran.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop-only gate for mobile users -->
+    <div id="mobileGate" style="display:none;position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#1a1a1a 0%,#2e7d32 100%);color:#fff;font-family:'Inter',Arial,sans-serif;overflow-y:auto;">
+        <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center;">
+            <div style="max-width:420px;">
+                <div style="width:80px;height:80px;background:linear-gradient(135deg,#2E7D32,#4CAF50);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2rem;box-shadow:0 4px 20px rgba(46,125,50,0.4);">
+                    <i class="fas fa-desktop" style="color:#fff;"></i>
+                </div>
+                <h1 style="font-size:1.6rem;font-weight:700;margin-bottom:1rem;line-height:1.3;">Desktop Only</h1>
+                <p style="font-size:1rem;line-height:1.7;opacity:0.9;margin-bottom:1.5rem;">
+                    The Quran Visual Editor requires a desktop or laptop computer for the best experience. The drag-and-drop canvas, timeline, and design tools are optimized for larger screens.
+                </p>
+                <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:1.25rem;margin-bottom:2rem;text-align:left;">
+                    <p style="font-size:0.9rem;margin-bottom:0.75rem;opacity:0.9;"><i class="fas fa-check-circle" style="color:#4CAF50;margin-right:8px;"></i> Works on any modern desktop browser</p>
+                    <p style="font-size:0.9rem;margin-bottom:0.75rem;opacity:0.9;"><i class="fas fa-check-circle" style="color:#4CAF50;margin-right:8px;"></i> Chrome, Firefox, Safari, Edge</p>
+                    <p style="font-size:0.9rem;margin-bottom:0;opacity:0.9;"><i class="fas fa-check-circle" style="color:#4CAF50;margin-right:8px;"></i> No installation or sign-up required</p>
+                </div>
+                <a href="/v1" style="display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,#FFD700,#FFA000);color:#1a1a1a;padding:0.9rem 2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:1rem;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:transform 0.2s;">
+                    <i class="fas fa-arrow-left"></i>classic version (v1)
+                </a>
+               
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var isMobile = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
+        if (isMobile) {
+            document.getElementById('mobileGate').style.display = 'block';
+            var editor = document.querySelector('.editor-container');
+            if (editor) editor.style.display = 'none';
+        }
+        window.addEventListener('resize', function() {
+            var gate = document.getElementById('mobileGate');
+            var editor = document.querySelector('.editor-container');
+            if (window.innerWidth < 1024) {
+                gate.style.display = 'block';
+                if (editor) editor.style.display = 'none';
+            } else {
+                gate.style.display = 'none';
+                if (editor) editor.style.display = '';
+            }
+        });
+    })();
+    </script>
+
+    <div class="editor-container">
+        <!-- Top Toolbar -->
+        <div class="top-toolbar">
+            <div class="toolbar-left">
+                <div class="logo-container">
+                    <a href="index.html" title="Back to Home" style="display:inline-flex;align-items:center;text-decoration:none;color:inherit;">
+                        <img src="image/quranvideomakker-logo.png" alt="Quran Video Maker" class="toolbar-logo">
+                    </a>
+                    <h1>Quran Visual Editor</h1>
+                </div>
+            </div>
+            <div class="toolbar-center">
+                <button class="tool-btn" id="undoBtn" title="Undo"><i class="fas fa-undo"></i></button>
+                <button class="tool-btn" id="redoBtn" title="Redo"><i class="fas fa-redo"></i></button>
+                <button class="tool-btn" id="zoomInBtn" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                <button class="tool-btn" id="zoomOutBtn" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                <button class="tool-btn" id="fitToScreenBtn" title="Fit to Screen"><i class="fas fa-expand-arrows-alt"></i></button>
+            </div>
+            <div class="toolbar-right">
+                <div class="account-dropdown" id="accountDropdown" style="position:relative;display:inline-block;margin-right:8px;">
+                    <button class="action-btn" id="accountBtn" title="Account"><i class="fas fa-user"></i> <span id="accountLabel">Account</span></button>
+                    <div class="account-menu" id="accountMenu" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,0.12);min-width:180px;z-index:999;overflow:hidden;">
+                        <div id="accountMenuLoggedIn" style="display:none;">
+                            <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:12px;color:#666;">Signed in as</div>
+                            <div style="padding:8px 16px;font-weight:600;font-size:13px;word-break:break-all;" id="accountMenuEmail"></div>
+                            <button class="account-menu-item" id="accountLogoutBtn" style="width:100%;text-align:left;padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;border-top:1px solid #eee;color:#c62828;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                        </div>
+                        <div id="accountMenuLoggedOut">
+                            <a href="" id="accountLoginLink" style="display:block;padding:12px 16px;text-decoration:none;color:#333;font-size:13px;"><i class="fas fa-sign-in-alt"></i> Login / Create Account</a>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" id="importProjectInput" accept=".json,application/json" style="display: none;">
+                <button class="action-btn import-btn" id="importBtn" title="Import project">
+                    <i class="fas fa-file-import"></i> Import
+                </button>
+                <button class="action-btn export-btn" id="exportBtn" title="Export options">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Editor Area -->
+        <div class="editor-main">
+            <div class="editor-content">
+                <!-- Left Sidebar -->
+                <div class="left-sidebar">
+                    <div class="panel">
+                        <button class="element-btn" id="sidebarSearchBtn" title="Search Quran Ayah" style="width:100%;padding:10px 16px;font-size:14px;"><i class="fas fa-search"></i> Search</button>
+                        <div class="form-group">
+                            <label for="surahSelect">Surah:</label>
+                            <select id="surahSelect"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ayahStart">Start Ayah:</label>
+                            <select id="ayahStart"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ayahEnd">End Ayah:</label>
+                            <select id="ayahEnd"></select>
+                        </div>
+                        <div class="form-group" id="bismillahOptionGroup" style="display:none;">
+                            <label style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;" title="Prepend Bismillah (بسم الله الرحمن الرحيم) as a separate slide before Ayah 1">
+                                <input type="checkbox" id="includeBismillah" style="margin:0;cursor:pointer;">
+                                <span>Include Bismillah slide</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="reciterSelect">Reciter:</label>
+                            <select id="reciterSelect" title="Word-by-word sync = exact timing from Quran.com API. Others use estimated timing when &quot;Word by word&quot; is on."></select>
+                        </div>
+                        <div class="form-group custom-audio-section" id="customAudioSection" style="display: none;">
+                            <label>Custom Audio</label>
+                            <div class="custom-audio-mode-tabs">
+                                <button class="custom-audio-tab active" data-mode="single">Single File + Markers</button>
+                                <button class="custom-audio-tab" data-mode="multi">One File Per Ayah</button>
+                            </div>
+
+                            <!-- Single file mode: upload one MP3, mark ayah timestamps -->
+                            <div class="custom-audio-panel" id="customSinglePanel">
+                                <div class="custom-audio-dropzone" id="customSingleDropzone">
+                                    <p class="custom-audio-hint"><i class="fas fa-upload"></i> Drag a single MP3 here or click to browse</p>
+                                    <input type="file" id="customSingleInput" accept=".mp3,audio/mpeg" style="display:none">
+                                </div>
+                                <div id="customSingleLoaded" style="display:none">
+                                    <div class="custom-single-filename" id="customSingleFilename"></div>
+                                    <div class="custom-waveform-wrapper">
+                                        <canvas id="customWaveformCanvas" height="80"></canvas>
+                                        <div class="custom-waveform-playhead" id="customPlayhead"></div>
+                                        <div class="custom-waveform-markers" id="customWaveformMarkers"></div>
+                                    </div>
+                                    <div class="custom-marker-controls">
+                                        <button class="btn-sm" id="customPlayPauseBtn"><i class="fas fa-play"></i></button>
+                                        <span class="custom-marker-time" id="customCurrentTime">0:00.0</span>
+                                        <span>/</span>
+                                        <span class="custom-marker-time" id="customTotalTime">0:00.0</span>
+                                        <button class="btn-sm btn-primary" id="customMarkAyahBtn" title="Mark current position as start of next ayah"><i class="fas fa-map-marker-alt"></i> Mark Ayah</button>
+                                        <button class="btn-sm btn-danger" id="customClearMarkersBtn" title="Clear all markers"><i class="fas fa-trash"></i> Clear</button>
+                                    </div>
+                                    <div class="custom-marker-list" id="customMarkerList"></div>
+                                </div>
+                            </div>
+
+                            <!-- Multi file mode: one MP3 per ayah -->
+                            <div class="custom-audio-panel" id="customMultiPanel" style="display:none">
+                                <div class="custom-audio-dropzone" id="customMultiDropzone">
+                                    <p class="custom-audio-hint"><i class="fas fa-upload"></i> Drag MP3 files here or click. Files map in order to loaded ayahs.</p>
+                                    <input type="file" id="customAudioInput" accept=".mp3,audio/mpeg" multiple style="display:none">
+                                </div>
+                                <div class="custom-audio-list" id="customAudioList"></div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Settings moved here -->
+                        <div class="advanced-controls">
+                            <!-- Translation -->
+                            <div class="form-group">
+                                <label>Show Translation:</label>
+                                <select id="showTranslation">
+                                    <option value="none" selected>None</option>
+                                    <option value="en">English</option>
+                                    <option value="ur">Urdu</option>
+                                    <option value="fr">French</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="id">Indonesian</option>
+                                    <option value="tr">Turkish</option>
+                                    <option value="ru">Russian</option>
+                                    <option value="fa">Persian</option>
+                                    <option value="de">German</option>
+                                    <option value="hi">Hindi</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Surah Info -->
+                            <div class="form-group">
+                                <label>Surah Info:</label>
+                                <select id="showSurahInfo">
+                                    <option value="none" selected>None</option>
+                                    <option value="english">English</option>
+                                    <option value="arabic">Arabic</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button class="load-btn" id="loadAyahRangeBtn">
+                            <i class="fas fa-plus"></i> Load Ayah Range
+                        </button>
+                    </div>
+
+                    <!-- Current Ayah Navigation -->
+                    <div class="panel" id="ayahNavigationPanel" style="display: none;">
+                        <h3><i class="fas fa-list-ol"></i> Ayah Navigation</h3>
+                        <div class="ayah-nav-info">
+                            <span>Current: </span>
+                            <span id="currentAyahInfo">Ayah 1</span>
+                        </div>
+                        <div class="ayah-nav-controls">
+                            <button class="nav-btn" id="prevAyahNavBtn">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button class="nav-btn" id="nextAyahNavBtn">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="ayah-list" id="ayahList">
+                            <!-- Dynamic ayah list will be populated here -->
+                        </div>
+                    </div>
+
+
+
+                    <!-- Design Tools -->
+                    <div class="panel" id="designToolsPanel" style="display: none;">
+                        <h3><i class="fas fa-paint-brush"></i> Design Tools</h3>
+                        <p class="design-tools-description">Applies the current ayah's design (colors, fonts, positions, background) to all other ayahs while preserving each ayah's text.</p>
+                        <button class="element-btn primary" id="applyDesignToAllBtn" title="Apply current design to all ayahs">
+                            <i class="fas fa-paint-brush"></i> Apply Design to All Ayahs
+                        </button>
+                    </div>
+
+                    <!-- Template Manager -->
+                    <div class="panel">
+                        <h3><i class="fas fa-save"></i> Template Manager</h3>
+                        <div class="template-actions">
+                            <button class="element-btn" id="saveTemplateBtn">
+                                <i class="fas fa-save"></i> Save Current Design
+                            </button>
+                            <div id="savedTemplatesList" class="saved-templates-list">
+                                <p class="no-templates">No saved templates</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Projects (optional: save to account when you want) -->
+                    <div class="panel" id="myProjectsPanel">
+                        <h3><i class="fas fa-folder-open"></i> My Projects</h3>
+                        <p class="export-hint" style="margin-bottom:10px;">Optional. Create an account to save and resume later.</p>
+                        <button class="element-btn" id="saveToCloudBtn" title="Save current project to your account">
+                            <i class="fas fa-cloud-upload-alt"></i> Save to My Projects
+                        </button>
+                        <div id="myProjectsList" class="my-projects-list">
+                            <p class="no-projects">Loading...</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="panel">
+                        <h3><i class="fas fa-lightning-bolt"></i> Quick Actions</h3>
+                        
+                        <button class="element-btn" id="addTextBtn">
+                            <i class="fas fa-plus"></i> Add Custom Text
+                        </button>
+                        <button class="element-btn" id="resetCurrentBtn">
+                            <i class="fas fa-refresh"></i> Reset Current Ayah
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Area -->
+                <div class="canvas-container">
+                    <div class="canvas-header">
+                        <div class="canvas-title">
+                            <h3 id="canvasTitle">Design Your Ayah</h3>
+                            <span id="canvasSubtitle">Select a Surah and Ayah range to begin</span>
+                        </div>
+                        <div class="canvas-controls">
+                            <select id="aspectRatio">
+                                <option value="16:9">YouTube (16:9)</option>
+                                <option value="9:16">TikTok/Reels (9:16)</option>
+                                <option value="1:1">Instagram Square (1:1)</option>
+                                <option value="4:5">Instagram Portrait (4:5)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="canvas-wrapper">
+                        <!-- Canvas Toolbar - Like Canva -->
+                        <div class="canvas-toolbar">
+                            <div class="toolbar-section">
+                                <div class="toolbar-group" id="toolbarAyahInfo" style="background:#f0f0f0;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;color:#333;display:none;">
+                                    <span id="toolbarAyahNum" style="direction:rtl;font-family:'Amiri',serif;font-size:14px;">۝</span>
+                                </div>
+                                <div class="toolbar-group">
+                                    <label>Font:</label>
+                                    <select id="fontFamilySelect" class="toolbar-select">
+                                        <!-- Quran-specific fonts first -->
+                                        <optgroup label="Traditional Quran Fonts">
+                                            <option value="Uthmani Tajweed">Uthmani Tajweed (Quran.com Style)</option>
+                                            <option value="KFGQPC Tajweed">KFGQPC Tajweed (Color Tajweed)</option>
+                                            <option value="QPC V4 Tajweed">QPC V4 Tajweed (Color Tajweed)</option>
+                                            <option value="KFGQPC Uthman Taha Naskh">KFGQPC Uthman Taha (Mushaf Style)</option>
+                                            <option value="Uthmani Hafs Mushaf">Uthmani Hafs Mushaf</option>
+                                            <option value="Me Quran">Me Quran (Qahiri)</option>
+                                            <option value="Amiri Quran">Amiri Quran (Mushaf)</option>
+                                            <option value="Aalmaghribi2">Aalmaghribi2 (Maghribi Style)</option>
+                                            <option value="Almaghribi Warsh">Almaghribi Warsh (Quran)</option>
+                                            <option value="Kitab">Kitab Font (Traditional)</option>
+                                            <option value="Kitab Bold">Kitab Bold (Traditional)</option>
+                                            <option value="Hafs">Hafs (Traditional)</option>
+                                            <option value="Scheherazade New">Scheherazade New (Academic)</option>
+                                            <option value="ScheherazadeNew-Bold">Scheherazade New Bold</option>
+                                            <option value="Aalmaghribi">Aalmaghribi (Original Style)</option>
+                                        </optgroup>
+                                        <!-- Modern Arabic fonts -->
+                                        <optgroup label="Modern Arabic Fonts">
+                                            <option value="Amiri" selected>Amiri (Classical)</option>
+                                            <option value="Noto Naskh Arabic">Noto Naskh Arabic</option>
+                                            <option value="Cairo">Cairo (Clean)</option>
+                                            <option value="Reem Kufi">Reem Kufi (Modern)</option>
+                                            <option value="Tajawal">Tajawal (Contemporary)</option>
+                                            <option value="Almarai">Almarai (Rounded)</option>
+                                            <option value="Changa">Changa (Bold)</option>
+                                            <option value="El Messiri">El Messiri (Elegant)</option>
+                                            <option value="Markazi Text">Markazi Text (Newspaper)</option>
+                                        </optgroup>
+                                        <!-- Decorative fonts -->
+                                        <optgroup label="Decorative Fonts">
+                                            <option value="Lalezar">Lalezar (Decorative)</option>
+                                            <option value="Aref Ruqaa">Aref Ruqaa (Handwritten)</option>
+                                            <option value="Aref Ruqaa Ink">Aref Ruqaa Ink (Handwritten Ink)</option>
+                                            <option value="Katibeh">Katibeh (Calligraphic)</option>
+                                            <option value="Harmattan">Harmattan (West African)</option>
+                                            <option value="Lateef">Lateef (Nastaliq)</option>
+                                        </optgroup>
+                                        <!-- Technical fonts -->
+                                        <optgroup label="Technical Fonts">
+                                            <option value="Noto Sans Arabic">Noto Sans Arabic</option>
+                                            <option value="IBM Plex Sans Arabic">IBM Plex Sans Arabic</option>
+                                        </optgroup>
+                                    </select>
+                                    <label style="display:inline-flex;align-items:center;gap:4px;margin-left:6px;cursor:pointer;font-size:12px;white-space:nowrap;">
+                                        <input type="checkbox" id="enableAyahMark" checked style="margin:0;cursor:pointer;"> ۝
+                                    </label>
+                                </div>
+                                
+                                <div class="toolbar-group">
+                                    <label>Size:</label>
+                                    <input type="range" id="fontSizeSlider" class="toolbar-range" min="12" max="120" value="40">
+                                    <span id="fontSizeValue" class="toolbar-value">40px</span>
+                                </div>
+                                
+                                <div class="toolbar-group">
+                                    <label>Color:</label>
+                                    <div class="color-picker-container">
+                                        <input type="color" id="textColorPicker" class="toolbar-color" value="#ffffff">
+                                    </div>
+                                </div>
+                                
+                                <div class="toolbar-group">
+                                    <div class="toolbar-buttons">
+                                        <button class="toolbar-btn style-btn" id="boldBtn" title="Bold"><i class="fas fa-bold"></i></button>
+                                        <button class="toolbar-btn style-btn" id="italicBtn" title="Italic"><i class="fas fa-italic"></i></button>
+                                        <button class="toolbar-btn style-btn" id="underlineBtn" title="Underline"><i class="fas fa-underline"></i></button>
+                                    </div>
+                                </div>
+                                
+                                <div class="toolbar-group">
+                                    <div class="toolbar-buttons">
+                                        <button class="toolbar-btn align-btn" data-align="left" title="Align Left"><i class="fas fa-align-left"></i></button>
+                                        <button class="toolbar-btn align-btn" data-align="center" title="Align Center"><i class="fas fa-align-center"></i></button>
+                                        <button class="toolbar-btn align-btn" data-align="right" title="Align Right"><i class="fas fa-align-right"></i></button>
+                                        <button class="toolbar-btn align-btn" data-align="justify" title="Justify"><i class="fas fa-align-justify"></i></button>
+                                    </div>
+                                </div>
+                                <!-- Position buttons removed to slim toolbar -->
+                                <div class="toolbar-group">
+                                    <label>Line Height:</label>
+                                    <input type="range" id="lineHeightSlider" class="toolbar-range" min="1" max="3" step="0.1" value="1.8">
+                                    <span id="lineHeightValue" class="toolbar-value">1.8</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="canvas" id="editableCanvas">
+                            <div id="canvasBgOverlay" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></div>
+                            <div class="canvas-placeholder">
+                                <i class="fas fa-plus-circle"></i>
+                                <p>Load Ayah Range to Start Designing</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Audio Timeline Inside Canvas Wrapper -->
+                        <div class="audio-timeline-wrapper">
+                            <div class="audio-timeline-container" id="audioTimelineContainer">
+                                <div class="timeline-header">
+                                    <h4>🎵 Audio Timeline</h4>
+                                </div>
+                                <div class="audio-controls">
+                                    <button class="audio-btn" id="playPauseBtn">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button class="audio-btn" id="stopBtn">
+                                        <i class="fas fa-stop"></i>
+                                    </button>
+                                    <button class="audio-btn" id="prevAyahAudioBtn">
+                                        <i class="fas fa-step-backward"></i>
+                                    </button>
+                                    <button class="audio-btn" id="nextAyahAudioBtn">
+                                        <i class="fas fa-step-forward"></i>
+                                    </button>
+                                    <span class="audio-info" id="audioInfo">Audio timeline ready - load ayahs to activate</span>
+                                    <span class="word-highlight-controls" style="display:inline-flex;align-items:center;flex-wrap:wrap;gap:8px;margin-left:10px;font-size:11px;color:#888;opacity:0.65;">
+                                        <label title="Word by word — temporarily disabled" style="display:inline-flex;align-items:center;gap:4px;cursor:not-allowed;user-select:none;">
+                                            <input type="checkbox" id="karaokeModeCheckbox" disabled style="margin:0;cursor:not-allowed;">
+                                            <span>Word by word</span>
+                                        </label>
+                                        <label style="display:inline-flex;align-items:center;gap:4px;cursor:not-allowed;" title="Temporarily disabled">
+                                            <span>Color</span>
+                                            <input type="color" id="karaokeHighlightColor" value="#ffd700" disabled style="width:28px;height:22px;padding:0;border:none;cursor:not-allowed;">
+                                        </label>
+                                        <label style="display:inline-flex;align-items:center;gap:4px;cursor:not-allowed;" title="Temporarily disabled">
+                                            <span>Sync</span>
+                                            <input type="range" id="karaokeTimingOffset" min="-200" max="400" value="0" disabled style="width:72px;vertical-align:middle;cursor:not-allowed;">
+                                            <span id="karaokeTimingOffsetVal" style="min-width:36px;font-variant-numeric:tabular-nums;">0ms</span>
+                                        </label>
+                                    </span>
+                                </div>
+                                <div class="timeline-container">
+                                    <div class="timeline" id="audioTimeline">
+                                        <div class="timeline-progress" id="timelineProgress"></div>
+                                        <div class="timeline-handle" id="timelineHandle"></div>
+                                    </div>
+                                    <div class="time-display">
+                                        <span id="currentTime">0:00</span>
+                                        <span>/</span>
+                                        <span id="totalTime">0:00</span>
+                                    </div>
+                                </div>
+                                <audio id="audioPlayer" preload="metadata"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="right-sidebar">
+                    <!-- Watermark Panel - Moved to Top -->
+                    <div class="panel">
+                        <h3><i class="fas fa-copyright"></i> Watermark</h3>
+                        <div class="watermark-section">
+                            <input type="checkbox" id="enableWatermark" checked style="display:none;">
+                            <div class="watermark-controls" id="watermarkControls" style="display: block;">
+                                <div class="watermark-position">
+                                    <label>Position:</label>
+                                    <select id="watermarkPosition">
+                                        <option value="bottom-right">Bottom Right</option>
+                                        <option value="bottom-left">Bottom Left</option>
+                                        <option value="top-right">Top Right</option>
+                                        <option value="top-left">Top Left</option>
+                                        <option value="center">Center</option>
+                                    </select>
+                                </div>
+                                <div class="watermark-opacity">
+                                    <label>Opacity:</label>
+                                    <input type="range" id="watermarkOpacity" min="30" max="100" value="50">
+                                    <span id="watermarkOpacityValue">50%</span>
+                                </div>
+                                <div class="watermark-size">
+                                    <label>Size:</label>
+                                    <input type="range" id="watermarkSize" min="50" max="200" value="100">
+                                    <span id="watermarkSizeValue">100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layer Panel -->
+                    <div class="panel">
+                        <h3><i class="fas fa-layers"></i> Elements</h3>
+                        <div class="elements-controls">
+                            <button class="element-control-btn" id="showAllElementsBtn">
+                                <i class="fas fa-eye"></i> Show All
+                            </button>
+                            <button class="element-control-btn" id="hideAllElementsBtn">
+                                <i class="fas fa-eye-slash"></i> Hide All
+                            </button>
+                        </div>
+                        <div class="layers-list" id="layersList">
+                            <p class="no-elements">No elements to display</p>
+                        </div>
+                    </div>
+
+                    <!-- Text Effects Panel -->
+                    <div class="panel">
+                        <h3><i class="fas fa-magic"></i> Text Effects</h3>
+                        <div class="shadow-controls">
+                            <div class="form-group">
+                                <label>Text Shadow:</label>
+                                <input type="range" id="shadowSlider" min="0" max="20" value="0">
+                                <span id="shadowValue">0px</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Shadow Color:</label>
+                                <input type="color" id="shadowColorPicker" value="#000000">
+                            </div>
+                            <div class="form-group">
+                                <label>Text Opacity:</label>
+                                <input type="range" id="opacitySlider" min="0" max="100" value="100">
+                                <span id="opacityValue">100%</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Text Outline (stroke):</label>
+                                <input type="range" id="strokeSlider" min="0" max="10" value="0">
+                                <span id="strokeValue">0px</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Stroke Color:</label>
+                                <input type="color" id="strokeColorPicker" value="#000000">
+                            </div>
+                            <div class="form-group">
+                                <label>Rotation:</label>
+                                <input type="range" id="rotationSlider" min="0" max="360" value="0">
+                                <span id="rotationValue">0°</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Background & Effects -->
+                    <div class="panel">
+                        <h3><i class="fas fa-magic"></i> Background & Effects</h3>
+                        <div class="effects-controls">
+                            <!-- Preset Backgrounds -->
+                            <div class="form-group">
+                                <label>Preset Backgrounds:</label>
+                                <div class="preset-backgrounds-grid">
+                                    <div class="preset-bg" data-bg="back-1">
+                                        <img src="image/back/Image_fx.jpg" alt="Islamic Background 1">
+                                    </div>
+                                    <div class="preset-bg" data-bg="back-2">
+                                        <img src="image/back/Image_fx (1).jpg" alt="Islamic Background 2">
+                                    </div>
+                                    <div class="preset-bg" data-bg="back-3">
+                                        <img src="image/back/Image_fx (2).jpg" alt="Islamic Background 3">
+                                    </div>
+                                    <div class="preset-bg" data-bg="back-4">
+                                        <img src="image/back/Image_fx (3).jpg" alt="Islamic Background 4">
+                                    </div>
+                                    <div class="preset-bg" data-bg="back-5">
+                                        <img src="image/back/Image_fx (4).jpg" alt="Islamic Background 5">
+                                    </div>
+                                    <div class="preset-bg" data-bg="back-6">
+                                        <img src="image/back/Image_fx (5).jpg" alt="Islamic Background 6">
+                                    </div>
+                                    <div class="preset-bg" data-bg="back-7">
+                                        <img src="image/back/Image_fx (6).jpg" alt="Islamic Background 7">
+                                    </div>
+                                    <div class="preset-bg" data-bg="back-8">
+                                        <img src="image/back/Image_fx (7).jpg" alt="Islamic Background 8">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Custom Background File Upload - Modern Style -->
+                            <div class="form-group">
+                                <label>Upload Background Image:</label>
+                                <div class="custom-file-upload">
+                                    <input type="file" id="customBackground" accept="image/*" hidden>
+                                    <button class="file-upload-btn" onclick="document.getElementById('customBackground').click()">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Click to upload background image</span>
+                                    </button>
+                                    <div id="fileUploadInfo" class="file-upload-info">
+                                        <span class="file-name">No file selected</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Saved Backgrounds Gallery -->
+                            <div class="form-group" id="savedBgGallerySection" style="display:none;">
+                                <label>Saved Backgrounds:</label>
+                                <div id="savedBgGallery" style="display:flex;flex-wrap:wrap;gap:6px;max-height:120px;overflow-y:auto;"></div>
+                            </div>
+                            
+                            <!-- Custom Background Creation -->
+                            <div class="form-group">
+                                <label>Create Custom Background:</label>
+                                <div class="button-group background-creation-buttons">
+                                    <button class="bg-create-btn" id="createGradientBtn" title="Create Custom Gradient">
+                                        <i class="fas fa-fill-drip"></i> Gradient
+                                    </button>
+                                    <button class="bg-create-btn" id="createSolidColorBtn" title="Create Custom Color">
+                                        <i class="fas fa-square"></i> Color
+                                    </button>
+                                    <button class="bg-create-btn" id="clearBackgroundBtn" title="Clear Background">
+                                        <i class="fas fa-eraser"></i> Clear
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Background Opacity:</label>
+                                <input type="range" id="backgroundOpacity" min="0" max="100" value="100">
+                                <span id="backgroundOpacityValue">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generation Progress Modal -->
+            <div class="modal" id="generationModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Generating Ayahs</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span id="progressText">Preparing...</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                        </div>
+                        <div class="generation-log" id="generationLog">
+                            <!-- Progress updates will appear here -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="cancel-btn" id="cancelGeneration">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Modal -->
+            <div class="modal" id="exportModal">
+                <div class="modal-content export-modal-content">
+                    <div class="modal-header">
+                        <h3>Export</h3>
+                        <button class="close-btn" id="closeExportModal"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="modal-body export-modal-body">
+                        <section class="export-section" id="exportVideoSection" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:12px;padding:16px;border:2px solid #4caf50;">
+                            <h4 style="display:flex;align-items:center;gap:8px;"><i class="fas fa-video" style="color:#2e7d32;"></i> Generate Video</h4>
+                            <p class="export-hint" id="videoMaxAyahHint" style="margin:6px 0 10px;font-size:12px;color:#2e7d32;font-weight:500;"></p>
+                            <div style="display:flex;gap:8px;margin-bottom:8px;">
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border:2px solid #4caf50;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;background:#fff;">
+                                    <input type="radio" name="videoExportMode" value="normal" checked style="margin:0;"> Normal
+                                </label>
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border:2px solid #e0e0e0;border-radius:8px;cursor:not-allowed;font-size:13px;font-weight:500;background:#f5f5f5;opacity:0.65;" title="Word by Word — temporarily disabled">
+                                    <input type="radio" name="videoExportMode" value="wordbyword" disabled style="margin:0;"> Word by Word
+                                </label>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-bottom:8px;">
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border:2px solid #666;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;background:#fff;">
+                                    <input type="radio" name="videoFormat" value="mp4" checked style="margin:0;"> MP4
+                                </label>
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border:2px solid #666;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;background:#fff;" title="Transparent background — After Effects, Final Cut, Premiere.">
+                                    <input type="radio" name="videoFormat" value="mov" style="margin:0;"> MOV (transparent)
+                                </label>
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:8px 12px;border:2px solid #666;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;background:#fff;" title="Transparent background — Chrome, Premiere, DaVinci.">
+                                    <input type="radio" name="videoFormat" value="webm" style="margin:0;"> WebM (transparent)
+                                </label>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-bottom:10px;">
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:7px 10px;border:2px solid #9e9e9e;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;background:#fff;" title="720p — fast, smaller file">
+                                    <input type="radio" name="videoQuality" value="720" style="margin:0;"> 720p
+                                </label>
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:7px 10px;border:2px solid #9e9e9e;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;background:#fff;" title="1080p — balanced quality and speed">
+                                    <input type="radio" name="videoQuality" value="1080" checked style="margin:0;"> 1080p
+                                </label>
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:7px 10px;border:2px solid #e0e0e0;border-radius:8px;cursor:not-allowed;font-size:12px;font-weight:500;background:#f5f5f5;opacity:0.65;" title="2K — temporarily disabled (high memory use in browser)">
+                                    <input type="radio" name="videoQuality" value="1440" disabled style="margin:0;"> 2K
+                                </label>
+                                <label style="flex:1;display:flex;align-items:center;gap:6px;padding:7px 10px;border:2px solid #e0e0e0;border-radius:8px;cursor:not-allowed;font-size:12px;font-weight:500;background:#f5f5f5;opacity:0.65;" title="4K — temporarily disabled (high memory use in browser)">
+                                    <input type="radio" name="videoQuality" value="2160" disabled style="margin:0;"> 4K
+                                </label>
+                            </div>
+                            <button class="element-btn primary" id="generateVideoBtn" style="font-size:15px;padding:12px 20px;width:100%;"><i class="fas fa-video"></i> Generate Video</button>
+                            <div id="videoTabWarning" style="display:contents;margin-top:8px;padding:10px 14px;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;font-size:12px;color:#856404;line-height:1.5;">
+                                <strong><i class="fas fa-exclamation-triangle"></i> Keep this tab active!</strong><br>
+                                Video generation requires this tab to stay visible. Do not switch tabs or minimize the browser until the video is ready.
+                            </div>
+                            <div id="videoTabLostWarning" style="display:none;margin-top:6px;padding:10px 14px;background:#f8d7da;border:1px solid #f5c6cb;border-radius:8px;font-size:12px;color:#721c24;line-height:1.5;">
+                                <strong><i class="fas fa-times-circle"></i> Tab was hidden!</strong> Video generation paused. Click here to continue or the video may be incomplete.
+                            </div>
+                            <div id="videoProgressWrap" style="display:none;margin-top:10px;">
+                                <div style="background:#e0e0e0;border-radius:8px;height:22px;overflow:hidden;position:relative;">
+                                    <div id="videoProgressBar" style="background:linear-gradient(90deg,#1b5e20,#4caf50);height:100%;width:0%;transition:width 0.3s;border-radius:8px;"></div>
+                                    <span id="videoProgressLabel" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:600;color:#333;">Preparing...</span>
+                                </div>
+                            </div>
+                            <div class="video-status" id="videoStatus" style="display:none;">Ready</div>
+                        </section>
+                        <hr class="export-divider">
+                        <section class="export-section">
+                            <h4>Current Ayah</h4>
+                            <div class="export-row">
+                                <label for="exportFormat">Format:</label>
+                                <select id="exportFormat" title="Export format">
+                                    <option value="png">PNG</option>
+                                    <option value="jpeg">JPEG</option>
+                                    <option value="webp">WebP</option>
+                                </select>
+                            </div>
+                            <div class="export-quality-wrap" id="exportQualityWrap" style="display: none;">
+                                <label for="exportQuality">Quality:</label>
+                                <input type="range" id="exportQuality" min="1" max="100" value="92">
+                                <span id="exportQualityValue">92%</span>
+                            </div>
+                            <button class="element-btn" id="exportCurrentAyahBtn"><i class="fas fa-image"></i> Export Current Ayah Image</button>
+                        </section>
+                        <hr class="export-divider">
+                        <section class="export-section">
+                            <h4>All Ayahs</h4>
+                            <div class="export-row" style="margin-bottom:8px;">
+                                <label for="exportAllFormat">Format:</label>
+                                <select id="exportAllFormat" title="Image format for ZIP export" style="flex:1;">
+                                    <option value="png">PNG (High Quality)</option>
+                                    <option value="jpeg">JPEG (Smaller Size)</option>
+                                    <option value="webp">WebP (Modern)</option>
+                                </select>
+                            </div>
+                            <button class="element-btn" id="exportAllImagesBtn"><i class="fas fa-images"></i> Export All Images as ZIP</button>
+                            <button class="element-btn" id="exportAllAudiosBtn"><i class="fas fa-music"></i> Export All Audio as ZIP</button>
+                            <button class="element-btn" id="exportAllSrtsBtn"><i class="fas fa-file-alt"></i> Export All SRT Subtitles as ZIP</button>
+                        </section>
+                        <hr class="export-divider">
+                        <section class="export-section">
+                            <h4>Project</h4>
+                            <button class="element-btn" id="saveProjectBtn"><i class="fas fa-save"></i> Save to computer (.json)</button>
+                            <button class="element-btn primary" id="saveToCloudFromExportBtn"><i class="fas fa-cloud-upload-alt"></i> Save to My Projects</button>
+                            <p class="export-hint" id="saveCloudHint">Save to My Projects stores your work online. Enter your email to create a free account.</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Disclaimer (shown once per day) -->
+            <div class="modal" id="copyrightDisclaimerModal" style="display:none;">
+                <div class="modal-content" style="max-width:520px;">
+                    <div class="modal-header" style="border-bottom:1px solid #eee;">
+                        <h3 style="margin:0;"><i class="fas fa-balance-scale" style="color:#1b5e20;margin-right:8px;"></i>Important Notice</h3>
+                    </div>
+                    <div class="modal-body" style="padding:20px 24px;font-size:14px;line-height:1.7;color:#ffffff;">
+                        <p style="margin-bottom:12px;">
+                            <strong>Quranic text</strong> is part of the public domain and free for everyone to use, share, and distribute.
+                        </p>
+                        <p style="margin-bottom:12px;">
+                            <strong>Audio recitations</strong>, however, are copyrighted by their respective reciters, publishers, or recording studios. If you plan to share content that includes a recitation on social media or any public platform, you are responsible for obtaining the necessary permissions from the rights holder.
+                        </p>
+                        <p style="margin-bottom:16px;">
+                            We are actively working to secure official licenses from reciters so you can use their audio freely. Follow us on X (Twitter) <strong>@thenoblequrran</strong> to stay updated on newly licensed reciters.
+                        </p>
+                        <div style="background:#f0f7f0;border-radius:10px;padding:14px;font-size:13px;color:#2e7d32;margin-bottom:16px;">
+                            <i class="fas fa-info-circle"></i> Using <strong>Custom Reciter Upload</strong> with your own recordings avoids any copyright concerns.
+                        </div>
+                        <button class="element-btn primary" id="copyrightDismissBtn" style="width:100%;padding:12px;font-size:14px;">
+                            <i class="fas fa-check"></i> I Understand
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Twitter Follow Popup -->
+            <div class="modal" id="twitterFollowModal" style="display:none;">
+                <div class="modal-content" style="max-width:420px;text-align:center;">
+                    <div class="modal-header" style="border:none;padding-bottom:0;">
+                        <h3 style="width:100%;text-align:center;margin:0;">Follow us for updates</h3>
+                    </div>
+                    <div class="modal-body" style="padding:16px 24px 24px;">
+                        <p style="color:#666;margin-bottom:16px;">Follow <strong>@thenoblequrran</strong> to get new features &amp; updates.</p>
+                        <div style="background:#f5f8fa;border:1px solid #e1e8ed;border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;">
+                            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                <i class="fab fa-x-twitter" style="font-size:20px;"></i>
+                                <strong>@thenoblequrran</strong>
+                            </div>
+                            <p style="font-size:13px;color:#555;margin:0;">Latest posts by @thenoblequrran</p>
+                        </div>
+                        <a href="https://x.com/thenoblequrran" target="_blank" rel="noopener" class="element-btn primary" style="display:block;width:100%;padding:12px;font-size:15px;text-decoration:none;text-align:center;margin-bottom:10px;">
+                            <i class="fab fa-x-twitter"></i> Follow us now
+                        </a>
+                        <button class="element-btn" id="twitterFollowLaterBtn" style="width:100%;padding:10px;font-size:13px;color:#888;">Maybe later</button>
+                        <p style="font-size:11px;color:#aaa;margin-top:12px;">Tip: after following, click the bell icon on X to get notifications.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save to account (email + code verification) -->
+            <div class="modal" id="saveAccountModal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Save to your account</h3>
+                        <button type="button" class="close-btn" id="closeSaveAccountModal"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="saveAccStep1">
+                            <p class="export-hint">Enter your email. We'll send a verification code — no password needed.</p>
+                            <div class="form-group" style="margin:1rem 0;">
+                                <label for="saveAccountEmail">Email</label>
+                                <input type="email" id="saveAccountEmail" placeholder="you@example.com" style="width:100%;padding:0.5rem;">
+                                <div id="saveAccountError" class="error" style="display:none;color:#c62828;font-size:0.85rem;margin-top:0.5rem;"></div>
+                            </div>
+                            <button type="button" class="element-btn primary" id="saveAccountSendCodeBtn"><i class="fas fa-envelope"></i> Send Code</button>
+                        </div>
+                        <div id="saveAccStep2" style="display:none;">
+                            <p class="export-hint">Enter the 6-digit code sent to <strong id="saveAccSentTo"></strong></p>
+                            <div class="form-group" style="margin:1rem 0;">
+                                <label for="saveAccountCode">Verification Code</label>
+                                <input type="text" id="saveAccountCode" placeholder="123456" maxlength="6" inputmode="numeric" style="width:100%;padding:0.5rem;letter-spacing:6px;text-align:center;font-size:1.2rem;font-weight:700;">
+                                <div id="saveAccountCodeError" class="error" style="display:none;color:#c62828;font-size:0.85rem;margin-top:0.5rem;"></div>
+                            </div>
+                            <button type="button" class="element-btn primary" id="saveAccountVerifyBtn"><i class="fas fa-check"></i> Verify &amp; Save</button>
+                            <button type="button" class="element-btn" id="saveAccBackBtn" style="margin-top:8px;"><i class="fas fa-arrow-left"></i> Different email</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Modal -->
+            <div class="modal" id="resultsModal">
+                <div class="modal-content large-modal">
+                    <div class="modal-header">
+                        <h3>Generated Results</h3>
+                        <button class="close-btn" id="closeResults">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="results-grid" id="resultsGrid">
+                            <!-- Generated images will appear here -->
+                        </div>
+                        <div class="download-actions">
+                            <button class="download-btn" id="downloadAllImagesBtn">
+                                <i class="fas fa-images"></i> Download All Images
+                            </button>
+                            <button class="download-btn" id="downloadAllAudiosBtn">
+                                <i class="fas fa-music"></i> Download All Audios
+                            </button>
+                            <button class="download-btn" id="downloadAllSrtsBtn">
+                                <i class="fas fa-file-alt"></i> Download All SRTs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Context Menu -->
+            <div class="context-menu" id="contextMenu">
+                <div class="context-item" data-action="duplicate">
+                    <i class="fas fa-copy"></i> Duplicate
+                </div>
+                <div class="context-separator"></div>
+                <div class="context-item" data-action="copyStyle">
+                    <i class="fas fa-paint-brush"></i> Copy Style
+                </div>
+                <div class="context-item" data-action="pasteStyle">
+                    <i class="fas fa-paste"></i> Paste Style
+                </div>
+                <div class="context-separator"></div>
+                <div class="context-item" data-action="bringToFront">
+                    <i class="fas fa-bring-forward"></i> Bring to Front
+                </div>
+                <div class="context-item" data-action="sendToBack">
+                    <i class="fas fa-send-backward"></i> Send to Back
+                </div>
+                <div class="context-separator"></div>
+                <div class="context-item" data-action="resetDesign">
+                    <i class="fas fa-undo"></i> Reset Design
+                </div>
+                <div class="context-separator"></div>
+                <div class="context-item" data-action="delete">
+                    <i class="fas fa-trash"></i> Delete
+                </div>
+            </div>
+
+            <!-- Text Editor Modal -->
+            <div class="modal" id="textEditorModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Edit Text</h3>
+                        <button class="close-btn" id="closeTextEditor">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea id="textEditorTextarea" placeholder="Enter your text here..."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="cancel-btn" id="cancelTextEdit">Cancel</button>
+                        <button class="save-btn" id="saveTextEdit">Save</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save Template Modal -->
+            <div class="modal" id="saveTemplateModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Save Template</h3>
+                        <button class="close-btn" id="closeSaveTemplate">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="templateName">Template Name:</label>
+                            <input type="text" id="templateName" placeholder="Enter template name..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="templateDescription">Description (optional):</label>
+                            <textarea id="templateDescription" placeholder="Describe your template..." rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="cancel-btn" id="cancelSaveTemplate">Cancel</button>
+                        <button class="save-btn" id="confirmSaveTemplate">Save Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keyboard Shortcuts Help Modal -->
+            <div class="modal" id="shortcutsModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+                        <button class="close-btn" id="closeShortcutsModal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="shortcuts-table">
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>C</kbd></td><td>Copy element</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>Paste element</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>X</kbd></td><td>Cut element</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>D</kbd></td><td>Duplicate element</td></tr>
+                            <tr><td><kbd>Delete</kbd> / <kbd>Backspace</kbd></td><td>Delete selected element</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Redo</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Save project</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>E</kbd></td><td>Export current ayah</td></tr>
+                            <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Save as template</td></tr>
+                            <tr><td><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></td><td>Move element (hold Shift for 10px)</td></tr>
+                            <tr><td><kbd>Escape</kbd></td><td>Deselect all / Close dialog</td></tr>
+                            <tr><td><kbd>?</kbd> or <kbd>Ctrl</kbd>+<kbd>/</kbd></td><td>Show this help</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js"></script>
+    <script src="canva-editor-enhanced.js"></script>
+
+    <!-- Search Ayah Popup -->
+    <div class="search-overlay" id="canvasSearchOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9998;"></div>
+    <div id="canvasSearchPopup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;max-width:92vw;max-height:80vh;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.2);z-index:9999;overflow:hidden;display:none;flex-direction:column;">
+        <div style="padding:16px 20px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:10px;">
+            <i class="fas fa-search" style="color:#0d6efd;"></i>
+            <h3 style="margin:0;font-size:16px;">Search Quran Ayah</h3>
+            <button id="canvasSearchClose" style="margin-left:auto;background:none;border:none;font-size:18px;cursor:pointer;color:#666;padding:4px 8px;"><i class="fas fa-times"></i></button>
+        </div>
+        <div style="padding:12px 20px;display:flex;gap:8px;border-bottom:1px solid #f0f0f0;">
+            <input type="text" id="canvasSearchInput" placeholder="Search for words or phrases..." style="flex:1;padding:8px 12px;border:1px solid #ddd;border-radius:6px;font-size:14px;">
+            <select id="canvasSearchLang" style="padding:8px;border:1px solid #ddd;border-radius:6px;font-size:13px;">
+                <option value="ar">Arabic</option>
+                <option value="en">English</option>
+            </select>
+            <button id="canvasSearchBtn" style="padding:8px 16px;background:#0d6efd;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">Search</button>
+        </div>
+        <div id="canvasSearchResults" style="flex:1;overflow-y:auto;padding:8px 12px;max-height:55vh;"></div>
+    </div>
+</body>
+</html> 

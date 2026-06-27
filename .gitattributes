@@ -1,0 +1,21 @@
+# Force Git to treat Gradle wrapper and other binary assets as actual binary files
+# This prevents text/line-ending translation which would corrupt the jar file or images.
+*.jar binary
+*.webp binary
+*.png binary
+
+# Treat configuration and code as standard files
+*.properties text
+*.kt text
+*.kts text
+*.xml text
+*.yml text
+*.yaml text
+*.json text
+*.js text
+*.mjs text
+*.html text
+*.css text
+*.md text
+.gitignore text
+.gitattributes text
