@@ -1,0 +1,18 @@
+--- app/src/main/java/com/example/generator/AlignmentCacheManager.kt
++++ app/src/main/java/com/example/generator/AlignmentCacheManager.kt
+@@ -120,4 +120,15 @@
+             e.printStackTrace()
+         }
+     }
++
++    fun clearCache(context: Context) {
++        try {
++            val dir = getCacheDir(context)
++            dir.listFiles()?.forEach {
++                if (it.name.endsWith(".json")) it.delete()
++            }
++        } catch (e: Exception) {
++            e.printStackTrace()
++        }
++    }
+ }

@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/v1/" />
+    <title>Quran Ayah Image Generator (Classic v1) | quranvideomaker.com</title>
+    <meta name="description" content="Classic Quran ayah image generator — select surah, ayah range, font, and reciter to generate images and download audio. Simple and fast." />
+    <meta name="keywords" content="Quran image generator, Quran ayah image, Islamic image creator, Quran recitation download, Arabic calligraphy image, free Quran tool" />
+    <meta name="author" content="Quran Video Maker" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://quranvideomaker.com/v1" />
+    <link rel="shortcut icon" href="image/quranvideomakker-ico.png" />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amiri+Quran|Aref+Ruqaa+Ink|Noto+Sans+Arabic|Reem+Kufi+Ink|Katibeh|Harmattan|Aref+Ruqaa|Noto+Nastaliq+Urdu|Lateef|Reem+Kufi|Mada|Amiri|IBM+Plex+Sans+Arabic" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CCNWQ4THXT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-CCNWQ4THXT");
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- V2 recommendation banner -->
+      <div style="background:linear-gradient(135deg,#1b5e20,#388e3c);color:#fff;padding:16px 20px;border-radius:12px;margin:16px auto;max-width:900px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:0 4px 16px rgba(0,0,0,0.2);">
+        <div style="flex:1;min-width:200px;">
+          <strong style="font-size:16px;"><i class="fas fa-star"></i> Version 2 is here!</strong>
+          <p style="margin:4px 0 0;font-size:13px;opacity:0.9;">The new canvas editor has 30+ fonts, word-by-word highlight, video export, tajweed colors, and much more.</p>
+        </div>
+        <a href="/" style="background:#fff;color:#1b5e20;padding:10px 22px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;"><i class="fas fa-rocket"></i> Try V2 Now</a>
+      </div>
+
+      <div class="header-body">
+        <div class="logo">
+          <img src="image/quranvideomakker-logo.png" alt="Quran Video Maker Logo" />
+        </div>
+        <header>
+          <h1>Quran Ayah Image Generator <span style="font-size:14px;background:#ff9800;color:#fff;padding:2px 8px;border-radius:4px;vertical-align:middle;">Classic v1</span></h1>
+          <p>
+            Simple image generator — select surah, ayah range, font, and reciter. Download images and audio.<br>
+            <strong>Looking for video export, canvas editor, and more?</strong> <a href="/" style="color:#4caf50;font-weight:600;">Use Version 2</a>
+          </p>
+        </header>
+      </div>
+
+      <main>
+        <div class="content-body">
+          <div class="forms-container">
+            <h2>Settings</h2>
+
+            <!-- Main Selection Form -->
+            <div class="form-row">
+              <select id="surah" aria-label="Select Surah">
+                <option>Select Surah</option>
+              </select>
+
+              <select id="ayahStart" aria-label="Select Start Ayah">
+                <option>Start Ayah</option>
+              </select>
+
+              <select id="ayahEnd" aria-label="Select End Ayah">
+                <option>End Ayah</option>
+              </select>
+            </div>
+
+            <div class="form-row" id="bismillahOptionGroup" style="display:none;">
+              <label for="includeBismillahLine" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;">
+                <input type="checkbox" id="includeBismillahLine" style="margin:0;cursor:pointer;" />
+                <span>Bismillah on first line, rest of Ayah 1 on second line</span>
+              </label>
+            </div>
+
+            <div class="form-row">
+              <select id="fontSelect" aria-label="Select Font">
+                <option value="Amiri">Select Font</option>
+                <option value="Amiri">Amiri</option>
+                <option value="Amiri Quran">Amiri Quran</option>
+                <option value="Aref Ruqaa Ink">Aref Ruqaa Ink</option>
+                <option value="kitab">kitab-font</option>
+                <option value="chahrazad">ScheherazadeNew-Bold</option>
+                <option value="IBM Plex Sans Arabic">IBM Plex Sans Arabic</option>
+              </select>
+
+              <select id="reciter" aria-label="Select Reciter">
+                <option>Select Reciter</option>
+              </select>
+            </div>
+
+            <!-- Advanced Settings Panel -->
+            <div class="advanced-settings-section">
+              <button id="settingsToggle" class="toggle-button" aria-expanded="false" aria-controls="customSettings">
+                <h2>Advanced Settings <span class="toggle-icon">▲</span></h2>
+              </button>
+              <div id="customSettings" class="custom-settings collapsed" aria-hidden="true" style="display: none">
+                <!-- Floating Back to Top button -->
+                <button id="backToTopBtn" class="back-to-top-btn" title="Back to top">
+                  <i class="fas fa-arrow-up"></i>
+                </button>
+
+                <!-- Colors Section -->
+                <div class="settings-section">
+                  <h3 class="section-divider">Colors & Background</h3>
+
+                  <div class="form-row">
+                    <div class="color-picker">
+                      <label for="textColor">Ayah Text Color:</label>
+                      <input type="color" id="textColor" value="#ffffff" aria-label="Select text color" />
+                    </div>
+
+                    <div class="color-picker">
+                      <label for="bgColor">Background Color:</label>
+                      <input type="color" id="bgColor" value="#000000" aria-label="Select background color" />
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="customBackground">Custom Background Image:</label>
+                      <input
+                        type="file"
+                        id="customBackground"
+                        accept="image/*"
+                        aria-label="Upload custom background image"
+                      />
+                    </div>
+
+                    <div>
+                      <label for="backgroundOpacity">Background Opacity:</label>
+                      <input
+                        type="range"
+                        id="backgroundOpacity"
+                        min="0"
+                        max="100"
+                        value="100"
+                        aria-label="Adjust background opacity"
+                      />
+                      <span id="backgroundOpacityValue">100%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ayah Text Section -->
+                <div class="settings-section">
+                  <h3 class="section-divider">Ayah Text Settings</h3>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="textSize">Ayah Size:</label>
+                      <input type="range" id="textSize" min="20" max="80" value="40" aria-label="Adjust text size" />
+                      <span id="textSizeValue">40px</span>
+                    </div>
+
+                    <div>
+                      <label for="textPosition">Ayah Position:</label>
+                      <select id="textPosition" aria-label="Text position options">
+                        <option value="center">Center</option>
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="quranTextAlign">Ayah Alignment:</label>
+                      <select id="quranTextAlign" aria-label="Quran text alignment options">
+                        <option value="right">Right</option>
+                        <option value="center">Center</option>
+                        <option value="left">Left</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="textShadow">Text Shadow:</label>
+                      <select id="textShadow" aria-label="Text shadow options">
+                        <option value="none">None</option>
+                        <option value="light">Light</option>
+                        <option value="medium">Medium</option>
+                        <option value="heavy">Heavy</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="fontWeight">Font Weight:</label>
+                      <select id="fontWeight" aria-label="Font weight options">
+                        <option value="normal">Normal</option>
+                        <option value="bold">Bold</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Translation Section -->
+                <div class="settings-section">
+                  <h3 class="section-divider">Translation Settings</h3>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="showTranslation">Show Translation:</label>
+                      <select id="showTranslation" aria-label="Show translation options">
+                        <option value="none">None</option>
+                        <option value="en">English</option>
+                        <option value="ur">Urdu</option>
+                        <option value="fr">French</option>
+                        <option value="es">Spanish</option>
+                        <option value="id">Indonesian</option>
+                        <option value="tr">Turkish</option>
+                        <option value="ru">Russian</option>
+                        <option value="fa">Persian</option>
+                        <option value="de">German</option>
+                        <option value="hi">Hindi</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="translationColor">Translation Color:</label>
+                      <input
+                        type="color"
+                        id="translationColor"
+                        value="#cccccc"
+                        aria-label="Select translation text color"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="translationSize">Translation Size:</label>
+                      <input
+                        type="range"
+                        id="translationSize"
+                        min="14"
+                        max="60"
+                        value="24"
+                        aria-label="Adjust translation text size"
+                      />
+                      <span id="translationSizeValue">24px</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Surah Name Section -->
+                <div class="settings-section">
+                  <h3 class="section-divider">Surah Name & Ayah Number</h3>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="showSurahInfo">Show Surah Name:</label>
+                      <select id="showSurahInfo" aria-label="Show surah name and ayah number options">
+                        <option value="yes">Yes (Show)</option>
+                        <option value="no">No (Hide)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="surahInfoLanguage">Surah Name Language:</label>
+                      <select id="surahInfoLanguage" aria-label="Select language for surah info">
+                        <option value="english">English</option>
+                        <option value="arabic">Arabic</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="surahInfoPosition">Surah Name Position:</label>
+                      <select id="surahInfoPosition" aria-label="Select position for surah info">
+                        <option value="top">Top</option>
+                        <option value="bottom">Bottom</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row surah-info-settings">
+                    <div>
+                      <label for="surahInfoSize">Surah Name Size:</label>
+                      <input
+                        type="range"
+                        id="surahInfoSize"
+                        min="10"
+                        max="40"
+                        value="16"
+                        aria-label="Adjust surah info text size"
+                      />
+                      <span id="surahInfoSizeValue">16px</span>
+                    </div>
+
+                    <div>
+                      <label for="surahInfoHAlign">Horizontal Alignment:</label>
+                      <select id="surahInfoHAlign" aria-label="Select horizontal alignment for surah info">
+                        <option value="center">Center</option>
+                        <option value="left">Left</option>
+                        <option value="right">Right</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="surahInfoColor">Surah Name Color:</label>
+                      <input type="color" id="surahInfoColor" value="#ffffff" aria-label="Select surah info text color" />
+                    </div>
+                  </div>
+
+                  <div class="form-row surah-info-settings">
+                    <div>
+                      <label for="surahInfoMarginV">Vertical Margin:</label>
+                      <input
+                        type="range"
+                        id="surahInfoMarginV"
+                        min="0"
+                        max="50"
+                        value="10"
+                        aria-label="Adjust vertical margin"
+                      />
+                      <span id="surahInfoMarginVValue">10px</span>
+                    </div>
+
+                    <div>
+                      <label for="surahInfoMarginH">Horizontal Margin:</label>
+                      <input
+                        type="range"
+                        id="surahInfoMarginH"
+                        min="0"
+                        max="50"
+                        value="0"
+                        aria-label="Adjust horizontal margin"
+                      />
+                      <span id="surahInfoMarginHValue">0px</span>
+                    </div>
+
+                    <div>
+                      <label for="surahInfoOpacity">Opacity:</label>
+                      <input
+                        type="range"
+                        id="surahInfoOpacity"
+                        min="10"
+                        max="100"
+                        value="90"
+                        aria-label="Adjust opacity"
+                      />
+                      <span id="surahInfoOpacityValue">90%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Layout Section -->
+                <div class="settings-section">
+                  <h3 class="section-divider">Layout & Border</h3>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="aspectRatio">Aspect Ratio:</label>
+                      <select id="aspectRatio" aria-label="Select aspect ratio">
+                        <option value="16:9">YouTube (16:9)</option>
+                        <option value="9:16">TikTok/Instagram Reels (9:16)</option>
+                        <option value="1:1">Instagram Square (1:1)</option>
+                        <option value="4:5">Instagram Portrait (4:5)</option>
+                        <option value="custom">Custom</option>
+                      </select>
+                    </div>
+
+                    <div id="customRatioContainer" style="display: none">
+                      <label for="customRatio">Custom Ratio (width:height):</label>
+                      <input type="text" id="customRatio" placeholder="e.g. 16:9" aria-label="Enter custom aspect ratio" />
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div>
+                      <label for="borderStyle">Border Style:</label>
+                      <select id="borderStyle" aria-label="Border style options">
+                        <option value="none">None</option>
+                        <option value="thin">Thin</option>
+                        <option value="medium">Medium</option>
+                        <option value="thick">Thick</option>
+                      </select>
+                    </div>
+
+                    <div class="color-picker">
+                      <label for="borderColor">Border Color:</label>
+                      <input type="color" id="borderColor" value="#ffc107" aria-label="Select border color" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button id="generateBtn" aria-label="Generate Ayahs">Generate</button>
+          </div>
+
+          <div class="results-container">
+            <div class="results-top-section">
+              <!-- Live Preview Section -->
+              <div class="live-preview-section">
+                <button id="previewToggle" class="toggle-button" aria-expanded="true" aria-controls="previewContent">
+                  <h2>Live Preview <span class="toggle-icon">▼</span></h2>
+                </button>
+                <div class="preview-content" id="realTimePreviewContent">
+                  <div class="preview-placeholder">Select a surah and ayah to see preview</div>
+
+                  <!-- Add Audio Preview Container -->
+                  <div id="previewAudioContainer" class="audio-preview-container" style="display: none">
+                    <h3>Audio Preview</h3>
+                    <div id="previewAyahText" class="preview-ayah-text"></div>
+                    <audio id="previewAudio" controls></audio>
+                    <div id="previewInfo" class="preview-info"></div>
+                    <div class="preview-help">
+                      Having trouble hearing audio? Try selecting a different bitrate in the Audio Quality dropdown above.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Loading Indicator -->
+              <div class="loading" id="loadingIndicator">
+                <div class="loading-spinner"></div>
+                <p>Generating your Ayahs...</p>
+              </div>
+
+              <!-- Error Message -->
+              <div class="error-message" id="errorMessage"></div>
+
+              <!-- Success Message -->
+              <div class="success-message" id="successMessage"></div>
+            </div>
+
+            <!-- Results Container -->
+            <h2>Generated Ayahs</h2>
+            <div class="download-container" id="mainDownloadContainer" style="display: none">
+              <div class="download-header">Download Options</div>
+              <div class="download-settings">
+                <div class="bitrate-selector">
+                  <label for="downloadBitrateSelect">Audio Quality:</label>
+                  <select id="downloadBitrateSelect" class="form-control">
+                    <option value="32">32 kbps (Smallest)</option>
+                    <option value="64" selected>64 kbps (Standard)</option>
+                    <option value="128">128 kbps (Good)</option>
+                    <option value="192">192 kbps (High)</option>
+                    <option value="320">320 kbps (Best)</option>
+                  </select>
+                  <small class="setting-description">Higher quality means larger file size</small>
+                  <small class="tooltip-info"><i class="fas fa-info-circle"></i> This setting affects both downloads and playback</small>
+                </div>
+              </div>
+              <button id="downloadAllAudiosBtn"><i class="fas fa-file-audio"></i> Selected Audio</button>
+              <button id="downloadCompleteSurahBtn"><i class="fas fa-book-reader"></i> Complete Surah Audios</button>
+              <button id="downloadAllImagesBtn"><i class="fas fa-file-image"></i> All Images</button>
+              <button id="downloadAllSrtsBtn"><i class="fas fa-file-alt"></i> All SRTs</button>
+            </div>
+            <div id="imageContainer"></div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Theme Toggle Button (required by modal.js) -->
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- ========================= -->
+      <!-- Modals -->
+      <!-- ========================= -->
+
+      <div id="contactModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="contactModalTitle">
+        <div class="modal-content">
+          <span class="close" aria-label="Close">&times;</span>
+          <h2 id="contactModalTitle">Contact Us</h2>
+          <div class="modal-body">
+            <!-- Quick Feedback Form -->
+            <div class="feedback-form">
+              <h3>Quick Feedback</h3>
+              <form id="feedbackForm">
+                <div class="form-group">
+                  <label for="feedbackName">Name (optional)</label>
+                  <input type="text" id="feedbackName" placeholder="Your name" />
+                </div>
+                <div class="form-group">
+                  <label for="feedbackEmail">Email (optional)</label>
+                  <input type="email" id="feedbackEmail" placeholder="Your email" />
+                </div>
+                <div class="form-group">
+                  <label for="feedbackMessage">Message</label>
+                  <textarea id="feedbackMessage" placeholder="Your message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Feedback</button>
+              </form>
+            </div>
+
+            <p>We'd love to hear from you! If you have any questions, suggestions, or feedback, please reach out to us:</p>
+            <div class="contact-options">
+              <div class="contact-option">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <p><a href="/cdn-cgi/l/email-protection#ddbeb2b3a9bcbea99daca8afbcb3abb4b9b8b2b0bcb6b8aff3beb2b0"><span class="__cf_email__" data-cfemail="0e6d676c626b636f7d7a6b7c4e69636f6762206d6163">[email&#160;protected]</span></a></p>
+              </div>
+              <div class="contact-option">
+                <i class="fab fa-twitter"></i>
+                <h3>Twitter/X</h3>
+                <p><a href="https://twitter.com/thenoblequrran" target="_blank" rel="noopener">@thenoblequrran</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="faqModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="faqModalTitle">
+        <div class="modal-content">
+          <span class="close" aria-label="Close">&times;</span>
+          <h2 id="faqModalTitle">About Quran Video Maker</h2>
+
+          <!-- Surah Al-Isra 23-24 at the top -->
+          <div class="quran-verse">
+            <div class="arabic-verse" dir="rtl" lang="ar">
+              <p>
+                وَقَضَىٰ رَبُّكَ أَلَّا تَعْبُدُوا إِلَّا إِيَّاهُ وَبِالْوَالِدَيْنِ إِحْسَانًا ۚ إِمَّا يَبْلُغَنَّ
+                عِندَكَ الْكِبَرَ أَحَدُهُمَا أَوْ كِلَاهُمَا فَلَا تَقُل لَّهُمَا أُفٍّ وَلَا تَنْهَرْهُمَا وَقُل
+                لَّهُمَا قَوْلًا كَرِيمًا ﴿٢٣﴾
+              </p>
+              <p>
+                وَاخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ وَقُل رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي
+                صَغِيرًا ﴿٢٤﴾
+              </p>
+            </div>
+            <div class="english-verse">
+              <p>
+                "Your Lord has commanded that you worship none but Him, and that you be kind to your parents. If one or
+                both of them reach old age with you, do not say to them a word of disrespect, or scold them, but say a
+                generous word to them." (23)
+              </p>
+              <p>
+                "And lower to them the wing of humility out of mercy and say, 'My Lord, have mercy upon them as they
+                brought me up when I was small.'" (24)
+              </p>
+              <em>— Surah Al-Isra, verses 23-24</em>
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <h3>Mission</h3>
+            <p>
+              Our mission is to make it easy for everyone to create beautiful Quran videos for educational and dawah
+              purposes. We believe in spreading the beauty of the Quran through modern technology.
+            </p>
+
+            <h3>API Credits</h3>
+            <div class="api-credits">
+              <div class="api-credit-item">
+                <h4>Quran Data API</h4>
+                <p>
+                  We use the <a href="https://alquran.cloud/api" target="_blank" rel="noopener">Alquran.cloud API</a> for Quranic text
+                  and translations. This API provides accurate Uthmani script and various translation options.
+                </p>
+              </div>
+              <div class="api-credit-item">
+                <h4>Audio Recitations</h4>
+                <p>Audio recitations are provided by the EveryAyah.com API, offering high-quality recitations from various renowned Qurra.</p>
+              </div>
+              <div class="api-credit-item">
+                <h4>Font Libraries</h4>
+                <p>
+                  We utilize <a href="https://fonts.google.com/" target="_blank" rel="noopener">Google Fonts</a> and
+                  <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome</a> for beautiful typography and icons.
+                </p>
+              </div>
+            </div>
+
+            <h3>Frequently Asked Questions</h3>
+            <div class="faq-section">
+              <div class="faq-item">
+                <h4>Is this service really free?</h4>
+                <p>Yes! This service is completely free to use.</p>
+              </div>
+              <div class="faq-item">
+                <h4>Can I use the generated images and videos commercially?</h4>
+                <p>
+                  Yes, you can use the generated content for personal, educational, or commercial purposes. We only ask
+                  that you don't claim the tool or technology as your own.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h4>Which reciters are available?</h4>
+                <p>We offer a variety of renowned reciters including Sheikh Abdul Basit, Sheikh Al-Minshawi, Sheikh Al-Husary, Sheikh Sudais, and many others.</p>
+              </div>
+              <div class="faq-item">
+                <h4>Can I contribute to this project?</h4>
+                <p>Absolutely! We welcome contributions from developers, translators, and Quran enthusiasts. Please contact us for more information.</p>
+              </div>
+              <div class="faq-item">
+                <h4>Is there an API available?</h4>
+                <p>Currently, we don't offer a public API, but we're considering it for future updates based on community interest.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="howToUseModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="howToUseModalTitle">
+        <div class="modal-content">
+          <span class="close" aria-label="Close">&times;</span>
+          <h2 id="howToUseModalTitle">How to Use Quran Video Maker</h2>
+          <div class="modal-body">
+            <div class="video-tutorial">
+              <iframe
+                width="100%"
+                height="315"
+                src="https://www.youtube.com/embed/Ntl-Oeg3m0A"
+                title="How to use Quran Video Maker"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <h3>Step-by-Step Guide</h3>
+            <div class="steps-container">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h4>Select Your Surah</h4>
+                  <p>Choose a Surah from the dropdown menu. All 114 Surahs of the Quran are available.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h4>Choose Ayah Range</h4>
+                  <p>Select the starting and ending Ayahs to generate multiple images at once.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h4>Select Font & Reciter</h4>
+                  <p>Choose your preferred Arabic font and Quran reciter for audio.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                  <h4>Customize Appearance (Optional)</h4>
+                  <p>Adjust colors, font size, background, and other design elements in the Advanced Settings.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                  <h4>Generate Images & Audio</h4>
+                  <p>Click the "Generate" button to create your Ayah images and download audio files.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                  <h4>Download Your Content</h4>
+                  <p>Download individual images/audio or get everything as a zip file.</p>
+                </div>
+              </div>
+            </div>
+
+            <h3>Tips & Tricks</h3>
+            <ul class="tips-list">
+              <li><strong>Custom Backgrounds:</strong> Upload your own image to use as a background.</li>
+              <li><strong>Aspect Ratios:</strong> Choose different aspect ratios based on where you'll share your content (YouTube, Instagram, TikTok).</li>
+              <li><strong>Translations:</strong> Add translations in various languages to make your content more accessible.</li>
+              <li><strong>SRT Files:</strong> Download SRT subtitle files for video editing software compatibility.</li>
+              <li><strong>Complete Surah:</strong> Download the complete audio for any surah with the "Complete Surah" button.</li>
+              <li><strong>Preview:</strong> Use the real-time preview to see how your changes affect the design before generating.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Changelog Modal -->
+      <div id="changelogModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="changelogModalTitle">
+        <div class="modal-content">
+          <span class="close" aria-label="Close">&times;</span>
+          <h2 id="changelogModalTitle">Changelog</h2>
+          <div class="modal-body">
+            <div class="version-entry">
+              <h3>Version 1.2.2 - [23 April 2025 / 24 Shawwal 1446]</h3>
+              <div class="version-badge">Current Version</div>
+              <ul class="changelog-list">
+                <li><i class="fas fa-download"></i> Download All audios for selected surah</li>
+              </ul>
+            </div>
+
+            <div class="version-entry">
+              <h3>Version 1.2.1 - [27 Mars 2025 / 26 Ramadan 1446]</h3>
+              <ul class="changelog-list">
+                <li><i class="fas fa-search"></i> Added advanced Quran search functionality with bilingual support</li>
+                <li><i class="fas fa-language"></i> Smart Arabic search with intelligent handling of tachkil (diacritical marks)</li>
+                <li><i class="fas fa-highlighter"></i> Highlighted search results with original Quran text formatting preserved</li>
+                <li><i class="fas fa-keyboard"></i> Added keyboard shortcuts (Ctrl+F/Cmd+F to search, Esc to close)</li>
+                <li><i class="fas fa-mouse-pointer"></i> Added click-to-navigate feature for direct jumping to ayahs</li>
+                <li><i class="fas fa-book-reader"></i> Added ability to download complete surah audio in one click</li>
+              </ul>
+            </div>
+
+            <div class="version-entry">
+              <h3>Version 1.2 - [09 Mar 2025]</h3>
+              <ul class="changelog-list">
+                <li><i class="fas fa-share-alt"></i> New powerfuls features on advanced Settings</li>
+                <li><i class="fas fa-palette"></i> Enhanced UI with improved color contrast for better accessibility.</li>
+                <li><i class="fas fa-sliders-h"></i> Added advanced settings with custom backgrounds, text positioning, and font controls.</li>
+                <li><i class="fas fa-language"></i> Added support for 5 new translation languages including Hindi, German, and Russian.</li>
+                <li><i class="fas fa-eye"></i> Implemented real-time preview mode for immediate design feedback.</li>
+                <li><i class="fas fa-arrows-alt"></i> Added multiple aspect ratio options for different social media platforms.</li>
+                <li><i class="fas fa-user-shield"></i> Updated Privacy Policy for better transparency.</li>
+                <li><i class="fas fa-bug"></i> Fixed various bugs and improved performance.</li>
+              </ul>
+            </div>
+
+            <div class="version-entry">
+              <h3>Version 1.1.1 - [06 Jun 2024]</h3>
+              <ul class="changelog-list">
+                <li><i class="fas fa-video"></i> How to use video added.</li>
+              </ul>
+            </div>
+
+            <div class="version-entry">
+              <h3>Version 1.1 - [28 May 2024]</h3>
+              <ul class="changelog-list">
+                <li><i class="fas fa-play"></i> Added play/pause and download icons for buttons.</li>
+                <li><i class="fas fa-sync"></i> Improved audio synchronization with text.</li>
+                <li><i class="fas fa-mobile-alt"></i> Enhanced responsive design for better viewing on various devices.</li>
+                <li><i class="fas fa-tachometer-alt"></i> Implemented caching and performance improvements.</li>
+              </ul>
+            </div>
+
+            <div class="version-entry">
+              <h3>Version 1.0 - [11 May 2024]</h3>
+              <ul class="changelog-list">
+                <li><i class="fas fa-rocket"></i> Initial release with core functionalities.</li>
+                <li><i class="fas fa-paint-brush"></i> Basic UI design and layout.</li>
+                <li><i class="fas fa-music"></i> Implemented audio playback and SRT file generation.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="site-footer" style="padding:20px 0;margin-top:30px;border-top:1px solid rgba(255,255,255,0.1);">
+        <div style="max-width:800px;margin:0 auto;text-align:center;padding:0 16px;">
+          <div style="margin-bottom:16px;">
+            <a href="/" style="display:inline-block;background:#4caf50;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;"><i class="fas fa-rocket"></i> Try Version 2 — Canvas Editor, Video Export & More</a>
+          </div>
+          <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px;">
+            <a href="#" onclick="if(typeof openModal === 'function'){openModal(document.getElementById('faqModal'));} return false;" style="color:#aaa;text-decoration:none;"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" onclick="if(typeof openModal === 'function'){openModal(document.getElementById('howToUseModal'));} return false;" style="color:#aaa;text-decoration:none;"><i class="fas fa-question-circle"></i> How to Use</a>
+            <a href="#" onclick="if(typeof openModal === 'function'){openModal(document.getElementById('contactModal'));} return false;" style="color:#aaa;text-decoration:none;"><i class="fas fa-envelope"></i> Contact</a>
+          </div>
+          <div style="display:flex;justify-content:center;gap:16px;margin-bottom:14px;">
+            <a href="https://www.youtube.com/@TheNobleQurran" target="_blank" rel="noopener" style="color:#aaa;font-size:20px;"><i class="fab fa-youtube"></i></a>
+            <a href="https://twitter.com/thenoblequrran" target="_blank" rel="noopener" style="color:#aaa;font-size:20px;"><i class="fab fa-x-twitter"></i></a>
+          </div>
+          <p style="font-size:11px;color:#666;">&copy; 2025 Quran Video Maker. Free for the sake of Allah في سبيل الله.</p>
+        </div>
+      </footer>
+
+      <!-- Privacy Policy Modal -->
+      <div id="privacyPolicyModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="privacyPolicyModalTitle">
+        <div class="modal-content">
+          <span class="close" aria-label="Close">&times;</span>
+          <h2 id="privacyPolicyModalTitle">Privacy Policy</h2>
+          <div class="modal-body">
+            <p><strong>Last Updated: March 2025</strong></p>
+
+            <h3>Introduction</h3>
+            <p>At Quran Video Maker, we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our website.</p>
+
+            <h3>Information We Collect</h3>
+            <p>We collect minimal information to provide and improve our services:</p>
+            <ul>
+              <li><strong>Usage Data:</strong> Anonymous information about how you interact with our website (pages visited, time spent, etc.).</li>
+              <li><strong>Cookies:</strong> Small files stored on your device to enhance your experience.</li>
+              <li><strong>Feedback Data:</strong> Information you voluntarily provide when contacting us.</li>
+            </ul>
+
+            <h3>How We Use Your Information</h3>
+            <p>We use the collected information for:</p>
+            <ul>
+              <li>Providing and maintaining our service</li>
+              <li>Improving our website and user experience</li>
+              <li>Monitoring usage patterns</li>
+              <li>Detecting and addressing technical issues</li>
+            </ul>
+
+            <h3>Data Security</h3>
+            <p>We implement appropriate security measures to protect your data from unauthorized access, alteration, or disclosure.</p>
+
+            <h3>Third-Party Services</h3>
+            <p>We use certain third-party services that may collect information:</p>
+            <ul>
+              <li><strong>Google Analytics:</strong> To analyze website traffic</li>
+              <li><strong>YouTube:</strong> For embedded tutorial videos</li>
+            </ul>
+
+            <h3>Your Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+              <li>Access and receive a copy of your data</li>
+              <li>Request correction or deletion of your data</li>
+              <li>Object to the processing of your data</li>
+              <li>Data portability</li>
+            </ul>
+
+            <h3>Changes to This Privacy Policy</h3>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+
+            <h3>Contact Us</h3>
+            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+            <p>Email: <a href="/cdn-cgi/l/email-protection#8bfbf9e2fdeae8f2cbfafef9eae5fde2efeee4e6eae0eef9a5e8e4e6"><span class="__cf_email__" data-cfemail="fa8a88938c9b9983ba8b8f889b948c939e9f95979b919f88d4999597">[email&#160;protected]</span></a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image preview modal -->
+      <div id="imagePreviewModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="imagePreviewModalTitle">
+        <div class="modal-content image-preview-modal" style="position:relative;">
+          <span class="close" id="closeImagePreviewModal" style="position:absolute;right:10px;top:10px;z-index:9999;font-size:32px;cursor:pointer;color:#fff;background:rgba(0,0,0,0.5);width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50;">&times;</span>
+          <h2 id="imagePreviewModalTitle">Ayah Preview</h2>
+          <div class="image-preview-container">
+            <img id="modalImage" src="" alt="Ayah Preview" />
+          </div>
+          <div class="modal-navigation">
+            <button id="prevAyahBtn" class="nav-button small-nav-button"><i class="fas fa-chevron-left"></i> Prev</button>
+            <div class="modal-ayah-info">
+              <span id="modalAyahNumber">Ayah 1</span>
+            </div>
+            <button id="nextAyahBtn" class="nav-button small-nav-button">Next <i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="modal-actions">
+            <button id="downloadModalImageBtn" class="action-button"><i class="fas fa-image"></i> Image</button>
+            <button id="downloadModalAudioBtn" class="action-button"><i class="fas fa-music"></i> Audio</button>
+            <button id="downloadModalSrtBtn" class="action-button"><i class="fas fa-file-alt"></i> SRT</button>
+          </div>
+        </div>
+      </div>
+      <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var closeBtn = document.getElementById('closeImagePreviewModal');
+        var modal = document.getElementById('imagePreviewModal');
+        var prevBtn = document.getElementById('prevAyahBtn');
+        var nextBtn = document.getElementById('nextAyahBtn');
+        var modalImg = document.getElementById('modalImage');
+        var modalNum = document.getElementById('modalAyahNumber');
+        var modalTitle = document.getElementById('imagePreviewModalTitle');
+
+        function closePreview() { if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; } }
+
+        function updatePreview() {
+          if (typeof updateModalContent === 'function') { updateModalContent(); return; }
+          if (typeof generatedAyahs === 'undefined' || typeof currentModalAyahIndex === 'undefined') return;
+          if (typeof imageElements !== 'undefined' && imageElements[currentModalAyahIndex]) {
+            if (modalImg) modalImg.src = imageElements[currentModalAyahIndex];
+          }
+          var ayah = generatedAyahs[currentModalAyahIndex];
+          if (!ayah) return;
+          var sn = ayah.surah ? ayah.surah.englishName || ayah.surah.name || '' : '';
+          var an = ayah.numberInSurah || '';
+          if (modalNum) modalNum.textContent = 'Ayah ' + an;
+          if (modalTitle) modalTitle.textContent = sn + ' - Ayah ' + an;
+          if (prevBtn) prevBtn.disabled = currentModalAyahIndex <= 0;
+          if (nextBtn) nextBtn.disabled = currentModalAyahIndex >= generatedAyahs.length - 1;
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', closePreview);
+        if (modal) modal.addEventListener('click', function(e) { if (e.target === modal) closePreview(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePreview(); });
+
+        if (prevBtn) prevBtn.addEventListener('click', function() {
+          if (typeof currentModalAyahIndex !== 'undefined' && currentModalAyahIndex > 0) { currentModalAyahIndex--; updatePreview(); }
+        });
+        if (nextBtn) nextBtn.addEventListener('click', function() {
+          if (typeof currentModalAyahIndex !== 'undefined' && typeof generatedAyahs !== 'undefined' && currentModalAyahIndex < generatedAyahs.length - 1) { currentModalAyahIndex++; updatePreview(); }
+        });
+
+        var dlImg = document.getElementById('downloadModalImageBtn');
+        var dlAud = document.getElementById('downloadModalAudioBtn');
+        var dlSrt = document.getElementById('downloadModalSrtBtn');
+        if (dlImg) dlImg.addEventListener('click', function() {
+          if (modalImg && modalImg.src) { var a = document.createElement('a'); a.href = modalImg.src; a.download = 'ayah.png'; a.click(); }
+        });
+        if (dlAud) dlAud.addEventListener('click', function() {
+          if (typeof audioElements !== 'undefined' && typeof currentModalAyahIndex !== 'undefined' && audioElements[currentModalAyahIndex]) {
+            var a = document.createElement('a'); a.href = audioElements[currentModalAyahIndex].src; a.download = 'ayah.mp3'; a.click();
+          }
+        });
+        if (dlSrt) dlSrt.addEventListener('click', function() {
+          if (typeof generatedAyahs !== 'undefined' && typeof currentModalAyahIndex !== 'undefined' && generatedAyahs[currentModalAyahIndex]) {
+            var ayah = generatedAyahs[currentModalAyahIndex];
+            var text = (ayah.text || '') + '\n';
+            var blob = new Blob([text], {type:'text/plain'});
+            var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'ayah.srt'; a.click();
+          }
+        });
+      });
+      </script>
+
+      <!-- Share Your Creation Modal -->
+      <div id="shareCreationModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="shareCreationModalTitle">
+        <div class="modal-content">
+          <span class="close" aria-label="Close">&times;</span>
+          <h2 id="shareCreationModalTitle">Share Your Creation</h2>
+          <div class="modal-body">
+            <p>Share your Quran video creations with the community. We may feature selected submissions on our platform!</p>
+
+            <div class="share-creation-form">
+              <form id="shareCreationForm">
+                <div class="form-group">
+                  <label for="creatorName">Your Name</label>
+                  <input type="text" id="creatorName" placeholder="Enter your name" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="creatorEmail">Your Email</label>
+                  <input type="email" id="creatorEmail" placeholder="Enter your email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="creationUrl">Creation URL</label>
+                  <input type="url" id="creationUrl" placeholder="Link to your video (YouTube, Instagram, etc.)" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="creationDescription">Description</label>
+                  <textarea id="creationDescription" placeholder="Tell us about your creation (which Surah, why you chose it, etc.)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>
+                    <input type="checkbox" id="creationConsent" required />
+                    I consent to having my creation shared on the Quran Video Maker platform with attribution.
+                  </label>
+                </div>
+
+                <div id="shareCreationSuccess" class="success-message" style="display: none">
+                  Thank you for sharing your creation! We'll review it and may feature it on our platform.
+                </div>
+
+                <button type="submit" class="btn btn-primary share-btn">Share Creation</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================= -->
+      <!-- NEW: X Subscribe / Latest Post Modal -->
+      <!-- Buttons: Follow us now + Maybe later -->
+      <!-- ========================= -->
+      <div id="xSubscribeModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="xSubscribeModalTitle">
+        <div class="modal-content">
+          <span class="close" aria-label="Close">&times;</span>
+          <h2 id="xSubscribeModalTitle">Follow us for updates</h2>
+          <div class="modal-body">
+            <p style="margin-top: 0">
+              Follow <strong>@thenoblequrran</strong> to get new features & updates.
+            </p>
+
+            <div style="margin: 14px 0">
+              <!-- X embed (shows latest posts) -->
+              <a
+                class="twitter-timeline"
+                data-height="420"
+                data-dnt="true"
+                data-theme="light"
+                href="https://twitter.com/thenoblequrran"
+              >Latest posts by @thenoblequrran</a>
+            </div>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap">
+              <a
+                class="btn btn-primary"
+                href="https://x.com/thenoblequrran"
+                target="_blank"
+                rel="noopener"
+                id="followUsNowBtn"
+              >
+                <i class="fab fa-x-twitter"></i> Follow us now
+              </a>
+
+              <button id="xLaterBtn" class="btn" type="button">Maybe later</button>
+            </div>
+
+            <small style="display: block; margin-top: 10px; opacity: 0.8">
+              Tip: after following, click the bell icon on X to get notifications.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Load JavaScript files -->
+      <script src="scripts.js"></script>
+      <script src="modal.js"></script>
+      <script src="share-form.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+      <script src="search.js"></script>
+
+      <!-- X widgets script (required for the embed) -->
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+      <!-- html2canvas -->
+      <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" crossorigin="anonymous"></script>
+      <script>
+        // Fallback if html2canvas didn't load
+        if (typeof html2canvas !== "function") {
+          console.log("Loading html2canvas from fallback CDN");
+          const script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
+          document.head.appendChild(script);
+        }
+      </script>
+
+      <!-- Share Creation Form Submission -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const shareCreationForm = document.getElementById("shareCreationForm");
+          if (shareCreationForm) {
+            shareCreationForm.addEventListener("submit", function (e) {
+              e.preventDefault();
+
+              const creatorName = document.getElementById("creatorName").value;
+              const creatorEmail = document.getElementById("creatorEmail").value;
+              const creationUrl = document.getElementById("creationUrl").value;
+              const creationDescription = document.getElementById("creationDescription").value;
+
+              console.log("Creation shared:", {
+                name: creatorName,
+                email: creatorEmail,
+                url: creationUrl,
+                description: creationDescription,
+              });
+
+              const successMessage = document.getElementById("shareCreationSuccess");
+              if (successMessage) {
+                successMessage.style.display = "block";
+                shareCreationForm.reset();
+                setTimeout(function () {
+                  successMessage.style.display = "none";
+                }, 5000);
+              }
+            });
+          }
+        });
+      </script>
+
+      <script src="config.js"></script>
+
+      <!-- Debug styles -->
+      <style>
+        .debug-container {
+          max-height: 300px;
+          overflow-y: auto;
+          border: 1px solid #ccc;
+          padding: 10px;
+          background-color: #f8f8f8;
+          font-family: monospace;
+          font-size: 12px;
+          white-space: pre-wrap;
+          margin-top: 10px;
+        }
+
+        .debug-log-item {
+          border-bottom: 1px solid #eee;
+          padding: 4px 0;
+        }
+      </style>
+
+      <!-- Debug toggle -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const toggleDebugBtn = document.getElementById("toggle-debug");
+          const debugContainer = document.getElementById("quran-search-debug-container");
+
+          if (toggleDebugBtn && debugContainer) {
+            toggleDebugBtn.addEventListener("click", function () {
+              window.QURAN_SEARCH_DEBUG = !window.QURAN_SEARCH_DEBUG;
+              debugContainer.style.display = window.QURAN_SEARCH_DEBUG ? "block" : "none";
+              toggleDebugBtn.textContent = window.QURAN_SEARCH_DEBUG ? "Disable Debug Mode" : "Enable Debug Mode";
+            });
+          }
+
+          document.addEventListener("keydown", function (e) {
+            if (e.ctrlKey && e.shiftKey && e.key === "D") {
+              if (toggleDebugBtn) toggleDebugBtn.click();
+            }
+          });
+        });
+      </script>
+
+      <!-- NEW: X popup open logic (auto + button + once/day) -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const modal = document.getElementById("xSubscribeModal");
+          const openBtn = document.getElementById("xPopupBtn");
+          const laterBtn = document.getElementById("xLaterBtn");
+
+          function openXModal() {
+            if (!modal) return;
+
+            if (typeof openModal === "function") {
+              openModal(modal);
+            } else {
+              modal.style.display = "block";
+              modal.setAttribute("aria-hidden", "false");
+            }
+
+            // Ensure widgets render if script loads after opening
+            if (window.twttr && window.twttr.widgets) {
+              window.twttr.widgets.load(modal);
+            }
+          }
+
+          function closeXModal() {
+            if (!modal) return;
+
+            if (typeof closeModal === "function") {
+              closeModal(modal);
+            } else {
+              modal.style.display = "none";
+              modal.setAttribute("aria-hidden", "true");
+            }
+          }
+
+          // Open from nav button
+          if (openBtn) {
+            openBtn.addEventListener("click", function (e) {
+              e.preventDefault();
+              openXModal();
+            });
+          }
+
+          // Maybe later => close + don't show again today
+          if (laterBtn) {
+            laterBtn.addEventListener("click", function () {
+              const todayKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+              localStorage.setItem("x_popup_last_shown", todayKey);
+              closeXModal();
+            });
+          }
+
+          // Auto-open once per day (after delay)
+          const todayKey = new Date().toISOString().slice(0, 10);
+          const lastShown = localStorage.getItem("x_popup_last_shown");
+          if (lastShown !== todayKey) {
+            setTimeout(openXModal, 2500);
+          }
+        });
+      </script>
+
+    </div>
+  </body>
+</html>

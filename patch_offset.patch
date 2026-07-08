@@ -1,0 +1,13 @@
+--- app/src/main/java/com/example/ui/VideoEditorScreen.kt
++++ app/src/main/java/com/example/ui/VideoEditorScreen.kt
+@@ -675,8 +675,8 @@
+                                                 val itemWidthDp = trackWidthDp * widthPercent
+                                                 Box(
+                                                     modifier = Modifier
+-                                                        .offset(x = startXDp)
+-                                                        .width(itemWidthDp)
++                                                        .padding(start = startXDp)
++                                                        .width(startXDp + itemWidthDp)
+                                                         .fillMaxHeight()
+                                                         .padding(vertical = 4.dp, horizontal = 1.dp)
+                                                         .clip(RoundedCornerShape(4.dp))

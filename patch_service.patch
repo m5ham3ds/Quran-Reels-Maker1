@@ -1,0 +1,10 @@
+--- ./app/src/main/java/com/example/service/VideoGenerationService.kt
++++ ./app/src/main/java/com/example/service/VideoGenerationService.kt
+@@ -79,2 +79,3 @@
+         val videoQuery = intent.getStringExtra("videoQuery")
++        val chunkIndexToReplace = intent.getIntExtra("chunkIndexToReplace", -1)
+ 
+@@ -127,2 +128,3 @@
+                     videoQuery = videoQuery,
++                    chunkIndexToReplace = chunkIndexToReplace,
+                     onProgress = { msg, progress ->

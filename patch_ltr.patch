@@ -1,0 +1,18 @@
+--- app/src/main/java/com/example/ui/VideoEditorScreen.kt
++++ app/src/main/java/com/example/ui/VideoEditorScreen.kt
+@@ -601,6 +601,7 @@
+ 
+             // Timeline Tracks
+             val waveformData = remember { List(100) { Random.nextFloat() * 0.8f + 0.2f } }
++            androidx.compose.runtime.CompositionLocalProvider(androidx.compose.ui.platform.LocalLayoutDirection provides androidx.compose.ui.unit.LayoutDirection.Ltr) {
+             Box(modifier = Modifier.fillMaxWidth().weight(1f).padding(8.dp)) {
+                 val scrollState = androidx.compose.foundation.rememberScrollState()
+                 
+@@ -791,6 +792,7 @@
+                     }
+                 } // End Row
+             }
++            } // End CompositionLocalProvider
+ 
+             // Context Menu / Options for selected item
+             if (selectedElement != null) {

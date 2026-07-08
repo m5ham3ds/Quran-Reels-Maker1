@@ -1,0 +1,10 @@
+--- app/src/main/java/com/example/generator/VideoGenerator.kt
++++ app/src/main/java/com/example/generator/VideoGenerator.kt
+@@ -1274,6 +1274,7 @@
+                     e.printStackTrace()
+                 }
+             }
++            } // End of else (!isPreviewMode)
+             
+             // 3. Absolute Fallback to Internal Cache to prevent failures (guarantees we always have a valid URI)
+             if (uri == null) {

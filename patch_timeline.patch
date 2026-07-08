@@ -1,0 +1,15 @@
+--- app/src/main/java/com/example/ui/VideoEditorScreen.kt
++++ app/src/main/java/com/example/ui/VideoEditorScreen.kt
+@@ -544,7 +544,11 @@
+             Box(modifier = Modifier.fillMaxWidth().weight(1f).padding(8.dp)) {
+                 val scrollState = androidx.compose.foundation.rememberScrollState()
+                 
+-                val trackWidthDp = if (timelineZoom > 1.0f) (300 * timelineZoom).dp else 300.dp
++                val config = androidx.compose.ui.platform.LocalConfiguration.current
++                val screenWidthDp = config.screenWidthDp.dp
++                // Left column is 40dp + paddings. We'll approximate available width to screenWidthDp - 60.dp
++                val baseTrackWidth = maxOf(screenWidthDp - 60.dp, 300.dp)
++                val trackWidthDp = baseTrackWidth * timelineZoom
+                 val defaultTrackHeight = 24.dp
+                 val expandedTrackHeight = 64.dp
+                 val shrunkenTrackHeight = 8.dp

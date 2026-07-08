@@ -1,0 +1,229 @@
+--- app/src/main/java/com/example/ui/VideoEditorScreen.kt
++++ app/src/main/java/com/example/ui/VideoEditorScreen.kt
+@@ -149,7 +149,7 @@
+     
+     val serviceState by VideoGenerationService.serviceState.collectAsState()
+     
+-    data class Chunk(val arabic: String, val english: String, val startTimeMs: Long, val endTimeMs: Long, val surahName: String)
++    data class Chunk(val arabic: String, val english: String, val startTimeMs: Long, val endTimeMs: Long, val surahName: String, val bgIndex: Int = 0)
+     var timelineChunks by remember { mutableStateOf<List<Chunk>>(emptyList()) }
+     
+     LaunchedEffect(Unit) {
+@@ -164,7 +164,8 @@
+                         english = obj.optString("english", ""),
+                         startTimeMs = obj.getLong("startTimeMs"),
+                         endTimeMs = obj.getLong("endTimeMs"),
+-                        surahName = obj.optString("surahName", "")
++                        surahName = obj.optString("surahName", ""),
++                        bgIndex = obj.optInt("bgIndex", 0)
+                     ))
+                 }
+                 timelineChunks = list
+@@ -541,7 +542,6 @@
+                 Icon(Icons.Default.ZoomIn, contentDescription = "Zoom In", tint = Color.Gray, modifier = Modifier.size(16.dp))
+             }
+ 
+-            // Timeline Tracks
+             val waveformData = remember { List(100) { Random.nextFloat() * 0.8f + 0.2f } }
+             Box(modifier = Modifier.fillMaxWidth().weight(1f).padding(8.dp)) {
+                 val scrollState = androidx.compose.foundation.rememberScrollState()
+@@ -551,33 +551,69 @@
+                 val expandedTrackHeight = 64.dp
+                 val shrunkenTrackHeight = 8.dp
+                 
+-                val videoHeight by animateDpAsState(if (selectedElement == "video") expandedTrackHeight else if (selectedElement != null) shrunkenTrackHeight else defaultTrackHeight)
++                val videoHeight by animateDpAsState(if (selectedElement?.startsWith("video") == true) expandedTrackHeight else if (selectedElement != null) shrunkenTrackHeight else defaultTrackHeight)
+                 val audioHeight by animateDpAsState(if (selectedElement == "audio") expandedTrackHeight else if (selectedElement != null) shrunkenTrackHeight else defaultTrackHeight)
+                 val arabicHeight by animateDpAsState(if (selectedElement == "arabic") expandedTrackHeight else if (selectedElement != null) shrunkenTrackHeight else defaultTrackHeight)
+                 val transHeight by animateDpAsState(if (selectedElement == "translation") expandedTrackHeight else if (selectedElement != null) shrunkenTrackHeight else defaultTrackHeight)
+ 
+                 Row(modifier = Modifier.fillMaxSize()) {
+-                    // Left Icon Column
+                     Column(modifier = Modifier.width(40.dp).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+-                        Box(modifier = Modifier.fillMaxWidth().height(videoHeight).clip(RoundedCornerShape(8.dp)).background(Color(0xFF2C2C2C)).clickable { selectedElement = if (selectedElement == "video") null else "video" }, contentAlignment = Alignment.Center) {
+-                            Icon(Icons.Default.Movie, contentDescription = null, tint = if (selectedElement == "video") LuxuryGold else TextMutedColor, modifier = Modifier.size(if (selectedElement == "video") 24.dp else 16.dp))
++                        Spacer(modifier = Modifier.height(20.dp))
++                        Box(modifier = Modifier.fillMaxWidth().height(videoHeight).clip(RoundedCornerShape(8.dp)).background(Color(0xFF2C2C2C)).clickable { selectedElement = if (selectedElement?.startsWith("video") == true) null else "video_0" }, contentAlignment = Alignment.Center) {
++                            Icon(Icons.Default.Movie, contentDescription = null, tint = if (selectedElement?.startsWith("video") == true) LuxuryGold else TextMutedColor, modifier = Modifier.size(if (selectedElement?.startsWith("video") == true) 24.dp else 16.dp))
+                         }
+                         Box(modifier = Modifier.fillMaxWidth().height(audioHeight).clip(RoundedCornerShape(8.dp)).background(Color(0xFF2C2C2C)).clickable { selectedElement = if (selectedElement == "audio") null else "audio" }, contentAlignment = Alignment.Center) {
+                             Icon(Icons.Default.Audiotrack, contentDescription = null, tint = if (selectedElement == "audio") LuxuryGold else TextMutedColor, modifier = Modifier.size(if (selectedElement == "audio") 24.dp else 16.dp))
+@@ -574,13 +610,29 @@
+                     }
+                     
+-                    // Scrollable Tracks Container
+                     Box(modifier = Modifier.weight(1f).fillMaxHeight().padding(start = 4.dp)) {
+-                        Column(modifier = Modifier.horizontalScroll(scrollState).width(trackWidthDp).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+-                            // Video Track Content
+-                            Box(modifier = Modifier.fillMaxWidth().height(videoHeight).clip(RoundedCornerShape(8.dp)).background(Color(0xFF2C2C2C)).clickable { selectedElement = if (selectedElement == "video") null else "video" }) {
+-                                Box(modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(vertical = 4.dp).clip(RoundedCornerShape(4.dp)).background(if (selectedElement == "video") LuxuryGold.copy(alpha=0.5f) else Color(0xFF444444))) {
+-                                    if (videoHeight > 20.dp) {
+-                                        Text(if (isArabic) "الخلفية السينمائية" else "Cinematic Background", color = Color.White, fontSize = 10.sp, modifier = Modifier.align(Alignment.CenterStart).padding(start = 8.dp))
++                        Box(modifier = Modifier.fillMaxSize().horizontalScroll(scrollState)) {
++                            Box(modifier = Modifier.width(trackWidthDp).fillMaxHeight()) {
++                                Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
++                                    Box(
++                                        modifier = Modifier
++                                            .fillMaxWidth()
++                                            .height(20.dp)
++                                            .pointerInput(duration, trackWidthDp) {
++                                                detectTapGestures { offset ->
++                                                    if (duration > 0) {
++                                                        val newTime = (offset.x / trackWidthDp.toPx()) * duration
++                                                        exoPlayer.seekTo(newTime.toLong().coerceIn(0L, duration))
++                                                    }
++                                                }
++                                            }
++                                            .pointerInput(duration, trackWidthDp) {
++                                                detectDragGestures { change, _ ->
++                                                    change.consume()
++                                                    if (duration > 0) {
++                                                        val newTime = (change.position.x / trackWidthDp.toPx()) * duration
++                                                        exoPlayer.seekTo(newTime.toLong().coerceIn(0L, duration))
++                                                    }
++                                                }
++                                            }
++                                    )
++                            
++                                    Box(modifier = Modifier.fillMaxWidth().height(videoHeight).clip(RoundedCornerShape(8.dp)).background(Color(0xFF2C2C2C)).clickable { selectedElement = if (selectedElement?.startsWith("video") == true) null else "video_0" }) {
++                                        if (timelineChunks.isNotEmpty() && duration > 0) {
++                                            val bgSegments = timelineChunks.groupBy { it.bgIndex }
++                                            for ((bgIdx, chunks) in bgSegments) {
++                                                val startTimeMs = chunks.minOf { it.startTimeMs }
++                                                val endTimeMs = chunks.maxOf { it.endTimeMs }
++                                                val startPercent = (startTimeMs.toFloat() / duration).coerceIn(0f, 1f)
++                                                val widthPercent = ((endTimeMs - startTimeMs).toFloat() / duration).coerceIn(0.01f, 1f)
++                                                val startXDp = trackWidthDp * startPercent
++                                                val itemWidthDp = trackWidthDp * widthPercent
++                                                Box(
++                                                    modifier = Modifier
++                                                        .offset(x = startXDp)
++                                                        .width(itemWidthDp)
++                                                        .fillMaxHeight()
++                                                        .padding(vertical = 4.dp, horizontal = 1.dp)
++                                                        .clip(RoundedCornerShape(4.dp))
++                                                        .background(if (selectedElement == "video_$bgIdx") LuxuryGold.copy(alpha=0.5f) else Color(0xFF444444))
++                                                        .clickable { selectedElement = "video_$bgIdx" }
++                                                ) {
++                                                    if (videoHeight > 20.dp) {
++                                                        Text(if (isArabic) "خلفية ${bgIdx + 1}" else "BG ${bgIdx + 1}", color = Color.White, fontSize = 8.sp, modifier = Modifier.align(Alignment.CenterStart).padding(start = 4.dp))
++                                                    }
++                                                }
++                                            }
++                                        } else {
++                                            Box(modifier = Modifier.fillMaxSize().padding(vertical = 4.dp).clip(RoundedCornerShape(4.dp)).background(if (selectedElement == "video_0") LuxuryGold.copy(alpha=0.5f) else Color(0xFF444444))) {
++                                                if (videoHeight > 20.dp) {
++                                                    Text(if (isArabic) "الخلفية السينمائية" else "Cinematic Background", color = Color.White, fontSize = 10.sp, modifier = Modifier.align(Alignment.CenterStart).padding(start = 8.dp))
++                                                }
++                                            }
++                                        }
+                                     }
+@@ -649,36 +721,37 @@
+                                 }
+                             }
+                         }
+-                
+-                        // Scrubber overlay
+-                        Box(
+-                            modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp))
+-                        .pointerInput(duration, timelineZoom) {
+-                            detectTapGestures { offset ->
+-                                if (duration > 0) {
+-                                    val clickX = offset.x + scrollState.value
+-                                    val totalWidth = trackWidthDp.toPx()
+-                                    val newTime = (clickX / totalWidth) * duration
+-                                    exoPlayer.seekTo(newTime.toLong().coerceIn(0L, duration))
+-                                }
+-                            }
+-                        }
+-                        .pointerInput(duration, timelineZoom) {
+-                            detectDragGestures { change, _ ->
+-                                change.consume()
+-                                if (duration > 0) {
+-                                    val dragX = change.position.x + scrollState.value
+-                                    val totalWidth = trackWidthDp.toPx()
+-                                    val newTime = (dragX / totalWidth) * duration
+-                                    exoPlayer.seekTo(newTime.toLong().coerceIn(0L, duration))
+-                                }
+-                            }
+-                        }
+-                ) {
+-                    val playheadX = if (duration > 0L) {
+-                        ((currentTime.toFloat() / duration.toFloat()) * trackWidthDp.value)
+-                    } else 0f
+-                    val playheadXPixels = with(androidx.compose.ui.platform.LocalDensity.current) { playheadX.dp.toPx() }
+-                    val visualXPixels = playheadXPixels - scrollState.value
+-                    val visualXDp = with(androidx.compose.ui.platform.LocalDensity.current) { visualXPixels.toDp() }
+-                    if (visualXPixels >= 0) {
+-                        Box(modifier = Modifier.offset(x = visualXDp).fillMaxHeight().width(2.dp).background(Color.Red))
+-                        Box(modifier = Modifier.offset(x = visualXDp - 4.dp).size(10.dp).clip(androidx.compose.foundation.shape.CircleShape).background(Color.Red))
+-                    }
+-                }
+-                } // End inner Scroll Box
+-                } // End Row
++                        
++                                val playheadX = if (duration > 0L) {
++                                    ((currentTime.toFloat() / duration.toFloat()) * trackWidthDp.value).dp
++                                } else 0.dp
++                                
++                                Box(modifier = Modifier.offset(x = playheadX).fillMaxHeight().width(2.dp).background(Color.Red))
++                                Box(
++                                    modifier = Modifier
++                                        .offset(x = playheadX - 10.dp)
++                                        .width(20.dp)
++                                        .height(20.dp)
++                                        .pointerInput(duration, trackWidthDp) {
++                                            var dragPosition = 0f
++                                            detectDragGestures(
++                                                onDragStart = { _ -> dragPosition = playheadX.toPx() }
++                                            ) { change, dragAmount ->
++                                                change.consume()
++                                                dragPosition += dragAmount.x
++                                                if (duration > 0) {
++                                                    val newTime = (dragPosition / trackWidthDp.toPx()) * duration
++                                                    exoPlayer.seekTo(newTime.toLong().coerceIn(0L, duration))
++                                                }
++                                            }
++                                        }
++                                ) {
++                                    Box(modifier = Modifier.align(Alignment.Center).size(10.dp).clip(androidx.compose.foundation.shape.CircleShape).background(Color.Red))
++                                }
++                            }
++                        }
++                    }
++                }
+             }
+ 
+@@ -739,8 +812,19 @@
+                         }
+-                    } else if (selectedElement == "video") {
+-                        Button(onClick = { triggerReRender(isRetry = false, isPreview = true) }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333))) {
+-                            Text(if (isArabic) "تبديل الخلفية" else "Change Background", color = Color.White)
+-                        }
++                    } else if (selectedElement?.startsWith("video") == true) {
++                        val bgIdx = selectedElement?.substringAfter("video_")?.toIntOrNull() ?: 0
++                        Button(onClick = {
++                            exoPlayer.pause()
++                            val intent = Intent(context, VideoGenerationService::class.java).apply {
++                                putExtra("surah", lastGenSurah)
++                                putExtra("startAyah", lastGenStartAyah)
++                                putExtra("endAyah", lastGenEndAyah)
++                                putExtra("reciterId", lastGenReciterId)
++                                putExtra("showTranslation", showTranslation)
++                                putExtra("includeBasmalah", lastGenIncludeBasmalah)
++                                putExtra("pexelsApiKey", pexelsApiKey)
++                                putExtra("videoQuality", videoQuality)
++                                putExtra("isRetry", true)
++                                putExtra("isPreviewMode", true)
++                                putExtra("videoQuery", lastGenVideoQuery)
++                                putExtra("chunkIndexToReplace", bgIdx)
++                            }
++                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
++                                context.startForegroundService(intent)
++                            } else {
++                                context.startService(intent)
++                            }
++                        }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333))) {
++                            Text(if (isArabic) "تغيير خلفية ${bgIdx + 1}" else "Change Background ${bgIdx + 1}", color = Color.White)
++                        }
+                     } else {

@@ -1,0 +1,45 @@
+import re
+with open("app/src/main/java/com/example/generator/VideoGenerator.kt", "r") as f:
+    content = f.read()
+
+target = """    private fun checkCancellationAndPause() {
+        if (com.example.service.VideoGenerationService.isCancelled) {
+            throw kotlinx.coroutines.CancellationException("تم إلغاء عملية إنتاج الفيديو")
+        }
+        if (com.example.service.VideoGenerationService.isPaused) {
+            synchronized(com.example.service.VideoGenerationService.pauseLock) {
+                while (com.example.service.VideoGenerationService.isPaused && !com.example.service.VideoGenerationService.isCancelled) {
+                    try {
+                        com.example.service.VideoGenerationService.pauseLock.wait(100)
+                    } catch (e: Exception) {}
+                }
+            }
+            if (com.example.service.VideoGenerationService.isCancelled) {
+                throw kotlinx.coroutines.CancellationException("تم إلغاء عملية إنتاج الفيديو")
+            }
+        }
+    }"""
+
+replacement = """    private suspend fun checkCancellationAndPause() {
+        if (com.example.service.VideoGenerationService.isCancelled || !kotlinx.coroutines.currentCoroutineContext().isActive) {
+            throw kotlinx.coroutines.CancellationException("تم إلغاء عملية إنتاج الفيديو")
+        }
+        if (com.example.service.VideoGenerationService.isPaused) {
+            synchronized(com.example.service.VideoGenerationService.pauseLock) {
+                while (com.example.service.VideoGenerationService.isPaused && !com.example.service.VideoGenerationService.isCancelled) {
+                    try {
+                        com.example.service.VideoGenerationService.pauseLock.wait(100)
+                    } catch (e: Exception) {}
+                }
+            }
+            if (com.example.service.VideoGenerationService.isCancelled || !kotlinx.coroutines.currentCoroutineContext().isActive) {
+                throw kotlinx.coroutines.CancellationException("تم إلغاء عملية إنتاج الفيديو")
+            }
+        }
+    }"""
+
+content = content.replace(target, replacement)
+content = content.replace("import kotlinx.coroutines.withContext", "import kotlinx.coroutines.withContext\nimport kotlinx.coroutines.isActive")
+
+with open("app/src/main/java/com/example/generator/VideoGenerator.kt", "w") as f:
+    f.write(content)

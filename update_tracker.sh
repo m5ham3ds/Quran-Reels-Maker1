@@ -1,0 +1,1 @@
+sed -i 's/writer.write("\\n\\n")/writer.write("\\n\\n")\n                        writer.write("--- App Logcat Activity ---\\n")\n                        writer.write(getAppLogcat())\n                        writer.write("\\n\\n--- Process Logs ---\\n")/g' app/src/main/java/com/example/generator/SystemDiagnosticTracker.kt

@@ -1,0 +1,21 @@
+--- app/src/main/java/com/example/generator/VideoGenerator.kt
++++ app/src/main/java/com/example/generator/VideoGenerator.kt
+@@ -191,6 +191,7 @@
+         includeBasmalah: Boolean = true,
+         videoQuery: String? = null,
+         chunkIndexToReplace: Int = -1,
++        onlyUpdateTimeline: Boolean = false,
+         onProgress: (String, Float) -> Unit,
+         onComplete: (Uri) -> Unit,
+         onError: (String) -> Unit
+@@ -658,6 +659,10 @@
+                 e.printStackTrace()
+             }
+             
++            if (onlyUpdateTimeline) {
++                onComplete(Uri.EMPTY)
++                return@withContext
++            }
++
+             // 3. Fetch Cinematic Background Portrait Video clip if Pexels or Pixabay API key is provided
+             var videoLoaded = false

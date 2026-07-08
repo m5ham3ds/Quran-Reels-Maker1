@@ -1,0 +1,48 @@
+--- ./app/src/main/java/com/example/generator/VideoGenerator.kt
++++ ./app/src/main/java/com/example/generator/VideoGenerator.kt
+@@ -717,14 +717,9 @@
+                             }
+                             
+-                            val numBackgroundVideos = if (isPopularUrlDownload && verses.isNotEmpty()) verses[0].chunks.size else verses.size
++                            val allChunks = verses.flatMap { if (it.chunks.isEmpty()) listOf(SmartChunk("", null, 0, (it.durationUs/1000).toLong())) else it.chunks }
++                            val numBackgroundVideos = allChunks.size
+                             for (vidIdx in 0 until numBackgroundVideos) {
+-                                val neededDurSec = if (isPopularUrlDownload) {
+-                                    val chunk = verses[0].chunks[vidIdx]
+-                                    ((chunk.endTimeMs - chunk.startTimeMs) / 1000L).toInt() + 2
+-                                } else {
+-                                    (verses[vidIdx].durationUs / 1000000L).toInt() + 2
+-                                }
++                                val chunk = allChunks[vidIdx]
++                                val neededDurSec = ((chunk.endTimeMs - chunk.startTimeMs) / 1000L).toInt() + 2
+                                 
+                                 // Try to find a video with duration >= neededDurSec, otherwise find the longest video
+@@ -829,14 +824,9 @@
+                             }
+                             
+-                            val numBackgroundVideos = if (isPopularUrlDownload && verses.isNotEmpty()) verses[0].chunks.size else verses.size
++                            val allChunks = verses.flatMap { if (it.chunks.isEmpty()) listOf(SmartChunk("", null, 0, (it.durationUs/1000).toLong())) else it.chunks }
++                            val numBackgroundVideos = allChunks.size
+                             for (vidIdx in 0 until numBackgroundVideos) {
+-                                val neededDurSec = if (isPopularUrlDownload) {
+-                                    val chunk = verses[0].chunks[vidIdx]
+-                                    ((chunk.endTimeMs - chunk.startTimeMs) / 1000L).toInt() + 2
+-                                } else {
+-                                    (verses[vidIdx].durationUs / 1000000L).toInt() + 2
+-                                }
++                                val chunk = allChunks[vidIdx]
++                                val neededDurSec = ((chunk.endTimeMs - chunk.startTimeMs) / 1000L).toInt() + 2
+                                 
+                                 var selectedHit = availableHitsList.filter {
+@@ -900,3 +890,3 @@
+                 )
+-                val targetCount = if (isPopularUrlDownload && verses.isNotEmpty()) verses[0].chunks.size else verses.size
++                val targetCount = verses.sumOf { it.chunks.size.coerceAtLeast(1) }
+                 val countToLoad = Math.min(targetCount, directUrls.size)
+@@ -1134,3 +1124,4 @@
+                     
+-                    // If verses.size == 1 (Popular clip), we switch video by chunk. Otherwise by verse index.
+-                    val videoIdx = if (verses.size <= 1) chunkIdx else idx
++                    val priorChunksCount = verses.take(idx).sumOf { it.chunks.size.coerceAtLeast(1) }
++                    val videoIdx = priorChunksCount + chunkIdx
+                     
