@@ -79,7 +79,38 @@ class WhisperXClient {
 
     private val baseUrl = "https://qalam249-whisperx-frontend.hf.space"
 
+
+    private suspend fun wakeUpSpace() {
+        SystemDiagnosticTracker.addLog("WHISPERX", "جاري التحقق من حالة السيرفر ($baseUrl)")
+
+        var retryCount = 0
+        while (retryCount < 5) {
+            try {
+                val req = Request.Builder().url(baseUrl).get().build()
+                val res = client.newCall(req).execute()
+                val code = res.code
+                res.close()
+                if (code == 200 || code == 405 || code == 404) {
+                    // It's awake
+                    return
+                }
+                if (code == 503 || code == 504) {
+                    SystemDiagnosticTracker.addLog("WHISPERX", "السيرفر نائم (503)، جاري إيقاظه...")
+                    kotlinx.coroutines.delay(10000)
+                    retryCount++
+                } else {
+                    return // unexpected code, but let it proceed
+                }
+            } catch (e: Exception) {
+                SystemDiagnosticTracker.addLog("WHISPERX", "خطأ أثناء محاولة إيقاظ السيرفر: ${e.message}")
+                kotlinx.coroutines.delay(5000)
+                retryCount++
+            }
+        }
+    }
+
     suspend fun processAudio(
+
         file: File?,
         urlInput: String,
         arabicText: String,
@@ -136,16 +167,34 @@ class WhisperXClient {
             put("data", dataArray)
         }
 
-        val predictReq = Request.Builder()
-            .url("$baseUrl/gradio_api/call/process")
-            .post(payload.toString().toRequestBody("application/json".toMediaType()))
-            .build()
 
-        val predictRes = client.newCall(predictReq).execute()
-        if (!predictRes.isSuccessful) {
-            SystemDiagnosticTracker.addLog("WHISPERX", "فشل الاتصال بالسيرفر: ${predictRes.code}")
-            throw Exception("Predict API failed: ${predictRes.code}")
+        var predictRes: okhttp3.Response? = null
+        var retryCount = 0
+        while (retryCount < 10) {
+            val req = Request.Builder()
+                .url("$baseUrl/gradio_api/call/process")
+                .post(payload.toString().toRequestBody("application/json".toMediaType()))
+                .build()
+            
+            predictRes = client.newCall(req).execute()
+            if (predictRes.isSuccessful) {
+                break
+            } else if (predictRes.code == 503) {
+                SystemDiagnosticTracker.addLog("WHISPERX", "السيرفر في وضع النوم (503). جاري إيقاظه... محاولة ${retryCount + 1}/10")
+                onProgress("السيرفر نائم، جاري إيقاظه... يرجى الانتظار")
+                kotlinx.coroutines.delay(10000) // Wait 10 seconds before retrying
+                retryCount++
+                predictRes.close()
+            } else {
+                SystemDiagnosticTracker.addLog("WHISPERX", "فشل الاتصال بالسيرفر: ${predictRes.code}")
+                throw Exception("Predict API failed: ${predictRes.code}")
+            }
         }
+        
+        if (predictRes == null || !predictRes.isSuccessful) {
+            throw Exception("Predict API failed after retries (Server might be down)")
+        }
+
         val predictBody = predictRes.body?.string() ?: ""
         val eventId = JSONObject(predictBody).getString("event_id")
         
