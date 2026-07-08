@@ -146,7 +146,7 @@ class CrashReporter private constructor(
      * وهذا كان السبب الأرجح لفشل الملف القديم في التقاط اللوج بشكل كامل.
      */
     private fun dumpLiveLogcat(maxLines: Int = 400): String {
-        var process: Process? = null
+        var process: java.lang.Process? = null
         return try {
             val pid = Process.myPid().toString()
             process = ProcessBuilder("logcat", "-d", "-v", "threadtime")
@@ -155,7 +155,7 @@ class CrashReporter private constructor(
 
             val lines = ArrayDeque<String>()
             BufferedReader(InputStreamReader(process.inputStream)).use { reader ->
-                var line: String?
+                var line: String? = null
                 while (reader.readLine().also { line = it } != null) {
                     val l = line ?: continue
                     if (l.contains(pid)) {
@@ -281,7 +281,7 @@ private object LogcatRingBuffer {
     private val buffer = ArrayDeque<String>(CAPACITY)
     private val lock = Any()
     private val running = AtomicBoolean(false)
-    private var process: Process? = null
+    private var process: java.lang.Process? = null
 
     fun start() {
         if (!running.compareAndSet(false, true)) return
@@ -293,7 +293,7 @@ private object LogcatRingBuffer {
                     .start()
                 process = p
                 BufferedReader(InputStreamReader(p.inputStream)).use { reader ->
-                    var line: String?
+                    var line: String? = null
                     while (running.get() && reader.readLine().also { line = it } != null) {
                         val l = line ?: continue
                         if (l.contains(pid)) {
