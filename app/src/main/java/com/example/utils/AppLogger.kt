@@ -46,7 +46,11 @@ object AppLogger {
         return Log.e(tag, msg)
     }
 
-    fun e(tag: String?, msg: String, tr: Throwable?): Int {
+        fun e(tag: String?, msg: String, tr: Throwable?): Int {
+        if (tr is kotlinx.coroutines.CancellationException || tr is java.util.concurrent.CancellationException) {
+            appendLog("D", tag, msg, null)
+            return Log.d(tag ?: "", msg)
+        }
         appendLog("E", tag, msg, tr)
         return Log.e(tag, msg, tr)
     }
