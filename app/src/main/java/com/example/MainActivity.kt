@@ -1502,7 +1502,7 @@ fun FontFormattingScreen(settingsManager: SettingsManager, isArabic: Boolean) {
                                                 }
                                             }
                                         } catch (e: Exception) {
-                                            e.printStackTrace()
+                                            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                                         }
                                         showAddFontDialog = false
                                         selectedFontUri = null

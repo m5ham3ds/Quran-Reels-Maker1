@@ -30,7 +30,7 @@ object SystemDiagnosticTracker {
             logFile = File(dir, "live_log_${System.currentTimeMillis()}.txt")
             logFile?.writeText("=== Live Diagnostic Log Started ===\n")
         } catch (e: Exception) {
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
         }
     }
 

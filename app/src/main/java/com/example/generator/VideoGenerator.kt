@@ -163,7 +163,7 @@ class VideoGenerator {
         try {
             client.dispatcher.cancelAll()
         } catch (e: Exception) {
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
         }
     }
 
@@ -377,7 +377,7 @@ class VideoGenerator {
                     SystemDiagnosticTracker.addLog("BASMALAH", "تم إعداد كارت بطاقة البسملة بنجاح بمدة ${durationMs}ms")
                 } catch (e: Exception) {
                     SystemDiagnosticTracker.addLog("WARN", "فشلت تهيئة البسملة أو تجاوزناها بسبب خطأ: ${e.message}")
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 }
             }
             
@@ -701,7 +701,7 @@ class VideoGenerator {
                 val timelineFile = File(context.cacheDir, "reel_timeline.json")
                 timelineFile.writeText(timelineArray.toString())
             } catch (e: Exception) {
-                e.printStackTrace()
+                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             }
             
             if (onlyUpdateTimeline) {
@@ -867,7 +867,7 @@ class VideoGenerator {
                         }
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 }
             }
             
@@ -960,7 +960,7 @@ class VideoGenerator {
                         }
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 }
             }
             
@@ -994,7 +994,7 @@ class VideoGenerator {
                             SystemDiagnosticTracker.addLog("DOWNLOAD", "اكتمل تحميل خلفية الطوارئ ${vidIdx + 1} بنجاح، الحجم: ${targetFile.length()} بايت. متبقي ${countToLoad - (vidIdx + 1)} خلفيات.")
                         }
                     } catch (e: Exception) {
-                        e.printStackTrace()
+                        com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                     }
                 }
                 if (downloadedVideoFiles.isNotEmpty()) {
@@ -1115,7 +1115,7 @@ class VideoGenerator {
                     }
                 } catch (e: Exception) {
                     threadError = e
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 } finally {
                     drainLatch.countDown()
                 }
@@ -1183,7 +1183,7 @@ class VideoGenerator {
                     }
                 } catch (e: Exception) {
                     threadError = e
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 }
             }
             
@@ -1238,7 +1238,7 @@ class VideoGenerator {
                                     frameDecoder = SequentialFrameDecoder(videoFile.absolutePath)
                                 }
                             } catch (e: Exception) {
-                                e.printStackTrace()
+                                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                             }
                         }
                     }
@@ -1249,7 +1249,7 @@ class VideoGenerator {
                             bgFrameBitmap = frameDecoder?.getNextFrame()
                             currentBgFrameForTransition = bgFrameBitmap
                         } catch (e: Exception) {
-                            e.printStackTrace()
+                            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                         }
                     }
                     
@@ -1371,7 +1371,7 @@ class VideoGenerator {
                     val playableFile = File(context.cacheDir, "playable_reel.mp4")
                     File(outputPath).copyTo(playableFile, overwrite = true)
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 }
             }
             
@@ -1401,7 +1401,7 @@ class VideoGenerator {
                     uri = Uri.fromFile(targetFile)
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             }
             
             // 2. Fallback to standard MediaStore registration if Scoped Storage blocks raw file creation (this is 100% reliable on Android 10+ and places it in Movies directory)
@@ -1430,7 +1430,7 @@ class VideoGenerator {
                         uri = mUri
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 }
             }
             } // Close the else branch for isPreviewMode
@@ -1472,7 +1472,7 @@ class VideoGenerator {
                 throw kotlinx.coroutines.CancellationException("تم إلغاء عملية إنتاج الفيديو")
             }
             SystemDiagnosticTracker.addLog("PROCESS_CRASH", "فشل فادح في معالجة الفيديو: ${e.message}")
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             try {
                 videoCodec?.stop()
                 videoCodec?.release()
@@ -1859,7 +1859,7 @@ class VideoGenerator {
                             val avgEnergy = if (count > 0) sumOfAbs.toFloat() / count else 0f
                             rawEnergySamples.add(Pair(decoderBufferInfo.presentationTimeUs, avgEnergy))
                         } catch (e: Exception) {
-                            e.printStackTrace()
+                            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                         }
                     }
  
@@ -3039,7 +3039,7 @@ class VideoGenerator {
             }
         } catch (e: Exception) {
             SystemDiagnosticTracker.addLog("ERROR", "خطأ فادح أثناء مزامنة WhisperX للآية: ${e.message}")
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             throw Exception("فشل الاتصال بخادم WhisperX هل تود معاودة الاتصال ام الغاء العملية بالكامل (رمز الخطأ: ${e.message})")
         }
         
@@ -3140,7 +3140,7 @@ class VideoGenerator {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
         }
         return@withContext null
     }
@@ -3473,7 +3473,7 @@ class SequentialFrameDecoder(private val videoPath: String) {
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             release()
         }
     }
@@ -3513,7 +3513,7 @@ class SequentialFrameDecoder(private val videoPath: String) {
                             image.close()
                         }
                     } catch (ex: Exception) {
-                        ex.printStackTrace()
+                        com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ ex.message }", ex)
                     }
                     dec.releaseOutputBuffer(outIdx, false)
                     
@@ -3530,7 +3530,7 @@ class SequentialFrameDecoder(private val videoPath: String) {
                     dec.flush()
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 break
             }
         }

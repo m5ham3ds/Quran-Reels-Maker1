@@ -571,7 +571,7 @@ fun SettingsScreen(
                                         }
                                     } catch (e: Exception) {
                                         com.example.generator.SystemDiagnosticTracker.addLog("ERROR", "استثناء غير متوقع: ${e.message}")
-                                        e.printStackTrace()
+                                        com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                                     } finally {
                                         withContext(Dispatchers.Main) { isGenerating = false }
                                     }

@@ -1,6 +1,7 @@
 package com.example.utils
 
 import android.util.Log
+import com.example.generator.SystemDiagnosticTracker
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -21,6 +22,12 @@ object AppLogger {
                 logs.poll()
             }
             logs.offer(logLine)
+        }
+        
+        if (level == "E" || level == "F") {
+            try {
+                SystemDiagnosticTracker.addLog("ERROR", "$tag: $msg$exceptionStr", "ERROR")
+            } catch(ignored: Exception) {}
         }
     }
 

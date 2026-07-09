@@ -116,7 +116,7 @@ object AlignmentCacheManager {
 
             cacheFile.writeText(jsonObj.toString())
         } catch (e: Exception) {
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
         }
     }
 
@@ -127,7 +127,7 @@ object AlignmentCacheManager {
                 if (it.name.endsWith(".json")) it.delete()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
         }
     }
 }

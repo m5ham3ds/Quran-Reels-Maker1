@@ -292,7 +292,7 @@ fun PopularClipsScreen(
             }
             settingsManager.saveCustomCuratedClipsSync(array.toString())
         } catch (e: Exception) {
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
         }
     }
 
@@ -325,7 +325,7 @@ fun PopularClipsScreen(
                     baseClipsList.addAll(toAdd)
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             }
         }
     }

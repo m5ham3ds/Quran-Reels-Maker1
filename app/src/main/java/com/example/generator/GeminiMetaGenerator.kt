@@ -228,7 +228,7 @@ class GeminiMetaGenerator {
             }
         } catch (e: Exception) {
             SystemDiagnosticTracker.addLog("GEMINI", "Error calling Gemini: ${e.message}")
-            e.printStackTrace()
+            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             return@withContext ClipAnalysisResult(relevance = 0f, analysis = "", error = "خطأ في الاتصال بالذكاء الاصطناعي: ${e.message}")
         }
         

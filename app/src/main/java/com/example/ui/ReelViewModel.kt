@@ -127,7 +127,7 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _ayahsAvailability.value = results
             } catch (e: Exception) {
-                e.printStackTrace()
+                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
             } finally {
                 _isCheckingAvailability.value = false
             }
@@ -320,7 +320,7 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                                 }
                             }
                         } catch (e: Exception) {
-                            e.printStackTrace()
+                            com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                             AppLogger.e("DetailsWriter", "All details file saving attempts failed: ${e.message}")
                         }
 
@@ -365,7 +365,7 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                                 }
                                 try { tempFile.delete() } catch (ex: Exception) {}
                             } catch (e: Exception) {
-                                e.printStackTrace()
+                                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                                 AppLogger.e("GooglePublisher", "Direct Google Publisher failed: ${e.message}")
                             }
                         }
@@ -536,7 +536,7 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                         tempWebhookFile = tempF
                     }
                 } catch (e: Throwable) {
-                    e.printStackTrace()
+                    com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                     AppLogger.e("Webhook", "Could not copy video file: ${e.message}")
                 }
 
@@ -627,7 +627,7 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                 
                 try { tempWebhookFile?.delete() } catch (e: Exception) {}
             } catch (e: Throwable) {
-                e.printStackTrace()
+                com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
                 AppLogger.e("Webhook", "Webhook execution failed: ${e.message}")
             }
         }
