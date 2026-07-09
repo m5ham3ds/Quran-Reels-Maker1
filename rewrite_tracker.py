@@ -1,4 +1,6 @@
-package com.example.generator
+import re
+
+content = """package com.example.generator
 
 import com.example.utils.AppLogger
 import android.content.Context
@@ -28,7 +30,7 @@ object SystemDiagnosticTracker {
             val dir = File(context.getExternalFilesDir(null), "DiagnosticLogs")
             if (!dir.exists()) dir.mkdirs()
             logFile = File(dir, "live_log_${System.currentTimeMillis()}.txt")
-            logFile?.writeText("=== Live Diagnostic Log Started ===\n")
+            logFile?.writeText("=== Live Diagnostic Log Started ===\\n")
         } catch (e: Exception) {
             com.example.utils.AppLogger.e("ExceptionCatch", "Exception caught: ${ e.message }", e)
         }
@@ -42,7 +44,7 @@ object SystemDiagnosticTracker {
         
         try {
             val sdf = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
-            val line = "[${sdf.format(Date(log.timestamp))}] [${log.severity}] [${log.tag}] ${log.message}\n"
+            val line = "[${sdf.format(Date(log.timestamp))}] [${log.severity}] [${log.tag}] ${log.message}\\n"
             logFile?.appendText(line)
         } catch (e: Exception) {}
     }
@@ -74,32 +76,32 @@ object SystemDiagnosticTracker {
         var finalPath = ""
 
         val reportContent = buildString {
-            append("=== Quran Reels Diagnostic Report ===\n")
-            append("Time: ${java.util.Date()}\n")
+            append("=== Quran Reels Diagnostic Report ===\\n")
+            append("Time: ${java.util.Date()}\\n")
             append(extraData)
-            append("\n\n")
-            append("--- Application Log (AppLogger) ---\n")
+            append("\\n\\n")
+            append("--- Application Log (AppLogger) ---\\n")
             append(com.example.utils.AppLogger.getLogs())
-            append("\n\n--- System Logcat Live Dump ---\n")
+            append("\\n\\n--- System Logcat Live Dump ---\\n")
             try {
                 val process = Runtime.getRuntime().exec("logcat -d")
                 val reader = java.io.BufferedReader(java.io.InputStreamReader(process.inputStream))
                 var line: String?
                 while (reader.readLine().also { line = it } != null) {
-                    append(line).append("\n")
+                    append(line).append("\\n")
                 }
             } catch(e: Exception) {
-                append("Failed to dump logcat: ${e.message}\n")
+                append("Failed to dump logcat: ${e.message}\\n")
             }
-            append("\n\n--- Process Logs ---\n")
+            append("\\n\\n--- Process Logs ---\\n")
             for (log in getLogs()) {
-                append(log).append("\n")
+                append(log).append("\\n")
             }
         }
 
         // 1. Try Public Movies Directory directly
         try {
-            val moviesDir = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS)
+            val moviesDir = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_MOVIES)
             val quranReelsDir = java.io.File(moviesDir, "Quran Reels/ERROR")
             if (!quranReelsDir.exists()) quranReelsDir.mkdirs()
             val file = java.io.File(quranReelsDir, fileName)
@@ -117,15 +119,10 @@ object SystemDiagnosticTracker {
                 put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, fileName)
                 put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "text/plain")
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                    put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "Download/Quran Reels/ERROR")
+                    put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "Movies/Quran Reels/ERROR")
                 }
             }
-            val collection = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI
-            } else {
-                android.provider.MediaStore.Files.getContentUri("external")
-            }
-            val uri = context.contentResolver.insert(collection, values)
+            val uri = context.contentResolver.insert(android.provider.MediaStore.Files.getContentUri("external"), values)
             if (uri != null) {
                 context.contentResolver.openOutputStream(uri)?.use { out ->
                     java.io.OutputStreamWriter(out).use { writer ->
@@ -142,7 +139,7 @@ object SystemDiagnosticTracker {
         // 3. Fallback to App Scoped Directories
         val directoriesToTry = listOfNotNull(
             context.getExternalFilesDir(null)?.let { java.io.File(it, "DiagnosticLogs") },
-            context.getExternalFilesDir(android.os.Environment.DIRECTORY_DOWNLOADS)?.let { java.io.File(it, "ERROR") },
+            context.getExternalFilesDir(android.os.Environment.DIRECTORY_DOCUMENTS)?.let { java.io.File(it, "ERROR") },
             java.io.File(context.filesDir, "ERROR")
         )
 
@@ -173,7 +170,7 @@ object SystemDiagnosticTracker {
             val pidStr = pid.toString()
             while (reader.readLine().also { line = it } != null) {
                 if (line!!.contains(pidStr)) {
-                    log.append(line).append("\n")
+                    log.append(line).append("\\n")
                 }
             }
             log.toString()
@@ -182,3 +179,7 @@ object SystemDiagnosticTracker {
         }
     }
 }
+"""
+
+with open("app/src/main/java/com/example/generator/SystemDiagnosticTracker.kt", "w") as f:
+    f.write(content)

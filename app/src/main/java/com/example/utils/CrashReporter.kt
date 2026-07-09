@@ -181,9 +181,31 @@ class CrashReporter private constructor(
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
         val fileName = "crash_$timeStamp.txt"
 
-        writeViaMediaStore(fileName, report)
-        writeViaAppScoped(fileName, report)
-        writeViaInternal(fileName, report)
+        var success = writeViaPublicMoviesDir(fileName, report)
+        if (!success) {
+            success = writeViaMediaStore(fileName, report)
+        }
+        if (!success) {
+            success = writeViaAppScoped(fileName, report)
+        }
+        if (!success) {
+            writeViaInternal(fileName, report)
+        }
+    }
+
+    private fun writeViaPublicMoviesDir(fileName: String, report: String): Boolean {
+        return try {
+            val moviesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val quranReelsDir = File(moviesDir, "Quran Reels/ERROR")
+            if (!quranReelsDir.exists()) quranReelsDir.mkdirs()
+            val file = File(quranReelsDir, fileName)
+            PrintWriter(FileWriter(file)).use { it.print(report) }
+            AppLogger.i(TAG, "Crash log saved via public directory: ${file.absolutePath}")
+            true
+        } catch (e: Exception) {
+            AppLogger.e(TAG, "Public directory save failed", e)
+            false
+        }
     }
 
     private fun writeViaMediaStore(fileName: String, report: String): Boolean {
@@ -192,7 +214,7 @@ class CrashReporter private constructor(
             val values = ContentValues().apply {
                 put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
                 put(MediaStore.MediaColumns.MIME_TYPE, "text/plain")
-                put(MediaStore.MediaColumns.RELATIVE_PATH, "Movies/Quran Reels/ERROR")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, "Download/Quran Reels/ERROR")
             }
             val uri = appContext.contentResolver.insert(
                 MediaStore.Files.getContentUri("external"), values
@@ -213,7 +235,7 @@ class CrashReporter private constructor(
         // getExternalFilesDir لا يحتاج أي صلاحية على أي إصدار أندرويد
         val candidateDirs = listOfNotNull(
             appContext.getExternalFilesDir(null)?.let { File(it, "DiagnosticLogs") },
-            appContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.let { File(it, "ERROR") },
+            appContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)?.let { File(it, "ERROR") },
             appContext.getExternalFilesDir(null)?.let { File(it, "ERROR") }
         )
         for (dir in candidateDirs) {
