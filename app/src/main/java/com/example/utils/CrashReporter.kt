@@ -177,8 +177,8 @@ class CrashReporter private constructor(
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
         val fileName = "crash_$timeStamp.txt"
 
-        if (writeViaMediaStore(fileName, report)) return
-        if (writeViaAppScoped(fileName, report)) return
+        writeViaMediaStore(fileName, report)
+        writeViaAppScoped(fileName, report)
         writeViaInternal(fileName, report)
     }
 
