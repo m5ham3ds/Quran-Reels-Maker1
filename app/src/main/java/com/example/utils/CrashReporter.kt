@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Environment
 import android.os.Process
 import android.provider.MediaStore
-import android.util.Log
+import com.example.utils.AppLogger
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileWriter
@@ -38,7 +38,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * منذ Android 4.1، لا يستطيع أي تطبيق عادي (بدون صلاحيات نظام/روت) قراءة
  * سجلات Logcat الخاصة بتطبيقات أخرى — فقط سجلات عملية (UID) تطبيقه هو.
  * لذلك هذا الملف يلتقط "كل سجلات تطبيقك أنت" (كل Log.d/e/w، ومكتبات مثل
- * ExoPlayer/OkHttp إن استخدمت android.util.Log)، وهذا هو أقصى ما يمكن
+ * ExoPlayer/OkHttp إن استخدمت AppLogger)، وهذا هو أقصى ما يمكن
  * لأي تطبيق التقاطه شرعيًا دون روت.
  */
 class CrashReporter private constructor(
@@ -51,7 +51,7 @@ class CrashReporter private constructor(
             val report = buildFullReport(thread, throwable)
             saveCrashLog(report)
         } catch (inner: Throwable) {
-            Log.e(TAG, "CrashReporter internal failure", inner)
+            AppLogger.e(TAG, "CrashReporter internal failure", inner)
         } finally {
             LogcatRingBuffer.stop()
             if (defaultHandler != null) {
@@ -71,13 +71,17 @@ class CrashReporter private constructor(
         sb.appendLine("Thread: ${thread.name} (id=${thread.id}, priority=${thread.priority})")
         sb.appendLine()
 
+        sb.appendLine("---------- Application Log (AppLogger) ----------")
+        sb.appendLine(AppLogger.getLogs())
+        sb.appendLine()
+
         sb.appendLine("---------- Exception Chain (كامل سلسلة الأسباب) ----------")
         var current: Throwable? = throwable
         var depth = 0
         while (current != null && depth < 10) {
             sb.appendLine(if (depth == 0) "Exception: ${current.javaClass.name}" else "Caused by: ${current.javaClass.name}")
             sb.appendLine("Message: ${current.message}")
-            sb.appendLine(Log.getStackTraceString(current))
+            sb.appendLine(AppLogger.getStackTraceString(current))
             current = current.cause
             depth++
         }
@@ -197,10 +201,10 @@ class CrashReporter private constructor(
                 out.write(report.toByteArray())
                 out.flush()
             }
-            Log.i(TAG, "Crash log saved via MediaStore: $uri")
+            AppLogger.i(TAG, "Crash log saved via MediaStore: $uri")
             true
         } catch (e: Exception) {
-            Log.e(TAG, "MediaStore save failed", e)
+            AppLogger.e(TAG, "MediaStore save failed", e)
             false
         }
     }
@@ -217,10 +221,10 @@ class CrashReporter private constructor(
                 if (!dir.exists()) dir.mkdirs()
                 val file = File(dir, fileName)
                 PrintWriter(FileWriter(file)).use { it.print(report) }
-                Log.i(TAG, "Crash log saved: ${file.absolutePath}")
+                AppLogger.i(TAG, "Crash log saved: ${file.absolutePath}")
                 return true
             } catch (e: Exception) {
-                Log.e(TAG, "Failed writing to ${dir.absolutePath}", e)
+                AppLogger.e(TAG, "Failed writing to ${dir.absolutePath}", e)
             }
         }
         return false
@@ -232,9 +236,9 @@ class CrashReporter private constructor(
             if (!dir.exists()) dir.mkdirs()
             val file = File(dir, fileName)
             PrintWriter(FileWriter(file)).use { it.print(report) }
-            Log.i(TAG, "Crash log saved (internal fallback): ${file.absolutePath}")
+            AppLogger.i(TAG, "Crash log saved (internal fallback): ${file.absolutePath}")
         } catch (e: Exception) {
-            Log.e(TAG, "All crash log storage attempts failed", e)
+            AppLogger.e(TAG, "All crash log storage attempts failed", e)
         }
     }
 
@@ -265,7 +269,7 @@ class CrashReporter private constructor(
             LogcatRingBuffer.start()
             val existing = Thread.getDefaultUncaughtExceptionHandler()
             Thread.setDefaultUncaughtExceptionHandler(CrashReporter(app, existing))
-            Log.i(TAG, "CrashReporter installed successfully")
+            AppLogger.i(TAG, "CrashReporter installed successfully")
         }
     }
 }
@@ -305,7 +309,7 @@ private object LogcatRingBuffer {
                     }
                 }
             } catch (e: Exception) {
-                Log.e("LogcatRingBuffer", "Streaming logcat failed: ${e.message}")
+                AppLogger.e("LogcatRingBuffer", "Streaming logcat failed: ${e.message}")
             }
         }, "LogcatRingBufferThread").apply {
             isDaemon = true

@@ -1,4 +1,5 @@
 package com.example.generator
+import com.example.utils.AppLogger
 
 import android.content.Context
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -89,7 +90,9 @@ object SystemDiagnosticTracker {
                         writer.write("Time: ${Date()}\n")
                         writer.write(extraData)
                         writer.write("\n\n")
-                        writer.write("--- App Logcat Activity ---\n")
+                        writer.write("--- Application Log (AppLogger) ---\n")
+                        writer.write(AppLogger.getLogs())
+                        writer.write("\n\n--- System Logcat Live Dump ---\n")
                         writer.write(getAppLogcat())
                         writer.write("\n\n--- Process Logs ---\n")
                         for (log in getLogs()) {
@@ -130,7 +133,9 @@ object SystemDiagnosticTracker {
                     writer.write("Time: ${Date()}\n")
                     writer.write(extraData)
                     writer.write("\n\n")
-                        writer.write("--- App Logcat Activity ---\n")
+                        writer.write("--- Application Log (AppLogger) ---\n")
+                        writer.write(AppLogger.getLogs())
+                        writer.write("\n\n--- System Logcat Live Dump ---\n")
                         writer.write(getAppLogcat())
                         writer.write("\n\n--- Process Logs ---\n")
                     for (log in getLogs()) {
@@ -141,9 +146,9 @@ object SystemDiagnosticTracker {
                 if (finalPath.isEmpty()) {
                     finalPath = file.absolutePath
                 }
-                android.util.Log.d("SystemDiagnostic", "Saved report to ${file.absolutePath}")
+                AppLogger.d("SystemDiagnostic", "Saved report to ${file.absolutePath}")
             } catch (e: Exception) {
-                android.util.Log.e("SystemDiagnostic", "Failed to save to ${dir.absolutePath}", e)
+                AppLogger.e("SystemDiagnostic", "Failed to save to ${dir.absolutePath}", e)
             }
         }
 

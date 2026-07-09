@@ -1,5 +1,7 @@
 package com.example.service
 
+import com.example.utils.AppLogger
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -168,7 +170,7 @@ class VideoGenerationService : Service() {
                 }
             } catch (e: Throwable) {
                 val errMsg = e.localizedMessage ?: "Unknown error occurred"
-                SystemDiagnosticTracker.addLog("SERVICE_FATAL", "Exception caught in Service: $errMsg\n${android.util.Log.getStackTraceString(e)}")
+                SystemDiagnosticTracker.addLog("SERVICE_FATAL", "Exception caught in Service: $errMsg\n${AppLogger.getStackTraceString(e)}")
                 SystemDiagnosticTracker.saveReportToFilesAndGetPath(this@VideoGenerationService, "Fatal Error: $errMsg")
                 
                 if (activeJob == currentJob) {

@@ -1,5 +1,7 @@
 package com.example.ui
 
+import com.example.utils.AppLogger
+
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -129,7 +131,7 @@ fun PopularClipsScreen(
             }
             override fun onPlayerError(error: androidx.media3.common.PlaybackException) {
                 com.example.generator.SystemDiagnosticTracker.addLog("PLAYER_ERROR", "ExoPlayer error: ${error.errorCode} - ${error.message}")
-                android.util.Log.e("PopularClipsScreen", "ExoPlayer error: ${error.message}", error)
+                AppLogger.e("PopularClipsScreen", "ExoPlayer error: ${error.message}", error)
                 isPreviewLoading = false
                 playingClipId = null
                 Toast.makeText(

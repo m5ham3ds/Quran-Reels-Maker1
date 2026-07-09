@@ -1,5 +1,7 @@
 package com.example.ui
 
+import com.example.utils.AppLogger
+
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -290,10 +292,10 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                                         null
                                     )
                                     rawSuccess = true
-                                    android.util.Log.d("DetailsWriter", "Saved details raw file successfully to: ${detailsFile.absolutePath}")
+                                    AppLogger.d("DetailsWriter", "Saved details raw file successfully to: ${detailsFile.absolutePath}")
                                 }
                             } catch (e: Exception) {
-                                android.util.Log.e("DetailsWriter", "Raw path write failed: ${e.message}. Using MediaStore insertion...")
+                                AppLogger.e("DetailsWriter", "Raw path write failed: ${e.message}. Using MediaStore insertion...")
                             }
 
                             // If raw file creation fails (due to Scoped Storage on Android 10+), write using MediaStore ContentResolver!
@@ -312,14 +314,14 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                                     app.contentResolver.openOutputStream(textUri)?.use { out ->
                                         out.write(detailsContent.toByteArray(Charsets.UTF_8))
                                     }
-                                    android.util.Log.d("DetailsWriter", "Saved details to MediaStore database successfully: $textUri")
+                                    AppLogger.d("DetailsWriter", "Saved details to MediaStore database successfully: $textUri")
                                 } else {
-                                    android.util.Log.e("DetailsWriter", "Failed to retrieve MediaStore reference.")
+                                    AppLogger.e("DetailsWriter", "Failed to retrieve MediaStore reference.")
                                 }
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
-                            android.util.Log.e("DetailsWriter", "All details file saving attempts failed: ${e.message}")
+                            AppLogger.e("DetailsWriter", "All details file saving attempts failed: ${e.message}")
                         }
 
                         val isTiktok = settingsManager.tiktokLinked.first() && settingsManager.tiktokAutopost.first()
@@ -359,12 +361,12 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                                 )
                                 if (res != null) {
                                     googleDriveLink = res.first
-                                    android.util.Log.d("GooglePublisher", "Direct Google Publisher succeeded! Link: $googleDriveLink")
+                                    AppLogger.d("GooglePublisher", "Direct Google Publisher succeeded! Link: $googleDriveLink")
                                 }
                                 try { tempFile.delete() } catch (ex: Exception) {}
                             } catch (e: Exception) {
                                 e.printStackTrace()
-                                android.util.Log.e("GooglePublisher", "Direct Google Publisher failed: ${e.message}")
+                                AppLogger.e("GooglePublisher", "Direct Google Publisher failed: ${e.message}")
                             }
                         }
 
@@ -535,7 +537,7 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 } catch (e: Throwable) {
                     e.printStackTrace()
-                    android.util.Log.e("Webhook", "Could not copy video file: ${e.message}")
+                    AppLogger.e("Webhook", "Could not copy video file: ${e.message}")
                 }
 
                 val json = JSONObject().apply {
@@ -620,13 +622,13 @@ class ReelViewModel(application: Application) : AndroidViewModel(application) {
                     .build()
 
                 client.newCall(request).execute().use { response ->
-                    android.util.Log.d("Webhook", "Webhook execution completed with code: ${response.code}")
+                    AppLogger.d("Webhook", "Webhook execution completed with code: ${response.code}")
                 }
                 
                 try { tempWebhookFile?.delete() } catch (e: Exception) {}
             } catch (e: Throwable) {
                 e.printStackTrace()
-                android.util.Log.e("Webhook", "Webhook execution failed: ${e.message}")
+                AppLogger.e("Webhook", "Webhook execution failed: ${e.message}")
             }
         }
     }
